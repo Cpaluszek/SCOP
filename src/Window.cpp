@@ -15,11 +15,23 @@ Window::Window() {
 
     this->instance = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, "SCOP", nullptr, nullptr);
 
-    if (this->instance != nullptr) {
-        glfwMakeContextCurrent(this->instance);     // Make the window's context current
+    if (this->instance == nullptr) {
+		return ;
     }
+	glfwMakeContextCurrent(this->instance);
+
 }
 
 Window::~Window() {
     glfwTerminate();
+}
+
+bool Window::InitGlew() {
+    glewExperimental = GL_TRUE;
+    GLenum err = glewInit();
+    if (err != GLEW_OK) {
+        std::cout << "glewInit err: " << glewGetErrorString(err) << std::endl;
+		return false;
+    }
+	return true;
 }

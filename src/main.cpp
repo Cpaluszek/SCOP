@@ -1,8 +1,5 @@
 #include <iostream>
 
-#include "../lib/GLEW/include/glew.h"
-#include "../lib/GLFW/include/glfw3.h"
-
 #include "../inc/Shader.h"
 #include "../inc/Window.h"
 
@@ -18,13 +15,9 @@ int main() {
         return -1;
     }
 
-    // Setup GLEW
-    glewExperimental = GL_TRUE;
-    GLenum err = glewInit();
-    if (err != GLEW_OK) {
-        std::cout << "glewInit err: " << glewGetErrorString(err) << std::endl;
-        return 1;
-    }
+	if (!window.InitGlew()) {
+		return -1;
+	}
 
     float vertices[] = {
             -0.5f, -0.5f, 0.0f,
