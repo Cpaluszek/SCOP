@@ -35,3 +35,10 @@ bool Window::InitGlew() {
     }
 	return true;
 }
+
+
+void Window::processInput() {
+    if (glfwGetKey(this->instance, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(this->instance, GL_TRUE);
+    }
+}

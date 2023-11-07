@@ -7,7 +7,6 @@
 #include "../lib/GLFW/include/glfw3.h"
 #include "../lib/GLFW/include/glfw3.h"
 
-
 const unsigned int WIN_WIDTH = 800;
 const unsigned int WIN_HEIGHT = 600;
 
@@ -19,6 +18,7 @@ class Window {
     ~Window();
 
 	bool InitGlew();
+	void processInput();
 };
 
 
