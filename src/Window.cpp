@@ -1,6 +1,6 @@
-#include "../inc/GlfwWindow.h"
+#include "../inc/Window.h"
 
-GlfwWindow::GlfwWindow() {
+Window::Window() {
     if (!glfwInit()) {
         this->instance = nullptr;
     }
@@ -20,6 +20,6 @@ GlfwWindow::GlfwWindow() {
     }
 }
 
-GlfwWindow::~GlfwWindow() {
+Window::~Window() {
     glfwTerminate();
 }

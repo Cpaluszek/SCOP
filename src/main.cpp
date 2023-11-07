@@ -4,14 +4,14 @@
 #include "../lib/GLFW/include/glfw3.h"
 
 #include "../inc/Shader.h"
-#include "../inc/GlfwWindow.h"
+#include "../inc/Window.h"
 
 void processInput(GLFWwindow *window);
 
 // Todo: stb_image.h authorized?
 
 int main() {
-    GlfwWindow window;
+    Window window;
 
     if (window.instance == nullptr) {
         std::cout << "Failed to create GLFW window" << std::endl;

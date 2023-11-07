@@ -4,15 +4,15 @@
 NAME			:= SCOP
 
 HEADERS_DIR		:= inc
-HEADERS_FILES	:= Shader.h \
-					GlfwWindow.h
+HEADERS_FILES	:= 	Shader.h \
+					Window.h
 
 HEADERS			:= $(addprefix $(HEADERS_DIR)/, $(HEADERS_FILES))
 
 SRC_DIR			:=	src
 SRC_FILES		:=	main.cpp \
 					Shader.cpp \
-					GlfwWindow.cpp
+					Window.cpp
 
 SRCS			:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
