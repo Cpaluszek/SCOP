@@ -10,6 +10,8 @@ const unsigned int WIN_HEIGHT = 600;
 
 void processInput(GLFWwindow *window);
 
+// Todo: stb_image.h authorized?
+
 int main() {
     if (!glfwInit()) {
         return -1;
