@@ -1,10 +1,9 @@
-#ifndef SCOP_WINDOW_H
-#define SCOP_WINDOW_H
+#ifndef INC_WINDOW_H_
+#define INC_WINDOW_H_
 
 #include <string>
 #include <iostream>
 #include "../lib/GLEW/include/glew.h"
-#include "../lib/GLFW/include/glfw3.h"
 #include "../lib/GLFW/include/glfw3.h"
 
 const unsigned int WIN_WIDTH = 800;
@@ -25,4 +24,4 @@ class Window {
 };
 
 
-#endif //SCOP_WINDOW_H
+#endif  // INC_WINDOW_H_

@@ -44,4 +44,5 @@ void Window::processInput() {
 void Window::updateDisplay() {
     glfwSwapBuffers(this->instance);
     glfwPollEvents();
-};
+}
+

@@ -1,5 +1,5 @@
-#ifndef SCOP_RENDERER_H
-#define SCOP_RENDERER_H
+#ifndef INC_RENDERER_H_
+#define INC_RENDERER_H_
 
 #include "../lib/GLEW/include/glew.h"
 
@@ -9,11 +9,11 @@ class Renderer {
     ~Renderer();
     void Render();
 
-private:
+ private:
     // Vertex buffer object
     GLuint VBO;
     // Vertex array object
     GLuint VAO;
 };
 
-#endif //SCOP_RENDERER_H
+#endif  // INC_RENDERER_H_

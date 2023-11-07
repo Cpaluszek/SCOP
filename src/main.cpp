@@ -18,9 +18,8 @@ int main() {
         return -1;
     }
 
-	if (!window.InitGlew()) {
-		return -1;
-	}
+    if (!window.InitGlew())
+        return -1;
 
     Renderer renderer;
 
@@ -32,10 +31,8 @@ int main() {
 
         renderer.Render();
 
-        glfwSwapBuffers(window.instance);
-        glfwPollEvents();
+        window.updateDisplay();
     }
-
     return 0;
 }
 

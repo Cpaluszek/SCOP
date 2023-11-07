@@ -38,4 +38,4 @@ class Shader {
 };
 
 
-#endif //INC_SHADER_H_
+#endif  // INC_SHADER_H_
