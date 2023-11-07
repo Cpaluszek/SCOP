@@ -39,7 +39,7 @@ int main() {
     glEnableVertexAttribArray(0);
 
     while (!glfwWindowShouldClose(window.instance)) {
-        processInput(window.instance);
+        window.processInput();
 
         glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
         glClear(GL_COLOR_BUFFER_BIT);
