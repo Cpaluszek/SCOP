@@ -1,6 +1,7 @@
 #ifndef SCOP_WINDOW_H
 #define SCOP_WINDOW_H
 
+#include <string>
 #include "../lib/GLFW/include/glfw3.h"
 
 const unsigned int WIN_WIDTH = 800;

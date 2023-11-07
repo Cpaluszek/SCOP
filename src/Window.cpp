@@ -3,6 +3,7 @@
 Window::Window() {
     if (!glfwInit()) {
         this->instance = nullptr;
+		return;
     }
 
     // Configure GLFW window
@@ -12,8 +13,7 @@ Window::Window() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    this->instance = glfwCreateWindow(
-            WIN_WIDTH, WIN_HEIGHT, "OpenGL", nullptr, nullptr);
+    this->instance = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, "SCOP", nullptr, nullptr);
 
     if (this->instance != nullptr) {
         glfwMakeContextCurrent(this->instance);     // Make the window's context current
