@@ -40,3 +40,8 @@ void Window::processInput() {
         glfwSetWindowShouldClose(this->instance, GL_TRUE);
     }
 }
+
+void Window::updateDisplay() {
+    glfwSwapBuffers(this->instance);
+    glfwPollEvents();
+};

@@ -2,10 +2,13 @@
 
 #include "../inc/Shader.h"
 #include "../inc/Window.h"
+#include "../inc/Renderer.h"
 
 void processInput(GLFWwindow *window);
 
 // Todo: stb_image.h authorized?
+// Todo: check for smart_ptr usage - shared - uniqueq
+// Todo: LSPzero Format on save
 
 int main() {
     Window window;
@@ -19,41 +22,19 @@ int main() {
 		return -1;
 	}
 
-    float vertices[] = {
-            -0.5f, -0.5f, 0.0f,
-            0.0f, 0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-    };
+    Renderer renderer;
 
     Shader customShader("./shader/vertex.glsl", "./shader/fragment.glsl");
-
-    GLuint VBO, VAO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
+    customShader.use();
 
     while (!glfwWindowShouldClose(window.instance)) {
         window.processInput();
 
-        glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        customShader.use();
-
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        renderer.Render();
 
         glfwSwapBuffers(window.instance);
         glfwPollEvents();
     }
-
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
 
     return 0;
 }

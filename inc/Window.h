@@ -21,6 +21,7 @@ class Window {
 
     bool InitGlew();
     void processInput();
+    void updateDisplay();
 };
 
 
