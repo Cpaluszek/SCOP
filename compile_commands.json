@@ -49,5 +49,22 @@
     "directory": "/home/noon/github/SCOP",
     "file": "/home/noon/github/SCOP/src/Window.cpp",
     "output": "/home/noon/github/SCOP/build/Window.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wextra",
+      "-Werror",
+      "-Wall",
+      "-std=c++17",
+      "-I./lib/GLFW/include",
+      "-c",
+      "-o",
+      "build/Renderer.o",
+      "src/Renderer.cpp"
+    ],
+    "directory": "/home/noon/github/SCOP",
+    "file": "/home/noon/github/SCOP/src/Renderer.cpp",
+    "output": "/home/noon/github/SCOP/build/Renderer.o"
   }
 ]
