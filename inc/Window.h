@@ -12,13 +12,15 @@ const unsigned int WIN_HEIGHT = 600;
 
 class Window {
  public:
+    // Note: static instance? static getter?
+    // Note: any interest in singleton pattern?
     GLFWwindow *instance;
 
     Window();
     ~Window();
 
-	bool InitGlew();
-	void processInput();
+    bool InitGlew();
+    void processInput();
 };
 
 
