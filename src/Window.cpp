@@ -3,7 +3,7 @@
 Window::Window() {
     if (!glfwInit()) {
         this->instance = nullptr;
-		return;
+        return;
     }
 
     // Configure GLFW window
@@ -16,10 +16,9 @@ Window::Window() {
     this->instance = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, "SCOP", nullptr, nullptr);
 
     if (this->instance == nullptr) {
-		return ;
+        return;
     }
-	glfwMakeContextCurrent(this->instance);
-
+    glfwMakeContextCurrent(this->instance);
 }
 
 Window::~Window() {
@@ -31,11 +30,10 @@ bool Window::InitGlew() {
     GLenum err = glewInit();
     if (err != GLEW_OK) {
         std::cout << "glewInit err: " << glewGetErrorString(err) << std::endl;
-		return false;
+        return false;
     }
-	return true;
+    return true;
 }
-
 
 void Window::processInput() {
     if (glfwGetKey(this->instance, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
