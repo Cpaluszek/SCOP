@@ -42,6 +42,14 @@ float Vec3f::dot(const Vec3f& x, const Vec3f& y) {
 	);
 }
 
+Vec3f Vec3f::normalize(const Vec3f& src) {
+	float magnitude = src.length();
+	if (magnitude == 0.0f) {
+		return Vec3f(0.0f, 0.0f, 0.0f);
+	}
+	return Vec3f(src.x / magnitude, src.y / magnitude, src.z / magnitude);
+}
+
 std::ostream& operator<<(std::ostream& os, const Vec3f& src) {
 	os << "(" << src.x << "," << src.y << "," << src.z << ")";
 	return os;
