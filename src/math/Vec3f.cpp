@@ -21,6 +21,10 @@ Vec3f Vec3f::operator-(const Vec3f& other) const {
 		);
 }
 
+Vec3f Vec3f::scale(float scalar) const {
+	return Vec3f(this->x * scalar, this->y * scalar, this->z * scalar);
+}
+
 double Vec3f::length() const {
 	return 	sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
 }

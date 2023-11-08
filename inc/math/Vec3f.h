@@ -14,6 +14,7 @@ class Vec3f {
 	 // Note: should be made static?
 	 double length() const;
 	 double sqrLength() const;
+	 Vec3f scale(float scalar) const;
 	 
 	 // Note: should use double?
 	 static float dot(const Vec3f& x, const Vec3f& y);
