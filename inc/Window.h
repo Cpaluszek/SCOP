@@ -23,5 +23,4 @@ class Window {
     void updateDisplay();
 };
 
-
 #endif  // INC_WINDOW_H_

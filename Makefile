@@ -7,7 +7,8 @@ HEADERS_DIR		:= inc
 HEADERS_FILES	:= 	Shader.h \
 					Window.h \
 					Renderer.h \
-					Camera.h
+					Camera.h \
+					math/Vec3f.h
 
 HEADERS			:= $(addprefix $(HEADERS_DIR)/, $(HEADERS_FILES))
 
@@ -16,7 +17,8 @@ SRC_FILES		:=	main.cpp \
 					Shader.cpp \
 					Window.cpp \
 					Renderer.cpp \
-					Camera.cpp
+					Camera.cpp \
+					math/Vec3f.cpp
 
 SRCS			:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
