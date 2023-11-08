@@ -66,5 +66,39 @@
     "directory": "/home/noon/github/SCOP",
     "file": "/home/noon/github/SCOP/src/Renderer.cpp",
     "output": "/home/noon/github/SCOP/build/Renderer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wextra",
+      "-Werror",
+      "-Wall",
+      "-std=c++17",
+      "-I./lib/GLFW/include",
+      "-c",
+      "-o",
+      "build/Camera.o",
+      "src/Camera.cpp"
+    ],
+    "directory": "/home/noon/github/SCOP",
+    "file": "/home/noon/github/SCOP/src/Camera.cpp",
+    "output": "/home/noon/github/SCOP/build/Camera.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wextra",
+      "-Werror",
+      "-Wall",
+      "-std=c++17",
+      "-I./lib/GLFW/include",
+      "-c",
+      "-o",
+      "build/math/Vec3f.o",
+      "src/math/Vec3f.cpp"
+    ],
+    "directory": "/home/noon/github/SCOP",
+    "file": "/home/noon/github/SCOP/src/math/Vec3f.cpp",
+    "output": "/home/noon/github/SCOP/build/math/Vec3f.o"
   }
 ]
