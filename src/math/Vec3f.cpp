@@ -38,7 +38,7 @@ float Vec3f::dot(const Vec3f& x, const Vec3f& y) {
 	return x.x * y.x + x.y * y.y + x.z * y.z;
 }
 
- Vec3f Vec3f::cross(const Vec3f &x, const Vec3f y) {
+Vec3f Vec3f::cross(const Vec3f &x, const Vec3f y) {
 	return Vec3f(
 			x.y * y.z - x.z * y.y,
 			x.z * y.x - x.x * y.z,
