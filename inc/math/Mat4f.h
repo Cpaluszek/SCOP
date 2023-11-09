@@ -14,9 +14,7 @@ class Mat4f {
 		Mat4f(float value);
 
 		static Mat4f translate(Mat4f const& m, Vec3f const& translation);
-		// Todo: rotate
 		static Mat4f rotate(Mat4f const& m, float angle, Vec3f const& axis);
-		// Todo: scale
 		static Mat4f scale(Mat4f const& m, Vec3f const& factors);
 
 		// Todo: frustum

@@ -54,6 +54,22 @@ Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
 	return m * rot;
 }
 
+Mat4f Mat4f::scale(const Mat4f& m, const Vec3f& factors) {
+	Mat4f result(m);
+
+	for (int i = Mat4f::Size * 0; i < Mat4f::Size * 1; i++) {
+		result.data[i] *= factors.x;
+	}
+	for (int i = Mat4f::Size * 1; i < Mat4f::Size * 2; i++) {
+		result.data[i] *= factors.y;
+	}
+	for (int i = Mat4f::Size * 2; i < Mat4f::Size * 3; i++) {
+		result.data[i] *= factors.z;
+	}
+
+	return result;
+}
+
 Mat4f Mat4f::operator+(Mat4f const& other) const {
 	Mat4f result;
 	for (int i = 0; i < Mat4f::Size * Mat4f::Size; i++) {

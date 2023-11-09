@@ -27,15 +27,9 @@ int main() {
 	std::cout << glm::to_string(id) << std::endl;
 
 	Mat4f identity(1.0f);
+	Mat4f test(2.0f);
 	std::cout << "identity:" << std::endl;
 	std::cout << identity << std::endl;
-
-	Mat4f test(2.0f);
-	std::cout << "Add:" << std::endl;
-	std::cout << identity + test << std::endl;
-
-	std::cout << "Substract:" << std::endl;
-	std::cout << identity - test << std::endl;
 
 	std::cout << "Mult:" << std::endl;
 	std::cout << identity * test << std::endl;
@@ -50,6 +44,10 @@ int main() {
 
 	glm::mat4 model = glm::mat4(1.0f);
 	std::cout << glm::to_string(glm::rotate(model, 1.5708f, glm::vec3(1.0f, 0.0f, 0.0f))) << std::endl;
+
+	std::cout << "Scale:" << std::endl;
+	std::cout << Mat4f::scale(identity, Vec3f(1.0f, 2.0f, 3.0f)) << std::endl;
+	std::cout << glm::to_string(glm::scale(id, glm::vec3(1.0f, 2.0f, 3.0f)))<< std::endl;
     // Window window;
     //
     // if (window.instance == nullptr) {
