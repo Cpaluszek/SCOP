@@ -42,12 +42,10 @@ int main() {
 	std::cout << "Rotate:" << std::endl;
 	std::cout << Mat4f::rotate(identity, 1.5708f, Vec3f(1.0f, 0.0f, 0.0f)) << std::endl;
 
-	glm::mat4 model = glm::mat4(1.0f);
-	std::cout << glm::to_string(glm::rotate(model, 1.5708f, glm::vec3(1.0f, 0.0f, 0.0f))) << std::endl;
-
 	std::cout << "Scale:" << std::endl;
 	std::cout << Mat4f::scale(identity, Vec3f(1.0f, 2.0f, 3.0f)) << std::endl;
 	std::cout << glm::to_string(glm::scale(id, glm::vec3(1.0f, 2.0f, 3.0f)))<< std::endl;
+
     // Window window;
     //
     // if (window.instance == nullptr) {
