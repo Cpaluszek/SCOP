@@ -7,7 +7,6 @@
 
 #include "../inc/math/Mat4f.h"
 
-
 // OpenGL Mathematics
 #include "../lib/glm/glm.hpp"
 #include "../lib/glm/gtc/matrix_transform.hpp"
@@ -21,30 +20,29 @@ void processInput(GLFWwindow *window);
 // Todo: LSPzero Format on save
 
 int main() {
+    glm::mat4 id = glm::mat4(1.0f);
+    glm::mat4 id2 = glm::mat4(2.0f);
+    std::cout << glm::to_string(id) << std::endl;
 
-	glm::mat4 id = glm::mat4(1.0f);
-	glm::mat4 id2 = glm::mat4(2.0f);
-	std::cout << glm::to_string(id) << std::endl;
+    Mat4f identity(1.0f);
+    Mat4f test(2.0f);
+    std::cout << "identity:" << std::endl;
+    std::cout << identity << std::endl;
 
-	Mat4f identity(1.0f);
-	Mat4f test(2.0f);
-	std::cout << "identity:" << std::endl;
-	std::cout << identity << std::endl;
+    std::cout << "Mult:" << std::endl;
+    std::cout << identity * test << std::endl;
+    std::cout << glm::to_string(id * id2) << std::endl;
 
-	std::cout << "Mult:" << std::endl;
-	std::cout << identity * test << std::endl;
-	std::cout << glm::to_string(id * id2) << std::endl;
+    std::cout << "Translate:" << std::endl;
+    std::cout << Mat4f::translate(identity, Vec3f(1.0f, 2.0f, 3.0f)) << std::endl;
+    std::cout << glm::to_string(glm::translate(id, glm::vec3(1.0f, 2.0f, 3.0f))) << std::endl;
 
-	std::cout << "Translate:" << std::endl;
-	std::cout << Mat4f::translate(identity, Vec3f(1.0f, 2.0f, 3.0f)) << std::endl;
-	std::cout << glm::to_string(glm::translate(id, glm::vec3(1.0f, 2.0f, 3.0f))) << std::endl;
+    std::cout << "Rotate:" << std::endl;
+    std::cout << Mat4f::rotate(identity, 1.5708f, Vec3f(1.0f, 0.0f, 0.0f)) << std::endl;
 
-	std::cout << "Rotate:" << std::endl;
-	std::cout << Mat4f::rotate(identity, 1.5708f, Vec3f(1.0f, 0.0f, 0.0f)) << std::endl;
-
-	std::cout << "Scale:" << std::endl;
-	std::cout << Mat4f::scale(identity, Vec3f(1.0f, 2.0f, 3.0f)) << std::endl;
-	std::cout << glm::to_string(glm::scale(id, glm::vec3(1.0f, 2.0f, 3.0f)))<< std::endl;
+    std::cout << "Scale:" << std::endl;
+    std::cout << Mat4f::scale(identity, Vec3f(1.0f, 2.0f, 3.0f)) << std::endl;
+    std::cout << glm::to_string(glm::scale(id, glm::vec3(1.0f, 2.0f, 3.0f)))<< std::endl;
 
     // Window window;
     //

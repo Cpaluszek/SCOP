@@ -2,21 +2,19 @@
 #define INC_CAMERA_H_
 
 class Camera {
-	public: 
-		Camera();
+ public:
+    Camera();
 
-		// Vec3 position
-		// Vec3 Front
-		// Vec3 Up
-		// Vec3 Right
-		// Vec3 WorlUp
-	
-		float Yaw;
-		float Pitch;
-		float MovementSpeed;
-		float Zoom;
+    // Vec3 position
+    // Vec3 Front
+    // Vec3 Up
+    // Vec3 Right
+    // Vec3 WorlUp
 
-	private:
+    float Yaw;
+    float Pitch;
+    float MovementSpeed;
+    float Zoom;
 };
 
-#endif	// INC_CAMERA_H_
+#endif  // INC_CAMERA_H_
