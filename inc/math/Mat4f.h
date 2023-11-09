@@ -3,6 +3,7 @@
 
 #include <array>
 #include <ostream>
+#include <cmath>
 #include "Vec3f.h"
 
 class Mat4f {
@@ -12,12 +13,11 @@ class Mat4f {
 		Mat4f();
 		Mat4f(float value);
 
-		// Todo: translate
 		static Mat4f translate(Mat4f const& m, Vec3f const& translation);
 		// Todo: rotate
 		static Mat4f rotate(Mat4f const& m, float angle, Vec3f const& axis);
 		// Todo: scale
-		static Mat4f rotate(Mat4f const& m, Vec3f const& factors);
+		static Mat4f scale(Mat4f const& m, Vec3f const& factors);
 
 		// Todo: frustum
 		// Todo: ortho 
