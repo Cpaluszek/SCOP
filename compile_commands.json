@@ -100,5 +100,39 @@
     "directory": "/home/noon/github/SCOP",
     "file": "/home/noon/github/SCOP/src/math/Vec3f.cpp",
     "output": "/home/noon/github/SCOP/build/math/Vec3f.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wextra",
+      "-Werror",
+      "-Wall",
+      "-std=c++17",
+      "-I./lib/GLFW/include",
+      "-c",
+      "-o",
+      "build/math/Vec2f.o",
+      "src/math/Vec2f.cpp"
+    ],
+    "directory": "/home/noon/github/SCOP",
+    "file": "/home/noon/github/SCOP/src/math/Vec2f.cpp",
+    "output": "/home/noon/github/SCOP/build/math/Vec2f.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wextra",
+      "-Werror",
+      "-Wall",
+      "-std=c++17",
+      "-I./lib/GLFW/include",
+      "-c",
+      "-o",
+      "build/math/Mat4f.o",
+      "src/math/Mat4f.cpp"
+    ],
+    "directory": "/home/noon/github/SCOP",
+    "file": "/home/noon/github/SCOP/src/math/Mat4f.cpp",
+    "output": "/home/noon/github/SCOP/build/math/Mat4f.o"
   }
 ]
