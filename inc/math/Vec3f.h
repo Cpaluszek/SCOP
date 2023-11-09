@@ -12,8 +12,8 @@ class Vec3f {
 	 Vec3f operator-(const Vec3f &other) const;
 
 	 // Note: should be made static?
-	 double length() const;
-	 double sqrLength() const;
+	 float length() const;
+	 float sqrLength() const;
 	 Vec3f scale(float scalar) const;
 	 
 	 // Note: should use double?

@@ -25,11 +25,11 @@ Vec3f Vec3f::scale(float scalar) const {
 	return Vec3f(this->x * scalar, this->y * scalar, this->z * scalar);
 }
 
-double Vec3f::length() const {
-	return 	sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
+float Vec3f::length() const {
+	return 	static_cast<float>(sqrt(this->x * this->x + this->y * this->y + this->z * this->z));
 }
 
-double Vec3f::sqrLength() const {
+float Vec3f::sqrLength() const {
 	return 	this->x * this->x + this->y * this->y + this->z * this->z;
 }
 
