@@ -23,12 +23,21 @@ Vec2f Vec2f::scale(float scalar) const {
 	return Vec2f(this->x * scalar, this->y * scalar);
 }
 
-double Vec2f::length() const {
+float Vec2f::length() const {
 	return 	sqrt(this->x * this->x + this->y * this->y);
 }
 
-double Vec2f::sqrLength() const {
+float Vec2f::sqrLength() const {
 	return 	this->x * this->x + this->y * this->y;
+}
+
+void Vec2f::normalize() {
+	float magnitude = this->length();
+	if (magnitude == 0.0f) {
+		return ;
+	}
+	this->x /= magnitude;
+	this->y /= magnitude;
 }
 
 // Static

@@ -33,6 +33,16 @@ float Vec3f::sqrLength() const {
 	return 	this->x * this->x + this->y * this->y + this->z * this->z;
 }
 
+void Vec3f::normalize() {
+	float magnitude = this->length();
+	if (magnitude == 0.0f) {
+		return ;
+	}
+	this->x /= magnitude;
+	this->y /= magnitude;
+	this->z /= magnitude;
+}
+
 // Static
 float Vec3f::dot(const Vec3f& x, const Vec3f& y) {
 	return x.x * y.x + x.y * y.y + x.z * y.z;

@@ -4,6 +4,8 @@
 #include <ostream>
 class Vec2f {
  public:
+	 float x;
+	 float y;
 
 	 Vec2f();
 	 Vec2f(float x, float y);
@@ -12,19 +14,16 @@ class Vec2f {
 	 Vec2f operator-(const Vec2f &other) const;
 
 	 // Note: should be made static?
-	 double length() const;
-	 double sqrLength() const;
+	 float length() const;
+	 float sqrLength() const;
 	 Vec2f scale(float scalar) const;
-	 
-	 // Note: should use double?
+	 void normalize();
+	
+	 // Static
 	 static float dot(const Vec2f& x, const Vec2f& y);
 	 static Vec2f normalize(const Vec2f& src);
-
-	friend std::ostream& operator<<(std::ostream& os, const Vec2f& src);
-
- private:
-	 float x;
-	 float y;
 };
+
+std::ostream& operator<<(std::ostream& os, const Vec2f& src);
 
 #endif	// _INC_MATH_VEC2_H_

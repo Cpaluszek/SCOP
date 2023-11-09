@@ -4,6 +4,9 @@
 #include <ostream>
 class Vec3f {
  public:
+	 float x;
+	 float y;
+	 float z;
 
 	 Vec3f();
 	 Vec3f(float x, float y, float z);
@@ -15,18 +18,13 @@ class Vec3f {
 	 float length() const;
 	 float sqrLength() const;
 	 Vec3f scale(float scalar) const;
+	 void normalize();
 	 
-	 // Note: should use double?
 	 static float dot(const Vec3f& x, const Vec3f& y);
 	 static Vec3f cross(const Vec3f& x, const Vec3f y);
 	 static Vec3f normalize(const Vec3f& src);
-
-	friend std::ostream& operator<<(std::ostream& os, const Vec3f& src);
-
- private:
-	 float x;
-	 float y;
-	 float z;
 };
+
+std::ostream& operator<<(std::ostream& os, const Vec3f& src);
 
 #endif	// _INC_MATH_VEC3_H_
