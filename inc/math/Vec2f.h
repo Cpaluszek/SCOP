@@ -8,6 +8,7 @@ class Vec2f {
 	 float y;
 
 	 Vec2f();
+	 Vec2f(float value);
 	 Vec2f(float x, float y);
 
 	 Vec2f operator+(const Vec2f &other) const;

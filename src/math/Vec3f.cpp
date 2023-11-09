@@ -3,6 +3,8 @@
 
 Vec3f::Vec3f(): x(0.0f), y(0.0f), z(0.0f) {}
 
+Vec3f::Vec3f(float value): x(value), y(value), z(value) {}
+
 Vec3f::Vec3f(float x, float y, float z): x(x), y(y), z(z) {}
 
 Vec3f Vec3f::operator+(const Vec3f& other) const {

@@ -9,6 +9,7 @@ class Vec3f {
 	 float z;
 
 	 Vec3f();
+	 Vec3f(float value);
 	 Vec3f(float x, float y, float z);
 
 	 Vec3f operator+(const Vec3f &other) const;
