@@ -24,9 +24,17 @@ Mat4f Mat4f::translate(Mat4f const& m, Vec3f const& translation) {
     return result;
 }
 
+
+// x x x 0
+// x x ? 0
+// x ? x 0
+// 0 0 0 0
+
+
 // https://en.wikipedia.org/wiki/Rotation_matrix
 // Angle in radians
 // Note: what is Gimbal lock?
+// Todo: optimize
 Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
     float c = cos(angle);
     float s = sin(angle);
@@ -37,16 +45,16 @@ Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
     // Get the rotation matrix
     Mat4f rot;
     rot.data[0] = c + temp.x * normalizedAxis.x;
-    rot.data[1] = normalizedAxis.x * temp.y - normalizedAxis.z * s;
-    rot.data[2] = normalizedAxis.z * temp.x + normalizedAxis.y * s;
+    rot.data[1] = temp.x * normalizedAxis.y + normalizedAxis.z * s;
+    rot.data[2] = temp.x * normalizedAxis.z - normalizedAxis.y * s;
 
-    rot.data[4] = normalizedAxis.y * temp.x + normalizedAxis.z * s;
-    rot.data[5] = c + normalizedAxis.y * temp.y;
-    rot.data[6] = normalizedAxis.y * temp.z - normalizedAxis.x * s;
+    rot.data[4] = temp.y * normalizedAxis.x - normalizedAxis.z * s;
+    rot.data[5] = c + temp.y * normalizedAxis.y;
+    rot.data[6] = temp.y * normalizedAxis.z + normalizedAxis.x * s;
 
-    rot.data[8] = normalizedAxis.z * temp.x - normalizedAxis.y * s;
-    rot.data[9] = normalizedAxis.z * temp.y + normalizedAxis.x * s;
-    rot.data[10] = c + normalizedAxis.z * temp.z;
+    rot.data[8] = temp.z * normalizedAxis.x + normalizedAxis.y * s;
+    rot.data[9] = temp.z * normalizedAxis.y - normalizedAxis.x * s;
+    rot.data[10] = c + temp.z * normalizedAxis.z;
 
     rot.data[15] = 1.0f;
 
@@ -84,7 +92,7 @@ Mat4f Mat4f::operator*(Mat4f const& other) const {
     for (int i = 0; i < Mat4f::Size; i++) {
         for (int j = 0; j < Mat4f::Size; j++) {
             for (int k = 0; k < Mat4f::Size; k++) {
-                result.data[i + j * Mat4f::Size] += this->data[i * Mat4f::Size + k] * other.data[i * Mat4f::Size + j];
+                result.data[i + j * Mat4f::Size] += this->data[i * Mat4f::Size + k] * other.data[k * Mat4f::Size + j];
             }
         }
     }
@@ -101,8 +109,9 @@ std::ostream& operator<<(std::ostream& os, const Mat4f& src) {
                 os << ", ";
             }
         }
+        os << ")";
         if (i < Mat4f::Size - 1) {
-            os << "), ";
+            os << ", ";
         }
     }
     os << ")";
