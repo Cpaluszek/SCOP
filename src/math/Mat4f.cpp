@@ -1,5 +1,4 @@
 #include "../../inc/math/Mat4f.h"
-#include <iostream>
 
 Mat4f::Mat4f() {
     data.fill(0.0f);
@@ -33,7 +32,7 @@ Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
     float s = sin(angle);
     Vec3f normalizedAxis = Vec3f::normalize(axis);
 
-    Vec3f temp = normalizedAxis.scale(1.0f - c);    // axis(1 - cos(angle))
+    Vec3f temp = normalizedAxis.scale(1.0f - c);	// axis(1 - cos(angle))
 
     // Get the rotation matrix
     Mat4f rot;
@@ -93,12 +92,19 @@ Mat4f Mat4f::operator*(Mat4f const& other) const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Mat4f& src) {
+    os << std::fixed << std::setprecision(6) << "mat4x4(";
     for (int i = 0; i < Mat4f::Size; i++) {
-        os << "[";
+        os << "(";
         for (int j = 0; j < Mat4f::Size; j++) {
-            os << src.data[i * Mat4f::Size + j] << "\t";
+            os << src.data[j * Mat4f::Size + i];
+            if (j < Mat4f::Size - 1) {
+                os << ", ";
+            }
         }
-        os << "]" << std::endl;
+        if (i < Mat4f::Size - 1) {
+            os << "), ";
+        }
     }
+    os << ")";
     return os;
 }

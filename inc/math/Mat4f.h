@@ -2,7 +2,8 @@
 #define INC_MATH_MAT4F_H_
 
 #include <array>
-#include <ostream>
+#include <iomanip>
+#include <iostream>
 #include <cmath>
 #include "Vec3f.h"
 
