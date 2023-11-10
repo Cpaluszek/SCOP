@@ -20,6 +20,7 @@ class Mat4f {
 
     static Mat4f perspective(float fov, float aspect, float near, float far);
     // Todo: lookAt
+    static Mat4f lookAt(Vec3f const& eye, Vec3f const& center, Vec3f const& up);
     // Todo: project
     
 

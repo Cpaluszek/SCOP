@@ -78,6 +78,36 @@ Mat4f Mat4f::perspective(float fov, float aspect, float near, float far) {
     return result;
 }
 
+// 0    1   2   3
+// 4    5   6   7
+// 8    9   10  11
+// 12   13  14  15
+Mat4f Mat4f::lookAt(Vec3f const& eye, Vec3f const& center, Vec3f const& up) {
+    Vec3f const f(Vec3f::normalize(center - eye)); 
+    Vec3f const s(Vec3f::normalize(Vec3f::cross(f, up))); 
+    Vec3f const u(Vec3f::cross(s, f)); 
+
+    Mat4f result(1.0f);
+
+    result.data[0] = s.x;
+    result.data[1] = s.y;
+    result.data[2] = s.z;
+
+    result.data[4] = u.x;
+    result.data[5] = u.y;
+    result.data[6] = u.z;
+
+    result.data[8] = -f.x;
+    result.data[9] = -f.y;
+    result.data[10] = -f.z;
+
+    result.data[3] = -Vec3f::dot(s, eye);
+    result.data[7] = -Vec3f::dot(u, eye);
+    result.data[11] = Vec3f::dot(f, eye);
+
+    return result;
+}
+
 Mat4f Mat4f::operator+(Mat4f const& other) const {
     Mat4f result;
     for (int i = 0; i < Mat4f::Size * Mat4f::Size; i++) {

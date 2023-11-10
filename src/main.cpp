@@ -59,6 +59,16 @@ int main() {
     std::cout << glm::to_string(glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f)) << std::endl;
     std::cout << Mat4f::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f) << std::endl;
 
+    std::cout << "---------------------" << std::endl;
+    std::cout << "lookAt:" << std::endl;
+    glm::vec3 cameraPos = glm::vec3(1.0f, 2.0f, 3.0f);
+    glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+    glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+    std::cout << glm::to_string(glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp)) << std::endl;
+    Vec3f pos = Vec3f(1.0f, 2.0f, 3.0f);
+    Vec3f front = Vec3f(0.0f, 0.0f, -1.0f);
+    Vec3f up = Vec3f(0.0f, 1.0f, 0.0f);
+    std::cout << Mat4f::lookAt(pos, pos + front, up) << std::endl;
     // Window window;
     //
     // if (window.instance == nullptr) {
