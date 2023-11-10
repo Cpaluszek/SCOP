@@ -29,6 +29,7 @@ class Mat4f {
     Mat4f operator+(Mat4f const& other) const;
     Mat4f operator-(Mat4f const& other) const;
     Mat4f operator*(Mat4f const& other) const;
+	float& operator[](int index);
 
     friend std::ostream& operator<<(std::ostream& os, const Mat4f& src);
 

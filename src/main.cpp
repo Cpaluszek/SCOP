@@ -1,9 +1,11 @@
+#include <complex>
 #include <iostream>
 #include <ostream>
 
 #include "../inc/Shader.h"
 #include "../inc/Window.h"
 #include "../inc/Renderer.h"
+#include "../inc/Camera.h"
 
 #include "../inc/math/Mat4f.h"
 
@@ -30,18 +32,30 @@ int main() {
         return -1;
     }
 
-    if (!window.InitGlew())
+    if (!window.InitGlew()) {
         return -1;
+	}
 
     Renderer renderer;
 
     Shader customShader("./shader/vertex.glsl", "./shader/fragment.glsl");
     customShader.use();
 
+	Vec3f cameraPos(0.0f, 0.0f, 3.0f);
+	Camera camera;
+
+	// Todo: clean
+	Mat4f projection = Mat4f::perspective(glm::radians(camera.Zoom), 
+				800.0f / 600.0f, 0.1f, 100.0f);
+	customShader.setMat4("projection", projection);
+
+	Mat4f view = camera.GetViewMatrix();
+	customShader.setMat4("view", view);
+
     while (!glfwWindowShouldClose(window.instance)) {
         window.processInput();
 
-        renderer.Render();
+        renderer.Render(customShader);
 
         window.updateDisplay();
     }

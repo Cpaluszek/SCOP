@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "../lib/GLEW/include/glew.h"
+#include "math/Mat4f.h"
 
 class Shader {
  public:
@@ -31,7 +32,8 @@ class Shader {
     void setVec4(const std::string &name, float x, float y, float z, float w) const;
 //    void setMat2(const std::string &name, const glm::mat2 &mat) const;
 //    void setMat3(const std::string &name, const glm::mat3 &mat) const;
-//    void setMat4(const std::string &name, const glm::mat4 &mat) const;
+	// Todo: set function as const
+   void setMat4(const std::string& name, Mat4f &mat);
 
  private:
     static void checkCompileErrors(unsigned int shader, const std::string& type);
