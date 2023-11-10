@@ -54,6 +54,11 @@ int main() {
     std::cout << Mat4f::scale(mId, Vec3f(1.0f, 2.0f, 3.0f)) << std::endl;
     std::cout << glm::to_string(glm::scale(id, glm::vec3(1.0f, 2.0f, 3.0f)))<< std::endl;
 
+    std::cout << "---------------------" << std::endl;
+    std::cout << "Perspective:" << std::endl;
+    std::cout << glm::to_string(glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f)) << std::endl;
+    std::cout << Mat4f::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f) << std::endl;
+
     // Window window;
     //
     // if (window.instance == nullptr) {

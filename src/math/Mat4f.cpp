@@ -24,13 +24,6 @@ Mat4f Mat4f::translate(Mat4f const& m, Vec3f const& translation) {
     return result;
 }
 
-
-// x x x 0
-// x x ? 0
-// x ? x 0
-// 0 0 0 0
-
-
 // https://en.wikipedia.org/wiki/Rotation_matrix
 // Angle in radians
 // Note: what is Gimbal lock?
@@ -68,6 +61,20 @@ Mat4f Mat4f::scale(const Mat4f& m, const Vec3f& factors) {
     result.data[5] = m.data[5] * factors.y;
     result.data[10] = m.data[10] * factors.z;
 
+    return result;
+}
+
+
+Mat4f Mat4f::perspective(float fov, float aspect, float near, float far) {
+    Mat4f result;
+
+    float invTanHalfFov = 1.0f / tan(fov / 2.0f);
+
+    result.data[0] = invTanHalfFov / aspect;
+    result.data[5] = invTanHalfFov;
+    result.data[10] = - (far + near) / (far - near);
+    result.data[14] = - 1.0f;
+    result.data[11] = - (2.0f * far * near) / (far - near);
     return result;
 }
 
