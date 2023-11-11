@@ -7,7 +7,11 @@
 #include <cmath>
 #include "Vec3f.h"
 
-class Mat4f {
+namespace math {
+    class Mat4f;
+}
+
+class math::Mat4f {
  public:
     static const int Size = 4;
 
