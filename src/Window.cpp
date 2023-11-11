@@ -25,7 +25,7 @@ Window::~Window() {
     glfwTerminate();
 }
 
-bool Window::InitGlew() {
+bool Window::initGlew() {
     glewExperimental = GL_TRUE;
     GLenum err = glewInit();
     if (err != GLEW_OK) {

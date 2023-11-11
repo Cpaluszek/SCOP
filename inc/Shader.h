@@ -11,7 +11,7 @@
 
 class Shader {
  public:
-    GLuint ID;
+    GLuint id;
 
     // constructor reads and builds the shader
     Shader(const char* vertexPath, const char* fragmentPath);

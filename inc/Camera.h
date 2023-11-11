@@ -14,17 +14,17 @@ class Camera {
 		Camera(Vec3f position = Vec3f(0.0f, 0.0f, 0.0f), Vec3f up = Vec3f(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
 
 		Vec3f position;
-		Vec3f Front;
-		Vec3f Up;
-		Vec3f Right;
-		Vec3f WorldUp;
+		Vec3f front;
+		Vec3f up;
+		Vec3f right;
+		Vec3f worldUp;
 
-		float Yaw;
-		float Pitch;
-		float MovementSpeed;
-		float Zoom;
+		float yaw;
+		float pitch;
+		float movementSpeed;
+		float zoom;
 
-		Mat4f GetViewMatrix() const;
+		Mat4f getViewMatrix() const;
 
 	private:
 		void updateCameraVectors();

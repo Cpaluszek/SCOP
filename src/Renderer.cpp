@@ -47,11 +47,11 @@ Renderer::Renderer() {
 
     // Todo: check for errors
 	// glEnable(GL_DEPTH_TEST);
-    glGenVertexArrays(1, &this->VAO);
-    glGenBuffers(1, &this->VBO);
-    glBindVertexArray(this->VAO);
+    glGenVertexArrays(1, &this->vao);
+    glGenBuffers(1, &this->vbo);
+    glBindVertexArray(this->vao);
 
-    glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, this->vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
@@ -59,11 +59,11 @@ Renderer::Renderer() {
 }
 
 Renderer::~Renderer() {
-    glDeleteVertexArrays(1, &this->VAO);
-    glDeleteBuffers(1, &this->VBO);
+    glDeleteVertexArrays(1, &this->vao);
+    glDeleteBuffers(1, &this->vbo);
 }
 
-void Renderer::Render(Shader& shader) {
+void Renderer::render(Shader& shader) {
 	Vec3f cubePositions[] = {
 		Vec3f(0.0f, 0.0f, -5.0f),
 		Vec3f(2.0f,  5.0f, -15.0f),
@@ -82,9 +82,10 @@ void Renderer::Render(Shader& shader) {
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT);
 
+	Mat4f identity(1.0f);
+
 	for (int i = 0; i < 10; i++) {
-		Mat4f model(1.0f);
-		model = Mat4f::translate(model, cubePositions[i]);
+		Mat4f model = Mat4f::translate(identity, cubePositions[i]);
 
 		float angle = i * glfwGetTime();
 		model = Mat4f::rotate(model, math::radians(angle), Vec3f(1.0f, 0.0f, 0.0f));

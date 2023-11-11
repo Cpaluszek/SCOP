@@ -11,13 +11,13 @@ class Renderer {
  public:
     Renderer();
     ~Renderer();
-    void Render(Shader& shader);
+    void render(Shader& shader);
 
  private:
     // Vertex buffer object
-    GLuint VBO;
+    GLuint vbo;
     // Vertex array object
-    GLuint VAO;
+    GLuint vao;
 };
 
 #endif  // INC_RENDERER_H_

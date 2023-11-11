@@ -13,12 +13,12 @@ class Window {
  public:
     // Note: static instance? static getter?
     // Note: any interest in singleton pattern?
-    GLFWwindow *instance;
+    GLFWwindow* instance;
 
     Window();
     ~Window();
 
-    bool InitGlew();
+    bool initGlew();
     void processInput();
     void updateDisplay();
 };
