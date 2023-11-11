@@ -16,9 +16,9 @@ Mat4f Camera::GetViewMatrix() const {
 
 void Camera::updateCameraVectors() {
 	Vec3f front;
-	front.x = cos(radians(this->Yaw)) * cos(radians(this->Pitch));
-	front.y = sin(radians(this->Pitch));
-    front.z = sin(radians(this->Yaw)) * cos(radians(this->Pitch));
+	front.x = cos(math::radians(this->Yaw)) * cos(math::radians(this->Pitch));
+	front.y = sin(math::radians(this->Pitch));
+    front.z = sin(math::radians(this->Yaw)) * cos(math::radians(this->Pitch));
     this->Front = Vec3f::normalize(front);
  
     this->Right = Vec3f::normalize(Vec3f::cross(this->Front, this->WorldUp));

@@ -38,12 +38,12 @@ int main() {
 	Camera camera;
 
 	// Todo: clean
-	Mat4f projection = Mat4f::perspective(radians(camera.Zoom), 
+	Mat4f projection = Mat4f::perspective(math::radians(camera.Zoom), 
 				800.0f / 600.0f, 0.1f, 100.0f);
     projection = Mat4f::transpose(projection);
 	customShader.setMat4("projection", projection);
 
-    Mat4f view = camera.GetViewMatrix();
+	Mat4f view = camera.GetViewMatrix();
     view = Mat4f::transpose(view);
 	customShader.setMat4("view", view);
 

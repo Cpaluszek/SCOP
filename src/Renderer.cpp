@@ -65,7 +65,7 @@ Renderer::~Renderer() {
 
 void Renderer::Render(Shader& shader) {
 	Vec3f cubePositions[] = {
-            Vec3f(0.0f,  0.0f,  -5.0f),
+		Vec3f(0.0f, 0.0f, -5.0f),
     };
  
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -74,11 +74,11 @@ void Renderer::Render(Shader& shader) {
     glClear(GL_COLOR_BUFFER_BIT);
 
 	for (int i = 0; i < 1; i++) {
-        Mat4f model(1.0f);
+		Mat4f model(1.0f);
 		model = Mat4f::translate(model, cubePositions[i]);
 
 		float angle = 45.0f * glfwGetTime();
-		model = Mat4f::rotate(model, radians(angle), Vec3f(1.0f, 0.0f, 0.0f));
+		model = Mat4f::rotate(model, math::radians(angle), Vec3f(1.0f, 0.0f, 0.0f));
         model = Mat4f::transpose(model);
 		shader.setMat4("model", model);
 		glDrawArrays(GL_TRIANGLES, 0, 36);

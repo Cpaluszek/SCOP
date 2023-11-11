@@ -2,16 +2,12 @@
 #define INC_MATH_MAT4F_H_
 
 #include <array>
+#include <cmath>
 #include <iomanip>
 #include <iostream>
-#include <cmath>
 #include "Vec3f.h"
 
-namespace math {
-    class Mat4f;
-}
-
-class math::Mat4f {
+class Mat4f {
  public:
     static const int Size = 4;
 

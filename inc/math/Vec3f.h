@@ -2,6 +2,8 @@
 #define INC_MATH_VEC3F_H_
 
 #include <ostream>
+
+
 class Vec3f {
  public:
     float x;

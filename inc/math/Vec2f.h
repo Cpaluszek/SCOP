@@ -2,6 +2,7 @@
 #define INC_MATH_VEC2F_H_
 
 #include <ostream>
+
 class Vec2f {
  public:
     float x;
