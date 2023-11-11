@@ -1,11 +1,5 @@
 #include "../inc/Renderer.h"
 
-#include "../lib/glm/glm.hpp"
-#include "../lib/glm/gtc/matrix_transform.hpp"
-#include "../lib/glm/gtc/type_ptr.hpp"
-#include "../lib/glm/gtx/string_cast.hpp"
-#include "glfw3.h"
-
 Renderer::Renderer() {
 	float vertices[] = {
             -0.5f, -0.5f, -0.5f,
@@ -84,7 +78,7 @@ void Renderer::Render(Shader& shader) {
 		model = Mat4f::translate(model, cubePositions[i]);
 
 		float angle = 45.0f * glfwGetTime();
-		model = Mat4f::rotate(model, glm::radians(angle), Vec3f(1.0f, 0.0f, 0.0f));
+		model = Mat4f::rotate(model, radians(angle), Vec3f(1.0f, 0.0f, 0.0f));
         model = Mat4f::transpose(model);
 		shader.setMat4("model", model);
 		glDrawArrays(GL_TRIANGLES, 0, 36);

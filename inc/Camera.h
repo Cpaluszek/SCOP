@@ -1,10 +1,7 @@
 #ifndef INC_CAMERA_H_
 #define INC_CAMERA_H_
 
-#include "math/Mat4f.h"
-#include "math/Vec3f.h"
-
-#include "../lib/glm/glm.hpp"
+#include "math.h"
 
 const float YAW = -90.0f;
 const float PITCH = 0.0f;

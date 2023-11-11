@@ -7,10 +7,7 @@
 #include "../inc/Renderer.h"
 #include "../inc/Camera.h"
 
-#include "../inc/math/Mat4f.h"
-
-// OpenGL Mathematics
-#include "../lib/glm/glm.hpp"
+#include "../inc/math.h"
 
 // Todo: stb_image.h authorized?
 // Todo: check for smart_ptr usage - shared - uniqueq
@@ -41,7 +38,7 @@ int main() {
 	Camera camera;
 
 	// Todo: clean
-	Mat4f projection = Mat4f::perspective(glm::radians(camera.Zoom), 
+	Mat4f projection = Mat4f::perspective(radians(camera.Zoom), 
 				800.0f / 600.0f, 0.1f, 100.0f);
     projection = Mat4f::transpose(projection);
 	customShader.setMat4("projection", projection);

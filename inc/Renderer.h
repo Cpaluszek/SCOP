@@ -2,11 +2,10 @@
 #define INC_RENDERER_H_
 
 #include "../lib/GLEW/include/glew.h"
-#include "../lib/glm/glm.hpp"
+#include "../lib/GLFW/include/glfw3.h"
 
 #include "Shader.h"
-#include "math/Vec3f.h"
-#include "math/Mat4f.h"
+#include "math.h"
 
 class Renderer {
  public:

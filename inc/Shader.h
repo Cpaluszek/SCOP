@@ -7,13 +7,7 @@
 #include <iostream>
 
 #include "../lib/GLEW/include/glew.h"
-#include "math/Mat4f.h"
-
-// OpenGL Mathematics
-#include "../lib/glm/glm.hpp"
-#include "../lib/glm/gtc/matrix_transform.hpp"
-#include "../lib/glm/gtc/type_ptr.hpp"
-#include "../lib/glm/gtx/string_cast.hpp"
+#include "math.h"
 
 class Shader {
  public:
@@ -40,8 +34,6 @@ class Shader {
 //    void setMat3(const std::string &name, const glm::mat3 &mat) const;
 	// Todo: set function as const
    void setMat4(const std::string& name, Mat4f &mat);
-   // Todo: remove
-   void setMat4(const std::string &name, const glm::mat4 &mat) const;
 
  private:
     static void checkCompileErrors(unsigned int shader, const std::string& type);
