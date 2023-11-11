@@ -34,7 +34,7 @@ int main() {
     Shader customShader("./shader/vertex.glsl", "./shader/fragment.glsl");
     customShader.use();
 
-	Vec3f cameraPos(0.0f, 0.0f, 3.0f);
+	Vec3f cameraPos(0.0f, 0.0f, 10.0f);
 	Camera camera;
 
 	// Todo: clean
