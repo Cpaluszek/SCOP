@@ -45,11 +45,27 @@ int main() {
 	Camera camera;
 
 	// Todo: clean
-	Mat4f projection = Mat4f::perspective(glm::radians(camera.Zoom), 
-				800.0f / 600.0f, 0.1f, 100.0f);
-	customShader.setMat4("projection", projection);
+	// Mat4f projection = Mat4f::perspective(glm::radians(camera.Zoom), 
+	// 			800.0f / 600.0f, 0.1f, 100.0f);
+    glm::mat4 projectionG = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	customShader.setMat4("projection", projectionG);
+    std::cout << "Proj: " << glm::to_string(projectionG) << std::endl;
 
-	Mat4f view = camera.GetViewMatrix();
+    glm::vec3 front;
+    front.x = cos(glm::radians(-90.0f)) * cos(glm::radians(0.0f));
+    front.y = sin(glm::radians(0.0f));
+    front.z = sin(glm::radians(-90.0f)) * cos(glm::radians(0.0f));
+    front = glm::normalize(front);
+
+    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 right = glm::normalize(glm::cross(front, up));
+    up = glm::normalize(glm::cross(right, front));
+
+	// Mat4f view = camera.GetViewMatrix();
+    glm::vec3 camPos = glm::vec3(0.0f, 0.0f, 3.0f);
+    glm::mat4 view = glm::lookAt(camPos, camPos + front, up); 
+    std::cout << "view: " << glm::to_string(view) << std::endl;
+
 	customShader.setMat4("view", view);
 
     while (!glfwWindowShouldClose(window.instance)) {
