@@ -28,6 +28,10 @@ Mat4f Mat4f::translate(Mat4f const& m, Vec3f const& translation) {
 // Angle in radians
 // Note: what is Gimbal lock?
 // Todo: optimize
+// 0    1   2   3
+// 4    5   6   7
+// 8    9   10  11
+// 12   13  14  15
 Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
     float c = cos(angle);
     float s = sin(angle);
@@ -37,6 +41,7 @@ Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
 
     // Get the rotation matrix
     Mat4f rot;
+    std::cout << "rot: " << rot << std::endl;
     rot.data[0] = c + temp.x * normalizedAxis.x;
     rot.data[1] = temp.x * normalizedAxis.y + normalizedAxis.z * s;
     rot.data[2] = temp.x * normalizedAxis.z - normalizedAxis.y * s;
@@ -49,9 +54,12 @@ Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
     rot.data[9] = temp.z * normalizedAxis.y - normalizedAxis.x * s;
     rot.data[10] = c + temp.z * normalizedAxis.z;
 
-    rot.data[15] = 1.0f;
-
-    return m * rot;
+    Mat4f result = m * rot;
+    result.data[3] = m.data[3];
+    result.data[7] = m.data[7];
+    result.data[11] = m.data[11];
+    result.data[15] = m.data[15];
+    return result;
 }
 
 Mat4f Mat4f::scale(const Mat4f& m, const Vec3f& factors) {

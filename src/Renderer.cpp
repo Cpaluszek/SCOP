@@ -4,6 +4,7 @@
 #include "../lib/glm/gtc/matrix_transform.hpp"
 #include "../lib/glm/gtc/type_ptr.hpp"
 #include "../lib/glm/gtx/string_cast.hpp"
+#include "glfw3.h"
 
 Renderer::Renderer() {
 	float vertices[] = {
@@ -70,7 +71,7 @@ Renderer::~Renderer() {
 
 void Renderer::Render(Shader& shader) {
 	Vec3f cubePositions[] = {
-            Vec3f(0.0f,  0.0f,  -2.0f),
+            Vec3f(0.0f,  0.0f,  -5.0f),
     };
  
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -79,18 +80,13 @@ void Renderer::Render(Shader& shader) {
     glClear(GL_COLOR_BUFFER_BIT);
 
 	for (int i = 0; i < 1; i++) {
-        // glm::mat4 model = glm::mat4(1.0f);
         Mat4f model(1.0f);
 		model = Mat4f::translate(model, cubePositions[i]);
-        // model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.0f));
 
-		// float angle = 20.0f * i;
-
-		// model = Mat4f::rotate(model, glm::radians(angle), Vec3f(1.0f, 0.5f, 0.3f));
-        // Note: test
+		float angle = 45.0f * glfwGetTime();
+		model = Mat4f::rotate(model, glm::radians(angle), Vec3f(1.0f, 0.0f, 0.0f));
         model = Mat4f::transpose(model);
 		shader.setMat4("model", model);
-        // std::cout << "model: " << glm::to_string(model) << std::endl;
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
 }
