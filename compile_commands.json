@@ -26,23 +26,6 @@
       "-I./lib/GLFW/include",
       "-c",
       "-o",
-      "build/Shader.o",
-      "src/Shader.cpp"
-    ],
-    "directory": "/home/noon/github/SCOP",
-    "file": "/home/noon/github/SCOP/src/Shader.cpp",
-    "output": "/home/noon/github/SCOP/build/Shader.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-Wextra",
-      "-Werror",
-      "-Wall",
-      "-std=c++17",
-      "-I./lib/GLFW/include",
-      "-c",
-      "-o",
       "build/Window.o",
       "src/Window.cpp"
     ],
@@ -83,6 +66,23 @@
     "directory": "/home/noon/github/SCOP",
     "file": "/home/noon/github/SCOP/src/Camera.cpp",
     "output": "/home/noon/github/SCOP/build/Camera.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wextra",
+      "-Werror",
+      "-Wall",
+      "-std=c++17",
+      "-I./lib/GLFW/include",
+      "-c",
+      "-o",
+      "build/Shader.o",
+      "src/Shader.cpp"
+    ],
+    "directory": "/home/noon/github/SCOP",
+    "file": "/home/noon/github/SCOP/src/Shader.cpp",
+    "output": "/home/noon/github/SCOP/build/Shader.o"
   },
   {
     "arguments": [
