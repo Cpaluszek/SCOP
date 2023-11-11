@@ -162,3 +162,14 @@ std::ostream& operator<<(std::ostream& os, const Mat4f& src) {
     os << ")";
     return os;
 }
+
+// Note: test
+Mat4f Mat4f::transpose(Mat4f const& m) {
+    Mat4f result;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            result.data[i * 4 + j] = m.data[j * 4 + i];
+        }
+    }
+    return result;
+}

@@ -20,6 +20,8 @@ class Mat4f {
 
     static Mat4f perspective(float fov, float aspect, float near, float far);
     static Mat4f lookAt(Vec3f const& eye, Vec3f const& center, Vec3f const& up);
+    // Note: test
+    static Mat4f transpose(Mat4f const& m);
     // Todo: project
     
 
