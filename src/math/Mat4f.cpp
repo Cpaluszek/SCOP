@@ -28,10 +28,6 @@ Mat4f Mat4f::translate(Mat4f const& m, Vec3f const& translation) {
 // Angle in radians
 // Note: what is Gimbal lock?
 // Todo: optimize
-// 0    1   2   3
-// 4    5   6   7
-// 8    9   10  11
-// 12   13  14  15
 Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
     float c = cos(angle);
     float s = sin(angle);
@@ -41,7 +37,6 @@ Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
 
     // Get the rotation matrix
     Mat4f rot;
-    std::cout << "rot: " << rot << std::endl;
     rot.data[0] = c + temp.x * normalizedAxis.x;
     rot.data[1] = temp.x * normalizedAxis.y + normalizedAxis.z * s;
     rot.data[2] = temp.x * normalizedAxis.z - normalizedAxis.y * s;
@@ -86,10 +81,6 @@ Mat4f Mat4f::perspective(float fov, float aspect, float near, float far) {
     return result;
 }
 
-// 0    1   2   3
-// 4    5   6   7
-// 8    9   10  11
-// 12   13  14  15
 Mat4f Mat4f::lookAt(Vec3f const& eye, Vec3f const& center, Vec3f const& up) {
     Vec3f const f(Vec3f::normalize(center - eye)); 
     Vec3f const s(Vec3f::normalize(Vec3f::cross(f, up))); 
