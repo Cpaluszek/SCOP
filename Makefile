@@ -51,6 +51,9 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp Makefile $(HEADERS)
 	@mkdir -p $(@D)
 	$(CC) $(CC_FLAGS) $(CC_HEADERS) -c $< -o $@
 
+run: re
+	./$(NAME)
+
 lint:
 	cpplint --linelength=120 --filter=-legal/copyright --exclude=inc/stb_image.h $(SRCS) $(HEADERS)
 
