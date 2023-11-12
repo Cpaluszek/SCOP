@@ -10,7 +10,7 @@
 
 class Renderer {
  public:
-    Renderer();
+    Renderer(Camera& camera);
     ~Renderer();
     void render();
 
@@ -22,7 +22,7 @@ class Renderer {
 
 	Shader* shader;
 
-	Camera* camera;
+	Camera& camera;
 };
 
 #endif  // INC_RENDERER_H_

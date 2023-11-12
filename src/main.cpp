@@ -26,7 +26,8 @@ int main() {
         return -1;
 	}
 
-    Renderer renderer;
+	Camera camera;
+    Renderer renderer(camera);
 
     while (!glfwWindowShouldClose(window.instance)) {
         window.processInput();

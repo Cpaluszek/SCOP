@@ -1,7 +1,7 @@
 #include "../inc/Renderer.h"
 #include "glfw3.h"
 
-Renderer::Renderer() {
+Renderer::Renderer(Camera& camera): camera(camera) {
 	float vertices[] = {
             -0.5f, -0.5f, -0.5f,
             0.5f, -0.5f, -0.5f,
@@ -58,32 +58,28 @@ Renderer::Renderer() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
 
-	// Todo: protect the new Camera and Shader
-	// Init camera
-	this->camera = new Camera();
+	// Todo: protect new Shader -> static reference may be better
 
 	// Init shader program
 	this->shader = new Shader("./shader/vertex.glsl", "./shader/fragment.glsl");
     this->shader->use();
 
 	// Set projection matrix
-	Mat4f projection = Mat4f::perspective(math::radians(camera->zoom), 
+	Mat4f projection = Mat4f::perspective(math::radians(camera.zoom), 
 				800.0f / 600.0f, 0.1f, 100.0f);
     projection = Mat4f::transpose(projection);
 	this->shader->setMat4("projection", projection);
 	
 	// Set view matrix
-	Mat4f view = camera->getViewMatrix();
+	Mat4f view = camera.getViewMatrix();
     view = Mat4f::transpose(view);
 	this->shader->setMat4("view", view);
-
 }
 
 Renderer::~Renderer() {
     glDeleteVertexArrays(1, &this->vao);
     glDeleteBuffers(1, &this->vbo);
 
-	delete this->camera;
 	delete this->shader;
 }
 
