@@ -1,4 +1,5 @@
 #include "../inc/Renderer.h"
+#include "glfw3.h"
 
 Renderer::Renderer() {
 	float vertices[] = {
@@ -56,14 +57,37 @@ Renderer::Renderer() {
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
+
+	// Todo: protect the new Camera and Shader
+	// Init camera
+	this->camera = new Camera();
+
+	// Init shader program
+	this->shader = new Shader("./shader/vertex.glsl", "./shader/fragment.glsl");
+    this->shader->use();
+
+	// Set projection matrix
+	Mat4f projection = Mat4f::perspective(math::radians(camera->zoom), 
+				800.0f / 600.0f, 0.1f, 100.0f);
+    projection = Mat4f::transpose(projection);
+	this->shader->setMat4("projection", projection);
+	
+	// Set view matrix
+	Mat4f view = camera->getViewMatrix();
+    view = Mat4f::transpose(view);
+	this->shader->setMat4("view", view);
+
 }
 
 Renderer::~Renderer() {
     glDeleteVertexArrays(1, &this->vao);
     glDeleteBuffers(1, &this->vbo);
+
+	delete this->camera;
+	delete this->shader;
 }
 
-void Renderer::render(Shader& shader) {
+void Renderer::render() {
 	Vec3f cubePositions[] = {
 		Vec3f(0.0f, 0.0f, -5.0f),
 		Vec3f(2.0f,  5.0f, -15.0f),
@@ -83,14 +107,15 @@ void Renderer::render(Shader& shader) {
     glClear(GL_COLOR_BUFFER_BIT);
 
 	Mat4f identity(1.0f);
+	double currentTime = glfwGetTime();
 
 	for (int i = 0; i < 10; i++) {
 		Mat4f model = Mat4f::translate(identity, cubePositions[i]);
 
-		float angle = i * glfwGetTime();
+		float angle = i * currentTime;
 		model = Mat4f::rotate(model, math::radians(angle), Vec3f(1.0f, 0.0f, 0.0f));
         model = Mat4f::transpose(model);
-		shader.setMat4("model", model);
+		this->shader->setMat4("model", model);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
 }

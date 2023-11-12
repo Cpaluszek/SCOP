@@ -2,10 +2,8 @@
 #include <iostream>
 #include <ostream>
 
-#include "../inc/Shader.h"
 #include "../inc/Window.h"
 #include "../inc/Renderer.h"
-#include "../inc/Camera.h"
 
 #include "../inc/math.h"
 
@@ -30,26 +28,10 @@ int main() {
 
     Renderer renderer;
 
-    Shader customShader("./shader/vertex.glsl", "./shader/fragment.glsl");
-    customShader.use();
-
-	Vec3f cameraPos(0.0f, 0.0f, 10.0f);
-	Camera camera;
-
-	// Todo: clean
-	Mat4f projection = Mat4f::perspective(math::radians(camera.zoom), 
-				800.0f / 600.0f, 0.1f, 100.0f);
-    projection = Mat4f::transpose(projection);
-	customShader.setMat4("projection", projection);
-
-	Mat4f view = camera.getViewMatrix();
-    view = Mat4f::transpose(view);
-	customShader.setMat4("view", view);
-
     while (!glfwWindowShouldClose(window.instance)) {
         window.processInput();
 
-        renderer.render(customShader);
+        renderer.render();
 
         window.updateDisplay();
     }
