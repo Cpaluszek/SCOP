@@ -27,6 +27,11 @@ void Input::processInput(float deltaTime) const {
     if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
         camera->processKeyboardInput(ROTATE_RIGHT, deltaTime);
     }
+
+    // Reset Camera
+    if (glfwGetKey(this->window, GLFW_KEY_SPACE)) {
+        camera->reset();
+    }
 }
 
 void Input::setCamera(Camera* camera) {

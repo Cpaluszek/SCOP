@@ -47,5 +47,13 @@ void Camera::processKeyboardInput(Camera_Movement direction, float deltaTime) {
         this->yaw -= this->rotationSpeed;
         this->updateCameraVectors();
    }
-
 }
+
+void Camera::reset() {
+    this->position = START_POSITION;
+    this->up = UP;
+    this->yaw = YAW;
+    this->pitch = PITCH;
+    updateCameraVectors();
+}
+

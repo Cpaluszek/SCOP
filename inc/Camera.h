@@ -3,11 +3,13 @@
 
 #include "./math.h"
 
+const Vec3f START_POSITION = Vec3f(0.0f, 0.0f, 3.0f);
+const Vec3f UP = Vec3f(0.0f, 1.0f, 0.0f);
+
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
 const float MOVEMENT_SPEED = 2.5f;
 const float ROTATION_SPEED = 0.05f;
-const float SENSITIVITY = 0.1f;
 const float ZOOM = 45.0f;
 
 const float NEAR_CLIP = 0.1f;
@@ -24,7 +26,7 @@ enum Camera_Movement {
 
 class Camera {
  public:
-     Camera(Vec3f position = Vec3f(0.0f, 0.0f, 0.0f), Vec3f up = Vec3f(0.0f, 1.0f, 0.0f),
+     Camera(Vec3f position = START_POSITION, Vec3f up = UP,
              float yaw = YAW, float pitch = PITCH);
 
      Vec3f position;
@@ -41,6 +43,7 @@ class Camera {
 
      Mat4f getViewMatrix() const;
      void processKeyboardInput(Camera_Movement direction, float delta_time);
+     void reset();
 
  private:
      void updateCameraVectors();
