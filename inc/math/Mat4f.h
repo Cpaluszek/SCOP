@@ -21,16 +21,15 @@ class Mat4f {
     static Mat4f perspective(float fov, float aspect, float near, float far);
     static Mat4f lookAt(Vec3f const& eye, Vec3f const& center, Vec3f const& up);
     static Mat4f transpose(Mat4f const& m);
-    // Todo: project
-    
 
+    // Todo: project
     // Todo: frustum?
     // Todo: ortho?
 
     Mat4f operator+(Mat4f const& other) const;
     Mat4f operator-(Mat4f const& other) const;
     Mat4f operator*(Mat4f const& other) const;
-	float& operator[](int index);
+    float& operator[](int index);
 
     friend std::ostream& operator<<(std::ostream& os, const Mat4f& src);
 

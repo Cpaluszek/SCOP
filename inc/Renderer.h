@@ -4,16 +4,16 @@
 #include "../lib/GLEW/include/glew.h"
 #include "../lib/GLFW/include/glfw3.h"
 
-#include "Camera.h"
-#include "Shader.h"
-#include "Window.h"
-#include "math.h"
+#include "./Camera.h"
+#include "./Shader.h"
+#include "./Window.h"
+#include "./math.h"
 
 class Renderer {
  public:
-    Renderer(Camera& camera);
-    ~Renderer();
-    void render();
+     explicit Renderer(Camera const& camera);
+     ~Renderer();
+     void render();
 
  private:
     // Vertex buffer object
@@ -21,9 +21,9 @@ class Renderer {
     // Vertex array object
     GLuint vao;
 
-	Shader* shader;
+    Shader* shader;
 
-	Camera& camera;
+    Camera const& camera;
 };
 
 #endif  // INC_RENDERER_H_

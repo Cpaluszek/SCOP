@@ -1,4 +1,3 @@
-#include <complex>	// Note: complex?
 #include <iostream>
 #include <ostream>
 
@@ -24,9 +23,9 @@ int main() {
 
     if (!window.initGlew()) {
         return -1;
-	}
+    }
 
-	Camera camera;
+    Camera camera;
     Renderer renderer(camera);
 
     while (!glfwWindowShouldClose(window.instance)) {

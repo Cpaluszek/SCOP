@@ -4,7 +4,6 @@ Mat4f::Mat4f() {
     data.fill(0.0f);
 }
 
-// Initialize all the components on the matrix's diagonal
 Mat4f::Mat4f(float value) {
     data.fill(0.0f);
     for (int i = 0; i < Mat4f::Size; i++) {
@@ -12,10 +11,6 @@ Mat4f::Mat4f(float value) {
     }
 }
 
-// | 1 0 0 x |
-// | 0 1 0 y |
-// | 0 0 1 z |
-// | 0 0 0 1 |
 Mat4f Mat4f::translate(Mat4f const& m, Vec3f const& translation) {
     Mat4f result(m);
     result.data[3 + Mat4f::Size * 0] = translation.x;
@@ -33,7 +28,7 @@ Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
     float s = sin(angle);
     Vec3f normalizedAxis = Vec3f::normalize(axis);
 
-    Vec3f temp = normalizedAxis.scale(1.0f - c);	// axis(1 - cos(angle))
+    Vec3f temp = normalizedAxis.scale(1.0f - c);
 
     // Get the rotation matrix
     Mat4f rot;
@@ -82,9 +77,9 @@ Mat4f Mat4f::perspective(float fov, float aspect, float near, float far) {
 }
 
 Mat4f Mat4f::lookAt(Vec3f const& eye, Vec3f const& center, Vec3f const& up) {
-    Vec3f const f(Vec3f::normalize(center - eye)); 
-    Vec3f const s(Vec3f::normalize(Vec3f::cross(f, up))); 
-    Vec3f const u(Vec3f::cross(s, f)); 
+    Vec3f const f(Vec3f::normalize(center - eye));
+    Vec3f const s(Vec3f::normalize(Vec3f::cross(f, up)));
+    Vec3f const u(Vec3f::cross(s, f));
 
     Mat4f result(1.0f);
 
@@ -136,11 +131,11 @@ Mat4f Mat4f::operator*(Mat4f const& other) const {
 }
 
 float& Mat4f::operator[](int index) {
-	if (index >= Mat4f::Size) {
-		std::cout << "Array index out of bounds" << std::endl;
-		exit(0);
-	}
-	return data[index];
+    if (index >= Mat4f::Size) {
+        std::cout << "Array index out of bounds" << std::endl;
+        exit(0);
+    }
+    return data[index];
 }
 
 std::ostream& operator<<(std::ostream& os, const Mat4f& src) {
@@ -162,7 +157,7 @@ std::ostream& operator<<(std::ostream& os, const Mat4f& src) {
     return os;
 }
 
-// Note: test
+// Note: change all computations?
 Mat4f Mat4f::transpose(Mat4f const& m) {
     Mat4f result;
     for (int i = 0; i < 4; i++) {

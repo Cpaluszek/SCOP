@@ -128,6 +128,6 @@ void Shader::setVec4(const std::string &name, float x, float y, float z, float w
 //  }
 //
 void Shader::setMat4(const std::string& name, Mat4f& mat) {
-   glUniformMatrix4fv(glGetUniformLocation(this->id, name.c_str()), 1, GL_FALSE, &mat[0]);
+    glUniformMatrix4fv(glGetUniformLocation(this->id, name.c_str()), 1, GL_FALSE, &mat[0]);
 }
 
