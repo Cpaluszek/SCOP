@@ -9,7 +9,7 @@
 
 class Input {
  public:
-     void processInput() const;
+     void processInput(float deltaTime) const;
 
      void setCamera(Camera* camera);
      void setWindow(GLFWwindow* window);

@@ -12,6 +12,13 @@ const float ZOOM = 45.0f;
 const float NEAR_CLIP = 0.1f;
 const float FAR_CLIP = 100.0f;
 
+enum Camera_Movement {
+    FORWARD,
+    BACKWARD,
+    RIGHT,
+    LEFT
+};
+
 class Camera {
  public:
      Camera(Vec3f position = Vec3f(0.0f, 0.0f, 0.0f), Vec3f up = Vec3f(0.0f, 1.0f, 0.0f),
@@ -29,6 +36,7 @@ class Camera {
      float zoom;
 
      Mat4f getViewMatrix() const;
+     void processKeyboardInput(Camera_Movement direction, float delta_time);
 
  private:
      void updateCameraVectors();

@@ -70,11 +70,6 @@ Renderer::Renderer(Camera const& camera): camera(camera) {
             ASPECT_RATIO, NEAR_CLIP, FAR_CLIP);
     projection = Mat4f::transpose(projection);
     this->shader->setMat4("projection", projection);
-
-    // Set view matrix
-    Mat4f view = camera.getViewMatrix();
-    view = Mat4f::transpose(view);
-    this->shader->setMat4("view", view);
 }
 
 Renderer::~Renderer() {
@@ -102,6 +97,11 @@ void Renderer::render() {
 
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Set view matrix
+    Mat4f view = camera.getViewMatrix();
+    view = Mat4f::transpose(view);
+    this->shader->setMat4("view", view);
 
     Mat4f identity(1.0f);
     double currentTime = glfwGetTime();

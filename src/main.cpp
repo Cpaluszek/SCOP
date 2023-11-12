@@ -6,6 +6,7 @@
 #include "../inc/Window.h"
 
 #include "../inc/math.h"
+#include "glfw3.h"
 
 // Todo: stb_image.h authorized?
 // Todo: check for smart_ptr usage - shared - uniqueq
@@ -34,8 +35,14 @@ int main() {
     input.setCamera(&camera);
     input.setWindow(window.instance);
 
+    float deltaTime = 0.0f;
+    float lastFrameTime = 0.0f;
     while (!glfwWindowShouldClose(window.instance)) {
-        input.processInput();
+        float currentFrameTime = static_cast<float>(glfwGetTime());
+        deltaTime = currentFrameTime - lastFrameTime;
+        lastFrameTime = currentFrameTime;
+
+        input.processInput(deltaTime);
 
         renderer.render();
 

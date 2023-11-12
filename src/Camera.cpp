@@ -23,3 +23,20 @@ void Camera::updateCameraVectors() {
     this->right = Vec3f::normalize(Vec3f::cross(this->front, this->worldUp));
     this->up    = Vec3f::normalize(Vec3f::cross(this->right, this->front));
 }
+
+void Camera::processKeyboardInput(Camera_Movement direction, float deltaTime) {
+   float velocity = this->movementSpeed * deltaTime;
+
+   // Todo: manage multiple keys at the same time
+   if (direction == FORWARD) {
+       this->position += this->front * velocity;
+   } else if (direction == BACKWARD) {
+       this->position -= this->front * velocity;
+   } else if (direction == RIGHT) {
+       this->position += this->right* velocity;
+   } else if (direction == LEFT) {
+       this->position -= this->right * velocity;
+   }
+
+   // Todo: rotate
+}
