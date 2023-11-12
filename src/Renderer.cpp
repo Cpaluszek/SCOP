@@ -47,7 +47,9 @@ Renderer::Renderer(Camera& camera): camera(camera) {
     };
 
     // Todo: check for errors
-	// glEnable(GL_DEPTH_TEST);
+
+	glEnable(GL_DEPTH_TEST);
+
     glGenVertexArrays(1, &this->vao);
     glGenBuffers(1, &this->vbo);
     glBindVertexArray(this->vao);
@@ -100,7 +102,7 @@ void Renderer::render() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Mat4f identity(1.0f);
 	double currentTime = glfwGetTime();
