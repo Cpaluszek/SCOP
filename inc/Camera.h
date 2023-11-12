@@ -9,6 +9,9 @@ const float SPEED = 2.5f;
 const float SENSITIVITY = 0.1f;
 const float ZOOM = 45.0f;
 
+const float NEAR_CLIP = 0.1f;
+const float FAR_CLIP = 100.0f;
+
 class Camera {
 	public:
 		Camera(Vec3f position = Vec3f(0.0f, 0.0f, 0.0f), Vec3f up = Vec3f(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);

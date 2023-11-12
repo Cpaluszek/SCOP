@@ -66,7 +66,7 @@ Renderer::Renderer(Camera& camera): camera(camera) {
 
 	// Set projection matrix
 	Mat4f projection = Mat4f::perspective(math::radians(camera.zoom), 
-				800.0f / 600.0f, 0.1f, 100.0f);
+				800.0f / 600.0f, NEAR_CLIP, FAR_CLIP);
     projection = Mat4f::transpose(projection);
 	this->shader->setMat4("projection", projection);
 	
