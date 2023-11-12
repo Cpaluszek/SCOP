@@ -1,8 +1,9 @@
 #include <iostream>
 #include <ostream>
 
-#include "../inc/Window.h"
+#include "../inc/Input.h"
 #include "../inc/Renderer.h"
+#include "../inc/Window.h"
 
 #include "../inc/math.h"
 
@@ -26,10 +27,15 @@ int main() {
     }
 
     Camera camera;
+
+    // Note: pass by reference or pointer
     Renderer renderer(camera);
+    Input input;
+    input.setCamera(&camera);
+    input.setWindow(window.instance);
 
     while (!glfwWindowShouldClose(window.instance)) {
-        window.processInput();
+        input.processInput();
 
         renderer.render();
 

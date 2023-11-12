@@ -26,6 +26,23 @@
       "-I./lib/GLFW/include",
       "-c",
       "-o",
+      "build/Input.o",
+      "src/Input.cpp"
+    ],
+    "directory": "/home/noon/github/SCOP",
+    "file": "/home/noon/github/SCOP/src/Input.cpp",
+    "output": "/home/noon/github/SCOP/build/Input.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wextra",
+      "-Werror",
+      "-Wall",
+      "-std=c++17",
+      "-I./lib/GLFW/include",
+      "-c",
+      "-o",
       "build/Window.o",
       "src/Window.cpp"
     ],

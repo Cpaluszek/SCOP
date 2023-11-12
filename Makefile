@@ -5,6 +5,7 @@ NAME			:= SCOP
 
 HEADERS_DIR		:= inc
 HEADERS_FILES	:= 	Shader.h \
+					Input.h \
 					Window.h \
 					Renderer.h \
 					Camera.h \
@@ -17,6 +18,7 @@ HEADERS			:= $(addprefix $(HEADERS_DIR)/, $(HEADERS_FILES))
 
 SRC_DIR			:=	src
 SRC_FILES		:=	main.cpp \
+					Input.cpp \
 					Window.cpp \
 					Renderer.cpp \
 					Camera.cpp \

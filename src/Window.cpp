@@ -35,12 +35,6 @@ bool Window::initGlew() {
     return true;
 }
 
-void Window::processInput() {
-    if (glfwGetKey(this->instance, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(this->instance, GL_TRUE);
-    }
-}
-
 void Window::updateDisplay() {
     glfwSwapBuffers(this->instance);
     glfwPollEvents();
