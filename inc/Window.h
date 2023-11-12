@@ -9,6 +9,9 @@
 const unsigned int WIN_WIDTH = 800;
 const unsigned int WIN_HEIGHT = 600;
 
+// Todo: store all settings in a single header file
+const float ASPECT_RATIO = static_cast<float>(WIN_WIDTH) / static_cast<float>(WIN_HEIGHT);
+
 class Window {
  public:
     // Note: static instance? static getter?

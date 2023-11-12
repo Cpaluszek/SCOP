@@ -6,6 +6,7 @@
 
 #include "Camera.h"
 #include "Shader.h"
+#include "Window.h"
 #include "math.h"
 
 class Renderer {
