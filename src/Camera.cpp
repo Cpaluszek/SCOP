@@ -1,11 +1,13 @@
 #include "../inc/Camera.h"
 
+// Todo: remove parameters
 Camera::Camera(Vec3f position, Vec3f up, float yaw, float pitch)
-    : front(Vec3f(0.0f, 0.0f, -1.0f)), movementSpeed(SPEED), zoom(ZOOM) {
+    : front(Vec3f(0.0f, 0.0f, -1.0f)), movementSpeed(MOVEMENT_SPEED), zoom(ZOOM) {
     this->position = position;
     this->worldUp = up;
     this->yaw = yaw;
     this->pitch = pitch;
+    this->rotationSpeed = ROTATION_SPEED;
     updateCameraVectors();
 }
 
@@ -27,7 +29,6 @@ void Camera::updateCameraVectors() {
 void Camera::processKeyboardInput(Camera_Movement direction, float deltaTime) {
    float velocity = this->movementSpeed * deltaTime;
 
-   // Todo: manage multiple keys at the same time
    if (direction == FORWARD) {
        this->position += this->front * velocity;
    } else if (direction == BACKWARD) {
@@ -38,5 +39,13 @@ void Camera::processKeyboardInput(Camera_Movement direction, float deltaTime) {
        this->position -= this->right * velocity;
    }
 
-   // Todo: rotate
+   // Todo: create function for rotation
+   if (direction == ROTATE_RIGHT) {
+        this->yaw += this->rotationSpeed;
+        this->updateCameraVectors();
+   } else if (direction == ROTATE_LEFT) {
+        this->yaw -= this->rotationSpeed;
+        this->updateCameraVectors();
+   }
+
 }

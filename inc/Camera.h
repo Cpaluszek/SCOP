@@ -5,7 +5,8 @@
 
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
-const float SPEED = 2.5f;
+const float MOVEMENT_SPEED = 2.5f;
+const float ROTATION_SPEED = 0.05f;
 const float SENSITIVITY = 0.1f;
 const float ZOOM = 45.0f;
 
@@ -16,7 +17,9 @@ enum Camera_Movement {
     FORWARD,
     BACKWARD,
     RIGHT,
-    LEFT
+    LEFT,
+    ROTATE_RIGHT,
+    ROTATE_LEFT
 };
 
 class Camera {
@@ -33,6 +36,7 @@ class Camera {
      float yaw;
      float pitch;
      float movementSpeed;
+     float rotationSpeed;
      float zoom;
 
      Mat4f getViewMatrix() const;

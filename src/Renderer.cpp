@@ -64,12 +64,6 @@ Renderer::Renderer(Camera const& camera): camera(camera) {
     // Init shader program
     this->shader = new Shader("./shader/vertex.glsl", "./shader/fragment.glsl");
     this->shader->use();
-
-    // Set projection matrix
-    Mat4f projection = Mat4f::perspective(math::radians(camera.zoom),
-            ASPECT_RATIO, NEAR_CLIP, FAR_CLIP);
-    projection = Mat4f::transpose(projection);
-    this->shader->setMat4("projection", projection);
 }
 
 Renderer::~Renderer() {
@@ -102,6 +96,12 @@ void Renderer::render() {
     Mat4f view = camera.getViewMatrix();
     view = Mat4f::transpose(view);
     this->shader->setMat4("view", view);
+
+    // Set projection matrix
+    Mat4f projection = Mat4f::perspective(math::radians(camera.zoom),
+            ASPECT_RATIO, NEAR_CLIP, FAR_CLIP);
+    projection = Mat4f::transpose(projection);
+    this->shader->setMat4("projection", projection);
 
     Mat4f identity(1.0f);
     double currentTime = glfwGetTime();
