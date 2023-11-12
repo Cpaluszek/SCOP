@@ -14,11 +14,29 @@ Vec3f Vec3f::operator+(const Vec3f& other) const {
             this->z + other.z);
 }
 
+Vec3f Vec3f::operator+=(const Vec3f &other) {
+    this->x += other.x;
+    this->y += other.y;
+    this->z += other.z;
+    return *this;
+}
+
 Vec3f Vec3f::operator-(const Vec3f& other) const {
     return Vec3f(
             this->x - other.x,
             this->y - other.y,
             this->z - other.z);
+}
+
+Vec3f Vec3f::operator-=(const Vec3f &other) {
+    this->x -= other.x;
+    this->y -= other.y;
+    this->z -= other.z;
+    return *this;
+}
+
+Vec3f Vec3f::operator*(float value) const {
+    return this->scale(value);
 }
 
 Vec3f Vec3f::scale(float scalar) const {

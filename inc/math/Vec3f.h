@@ -3,6 +3,7 @@
 
 #include <ostream>
 
+// Todo: use inline on whole class operations?
 
 class Vec3f {
  public:
@@ -15,7 +16,10 @@ class Vec3f {
     Vec3f(float x, float y, float z);
 
     Vec3f operator+(const Vec3f &other) const;
+    Vec3f operator+=(const Vec3f &other);
     Vec3f operator-(const Vec3f &other) const;
+    Vec3f operator-=(const Vec3f &other);
+    Vec3f operator*(float) const;
 
     // Note: should be made static?
     float length() const;
