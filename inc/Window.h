@@ -22,7 +22,6 @@ class Window {
     ~Window();
 
     bool initGlew();
-    void processInput();
     void updateDisplay();
 };
 
