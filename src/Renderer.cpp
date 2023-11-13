@@ -12,7 +12,7 @@ Renderer::Renderer(Camera const& camera): camera(camera) {
     glBindBuffer(GL_ARRAY_BUFFER, this->vbo);
     glEnableVertexAttribArray(0);
 
-    // Todo: protect new Shader -> static reference may be better
+    // Todo: protect new Shader -> static? reference may be better
 
     // Init shader program
     this->shader = new Shader("./shader/vertex.glsl", "./shader/fragment.glsl");

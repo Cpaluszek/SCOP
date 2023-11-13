@@ -16,6 +16,8 @@
 
 // Todo: use cmake
 
+float getDeltaTime();
+
 int main() {
     Window window;
 
@@ -39,19 +41,21 @@ int main() {
     Mesh cube(Vec3f(0.0f, 0.0f, -5.0f));
     renderer.BindMeshData(cube);
 
-    float deltaTime = 0.0f;
-    float lastFrameTime = 0.0f;
     while (!glfwWindowShouldClose(window.instance)) {
-        float currentFrameTime = static_cast<float>(glfwGetTime());
-        deltaTime = currentFrameTime - lastFrameTime;
-        lastFrameTime = currentFrameTime;
-
-        input.processInput(deltaTime);
+        input.processInput(getDeltaTime());
 
         renderer.render(cube);
 
         window.updateDisplay();
     }
     return 0;
+}
+
+float getDeltaTime() {
+    static float lastFrameTime = 0.0f;
+    float currentTime = static_cast<float>(glfwGetTime());
+    float deltaTime = currentTime - lastFrameTime;
+    lastFrameTime = currentTime;
+    return deltaTime;
 }
 
