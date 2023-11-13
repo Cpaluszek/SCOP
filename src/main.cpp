@@ -2,6 +2,7 @@
 #include <ostream>
 
 #include "../inc/Input.h"
+#include "../inc/Mesh.h"
 #include "../inc/Renderer.h"
 #include "../inc/Window.h"
 
@@ -35,6 +36,9 @@ int main() {
     input.setCamera(&camera);
     input.setWindow(window.instance);
 
+    Mesh cube(Vec3f(0.0f, 0.0f, -5.0f));
+    renderer.BindMeshData(cube);
+
     float deltaTime = 0.0f;
     float lastFrameTime = 0.0f;
     while (!glfwWindowShouldClose(window.instance)) {
@@ -44,7 +48,7 @@ int main() {
 
         input.processInput(deltaTime);
 
-        renderer.render();
+        renderer.render(cube);
 
         window.updateDisplay();
     }

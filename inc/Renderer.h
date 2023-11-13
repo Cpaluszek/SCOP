@@ -5,6 +5,7 @@
 #include "../lib/GLFW/include/glfw3.h"
 
 #include "./Camera.h"
+#include "./Mesh.h"
 #include "./Shader.h"
 #include "./Window.h"
 #include "./math.h"
@@ -13,7 +14,10 @@ class Renderer {
  public:
      explicit Renderer(Camera const& camera);
      ~Renderer();
-     void render();
+
+     void render(Mesh const& mesh);
+
+     void BindMeshData(Mesh const& mesh);
 
  private:
     // Vertex buffer object

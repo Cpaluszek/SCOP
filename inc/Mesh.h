@@ -1,14 +1,21 @@
 #ifndef INC_MESH_H_
 #define INC_MESH_H_
 
-#include "math/Vec3f.h"
+#include "Camera.h"
+#include <vector>
+
+// Note: should use GLfloat?
+struct Vertex {
+    float x, y, z;
+};
 
 class Mesh {
  public:
      Mesh(Vec3f position);
 
- private:
+     // Note: make private?
      Vec3f position;
+     std::vector<Vertex> vertices;
 };
 
 #endif
