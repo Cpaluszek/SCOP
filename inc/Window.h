@@ -6,8 +6,8 @@
 #include "../lib/GLEW/include/glew.h"
 #include "../lib/GLFW/include/glfw3.h"
 
-const unsigned int WIN_WIDTH = 800;
-const unsigned int WIN_HEIGHT = 600;
+const unsigned int WIN_WIDTH = 1200;
+const unsigned int WIN_HEIGHT = 900;
 
 // Todo: store all settings in a single header file
 const float ASPECT_RATIO = static_cast<float>(WIN_WIDTH) / static_cast<float>(WIN_HEIGHT);
