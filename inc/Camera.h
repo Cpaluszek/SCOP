@@ -9,7 +9,7 @@ const Vec3f UP = Vec3f(0.0f, 1.0f, 0.0f);
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
 const float MOVEMENT_SPEED = 2.5f;
-const float ROTATION_SPEED = 0.05f;
+const float ROTATION_SPEED = 20.0f;
 const float ZOOM = 45.0f;
 
 const float NEAR_CLIP = 0.1f;

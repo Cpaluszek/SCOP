@@ -41,10 +41,10 @@ void Camera::processKeyboardInput(Camera_Movement direction, float deltaTime) {
 
    // Todo: create function for rotation
    if (direction == ROTATE_RIGHT) {
-        this->yaw += this->rotationSpeed;
+        this->yaw += this->rotationSpeed * deltaTime;
         this->updateCameraVectors();
    } else if (direction == ROTATE_LEFT) {
-        this->yaw -= this->rotationSpeed;
+        this->yaw -= this->rotationSpeed * deltaTime;
         this->updateCameraVectors();
    }
 }
