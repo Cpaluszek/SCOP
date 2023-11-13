@@ -73,6 +73,7 @@ Renderer::~Renderer() {
     delete this->shader;
 }
 
+// Todo: use const str or define for shader parameter name
 void Renderer::render() {
     Vec3f cubePositions[] = {
         Vec3f(0.0f, 0.0f, -5.0f),

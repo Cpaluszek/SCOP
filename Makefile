@@ -4,11 +4,12 @@
 NAME			:= SCOP
 
 HEADERS_DIR		:= inc
-HEADERS_FILES	:= 	Shader.h \
+HEADERS_FILES	:= 	Camera.h \
 					Input.h \
-					Window.h \
+					Mesh.h \
 					Renderer.h \
-					Camera.h \
+					Shader.h \
+					Window.h \
 					math.h \
 					math/Vec3f.h \
 					math/Vec2f.h \
@@ -18,11 +19,12 @@ HEADERS			:= $(addprefix $(HEADERS_DIR)/, $(HEADERS_FILES))
 
 SRC_DIR			:=	src
 SRC_FILES		:=	main.cpp \
-					Input.cpp \
-					Window.cpp \
-					Renderer.cpp \
 					Camera.cpp \
+					Input.cpp \
+					Mesh.cpp \
+					Renderer.cpp \
 					Shader.cpp \
+					Window.cpp \
 					math/Vec3f.cpp \
 					math/Vec2f.cpp \
 					math/Mat4f.cpp
