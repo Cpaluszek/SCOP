@@ -21,6 +21,9 @@ class Mesh {
      Vec3f position;
      std::vector<Vertex> vertices;
      std::vector<VertexColor> verticesColors;
+
+ private:
+     void computeVertexColor();
 };
 
 #endif
