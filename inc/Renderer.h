@@ -28,6 +28,9 @@ class Renderer {
     // Vertex array object
     GLuint vao;
 
+    // Element array buffer
+    GLuint ebo;
+
     Shader* shader;
 
     Camera const& camera;

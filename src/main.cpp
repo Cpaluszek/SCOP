@@ -57,8 +57,16 @@ int main(int argc, char *argv[]) {
     //
     // f v1 v2 v3 ... -> faces elements (start at 1) - -1 refers to the last
 
+    // Todo: order matter
+    // v -> f
+
+
+    // Note: [LearnOpenGL - Mesh](https://learnopengl.com/Model-Loading/Mesh)
+
     std::string line;
     std::vector<Vertex> parsedVertices;
+    std::vector<unsigned int> parsedIndices;
+
     while (std::getline(objFile, line)) {
         if (line.empty() || line[0] == '#') {
             continue;
@@ -73,7 +81,18 @@ int main(int argc, char *argv[]) {
             std::cout << "Vertex: (" << vertex.x << ", " << vertex.y << ", " << vertex.z << ")\n";
             parsedVertices.push_back(vertex);
         } else if (line[0] == 'f') {
-            // Todo: parse faces
+            char f;
+
+            std::istringstream iss(line);
+            iss >> f;
+
+            int num;
+            while (iss >> num) {
+                // Todo: if num is negative
+                parsedIndices.push_back(num - 1); 
+                // Note: if 4 values -> convert to 2 triangles?
+            }
+            
         }
     }
 
@@ -102,6 +121,7 @@ int main(int argc, char *argv[]) {
 
     Mesh mesh(Vec3f(0.0f, 0.0f, -5.0f));
     mesh.setVertices(parsedVertices);
+    mesh.setIndices(parsedIndices);
     renderer.BindMeshData(mesh);
 
     while (!glfwWindowShouldClose(window.instance)) {

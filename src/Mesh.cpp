@@ -51,8 +51,12 @@ void Mesh::setVertices(std::vector<Vertex> const& vertices) {
     this->computeVertexColor();
 }
 
+void Mesh::setIndices(std::vector<unsigned int> const& indices) {
+    this->indices = indices;
+}
+
 void Mesh::computeVertexColor() {
-    Vec3f startColor = Vec3f(0.1f, 0.1f, 0.1f);
+    Vec3f startColor = Vec3f(0.4f, 0.4f, 0.4f);
     Vec3f endColor = Vec3f(1.0f, 1.0f, 1.0f);
     for (size_t i = 0; i < this->vertices.size(); i++) {
         float lerpValue = (i / 3.0f) / (this->vertices.size() / 3.0f);

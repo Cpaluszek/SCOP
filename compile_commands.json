@@ -26,6 +26,23 @@
       "-I./lib/GLFW/include",
       "-c",
       "-o",
+      "build/Camera.o",
+      "src/Camera.cpp"
+    ],
+    "directory": "/home/noon/github/SCOP",
+    "file": "/home/noon/github/SCOP/src/Camera.cpp",
+    "output": "/home/noon/github/SCOP/build/Camera.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wextra",
+      "-Werror",
+      "-Wall",
+      "-std=c++17",
+      "-I./lib/GLFW/include",
+      "-c",
+      "-o",
       "build/Input.o",
       "src/Input.cpp"
     ],
@@ -43,12 +60,12 @@
       "-I./lib/GLFW/include",
       "-c",
       "-o",
-      "build/Window.o",
-      "src/Window.cpp"
+      "build/Mesh.o",
+      "src/Mesh.cpp"
     ],
     "directory": "/home/noon/github/SCOP",
-    "file": "/home/noon/github/SCOP/src/Window.cpp",
-    "output": "/home/noon/github/SCOP/build/Window.o"
+    "file": "/home/noon/github/SCOP/src/Mesh.cpp",
+    "output": "/home/noon/github/SCOP/build/Mesh.o"
   },
   {
     "arguments": [
@@ -77,12 +94,12 @@
       "-I./lib/GLFW/include",
       "-c",
       "-o",
-      "build/Camera.o",
-      "src/Camera.cpp"
+      "build/Shader.o",
+      "src/Shader.cpp"
     ],
     "directory": "/home/noon/github/SCOP",
-    "file": "/home/noon/github/SCOP/src/Camera.cpp",
-    "output": "/home/noon/github/SCOP/build/Camera.o"
+    "file": "/home/noon/github/SCOP/src/Shader.cpp",
+    "output": "/home/noon/github/SCOP/build/Shader.o"
   },
   {
     "arguments": [
@@ -94,12 +111,29 @@
       "-I./lib/GLFW/include",
       "-c",
       "-o",
-      "build/Shader.o",
-      "src/Shader.cpp"
+      "build/Window.o",
+      "src/Window.cpp"
     ],
     "directory": "/home/noon/github/SCOP",
-    "file": "/home/noon/github/SCOP/src/Shader.cpp",
-    "output": "/home/noon/github/SCOP/build/Shader.o"
+    "file": "/home/noon/github/SCOP/src/Window.cpp",
+    "output": "/home/noon/github/SCOP/build/Window.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wextra",
+      "-Werror",
+      "-Wall",
+      "-std=c++17",
+      "-I./lib/GLFW/include",
+      "-c",
+      "-o",
+      "build/program_options.o",
+      "src/program_options.cpp"
+    ],
+    "directory": "/home/noon/github/SCOP",
+    "file": "/home/noon/github/SCOP/src/program_options.cpp",
+    "output": "/home/noon/github/SCOP/build/program_options.o"
   },
   {
     "arguments": [

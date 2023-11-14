@@ -9,6 +9,7 @@ Renderer::Renderer(Camera const& camera): camera(camera) {
 
     glGenBuffers(1, &this->vboVertices);
     glGenBuffers(1, &this->vboColors);
+    glGenBuffers(1, &this->ebo);
 
     glBindVertexArray(this->vao);
 
@@ -55,11 +56,21 @@ void Renderer::render(Mesh const &mesh) {
     model = Mat4f::rotate(model, angle, Vec3f(1.0f, 0.0f, 0.4f));
     model = Mat4f::transpose(model);
     this->shader->setMat4("model", model);
-    glDrawArrays(GL_TRIANGLES, 0, mesh.vertices.size());
+    // glDrawArrays(GL_TRIANGLES, 0, mesh.vertices.size());
+    glDrawElements(GL_LINES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
 }
 
     //Note: GL_DYNAMIC_DRAW ??
 void Renderer::BindMeshData(Mesh const& mesh) {
+
+    // indices
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ebo);
+    glBufferData(
+            GL_ELEMENT_ARRAY_BUFFER,
+            mesh.indices.size() * sizeof(Vertex),
+            mesh.indices.data(),
+            GL_STATIC_DRAW);
+
     // Position
     glBindBuffer(GL_ARRAY_BUFFER, this->vboVertices);
     glBufferData(
