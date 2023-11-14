@@ -53,11 +53,12 @@ void Renderer::render(Mesh const &mesh) {
     Mat4f model = Mat4f::translate(identity, mesh.position);
 
     float angle = math::radians(30.0f * currentTime);
-    model = Mat4f::rotate(model, angle, Vec3f(1.0f, 0.0f, 0.4f));
+    model = Mat4f::rotate(model, angle, Vec3f(0.0f, 1.0f, 0.0f));
     model = Mat4f::transpose(model);
     this->shader->setMat4("model", model);
     // glDrawArrays(GL_TRIANGLES, 0, mesh.vertices.size());
-    glDrawElements(GL_LINES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
+    // glDrawElements(GL_LINES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
 }
 
     //Note: GL_DYNAMIC_DRAW ??

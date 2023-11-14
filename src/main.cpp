@@ -87,10 +87,20 @@ int main(int argc, char *argv[]) {
             iss >> f;
 
             int num;
+            int count = 0;
             while (iss >> num) {
+                if (count++ == 3) {
+                    std::cout << "num: " << num << " - ";
+                    std::cout << *(parsedIndices.rbegin() + 2 - 1) << " ";
+                    std::cout << *(parsedIndices.rbegin() + 3 - 1) << std::endl;
+                    std::cout << "-----------" << std::endl;
+                    parsedIndices.push_back(*(parsedIndices.rbegin() + 2 - 1));
+                    parsedIndices.push_back(*(parsedIndices.rbegin() + 3 - 1));
+                }
                 // Todo: if num is negative
                 parsedIndices.push_back(num - 1); 
                 // Note: if 4 values -> convert to 2 triangles?
+
             }
             
         }
