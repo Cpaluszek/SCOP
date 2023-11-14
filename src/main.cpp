@@ -1,7 +1,9 @@
 #include <cstdlib>
 #include <exception>
+#include <fstream>
 #include <iostream>
 #include <ostream>
+#include <string>
 
 #include "../inc/Input.h"
 #include "../inc/Mesh.h"
@@ -33,8 +35,16 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-
-
+    // Todo: move to another file
+    std::ifstream objFile(program_options::inputFile(), std::ios::in);
+    if (!objFile.is_open()) {
+        std::cerr << "Could not open input file '" << program_options::inputFile() << "'!" << std::endl;
+        return EXIT_FAILURE;
+    }
+    std::string line;
+    while (std::getline(objFile, line)) {
+        std::cout << line << std::endl;
+    }
 
     Window window;
     if (window.instance == nullptr) {
