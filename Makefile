@@ -10,6 +10,7 @@ HEADERS_FILES	:= 	Camera.h \
 					Renderer.h \
 					Shader.h \
 					Window.h \
+					program_options.h \
 					math.h \
 					math/Vec3f.h \
 					math/Vec2f.h \
@@ -25,6 +26,7 @@ SRC_FILES		:=	main.cpp \
 					Renderer.cpp \
 					Shader.cpp \
 					Window.cpp \
+					program_options.cpp \
 					math/Vec3f.cpp \
 					math/Vec2f.cpp \
 					math/Mat4f.cpp

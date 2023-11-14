@@ -1,3 +1,5 @@
+#include <cstdlib>
+#include <exception>
 #include <iostream>
 #include <ostream>
 
@@ -6,6 +8,7 @@
 #include "../inc/Renderer.h"
 #include "../inc/Window.h"
 
+#include "../inc/program_options.h"
 #include "../inc/math.h"
 #include "glfw3.h"
 
@@ -18,16 +21,29 @@
 
 float getDeltaTime();
 
-int main() {
-    Window window;
+int main(int argc, char *argv[]) {
 
+    // Parse arguments
+    try {
+        program_options::parse(argc, argv);
+    }
+    catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        std::cerr << "Usage: ./SCOP <obj file>" << std::endl;
+        return EXIT_FAILURE;
+    }
+
+
+
+
+    Window window;
     if (window.instance == nullptr) {
         std::cout << "Failed to create GLFW window" << std::endl;
-        return -1;
+        return EXIT_FAILURE;
     }
 
     if (!window.initGlew()) {
-        return -1;
+        return EXIT_FAILURE;
     }
 
     Camera camera;
@@ -48,7 +64,7 @@ int main() {
 
         window.updateDisplay();
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 float getDeltaTime() {
