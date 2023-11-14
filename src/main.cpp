@@ -79,6 +79,8 @@ int main(int argc, char *argv[]) {
 
     objFile.close();
     /////////////////////////////////////////
+    
+    // Todo: need to use DrawElements;
 
     Window window;
     if (window.instance == nullptr) {
