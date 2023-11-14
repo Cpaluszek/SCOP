@@ -59,7 +59,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp Makefile $(HEADERS)
 	$(CC) $(CC_FLAGS) $(CC_HEADERS) -c $< -o $@
 
 run: re
-	./$(NAME)
+	./$(NAME) resources/42.obj
 
 lint:
 	cpplint --linelength=120 --filter=-legal/copyright --exclude=inc/stb_image.h $(SRCS) $(HEADERS)

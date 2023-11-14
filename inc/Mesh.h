@@ -22,6 +22,8 @@ class Mesh {
      std::vector<Vertex> vertices;
      std::vector<VertexColor> verticesColors;
 
+     void setVertices(std::vector<Vertex> const& vertices);
+
  private:
      void computeVertexColor();
 };

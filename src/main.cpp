@@ -25,6 +25,7 @@ float getDeltaTime();
 
 int main(int argc, char *argv[]) {
 
+    /////////////////////////////////////////
     // Parse arguments
     try {
         program_options::parse(argc, argv);
@@ -41,10 +42,43 @@ int main(int argc, char *argv[]) {
         std::cerr << "Could not open input file '" << program_options::inputFile() << "'!" << std::endl;
         return EXIT_FAILURE;
     }
+    // [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
+    // o [object name]
+    // ...
+    //  g [group name]
+    //  ...
+    //
+    // mtllib [external .mtl file format] -> Reference materials
+    // usmtl [material name] -> material name specified in .mtl file
+    //
+    // s off -> smooth shading
+    //
+    // v x y z [w] -> vertex position (w) is optionnal - default to 1.0
+    //
+    // f v1 v2 v3 ... -> faces elements (start at 1) - -1 refers to the last
+
     std::string line;
+    std::vector<Vertex> parsedVertices;
     while (std::getline(objFile, line)) {
-        std::cout << line << std::endl;
+        if (line.empty() || line[0] == '#') {
+            continue;
+        } else if (line[0] == 'v') {
+            std::istringstream iss(line);
+
+            char v;
+            iss >> v;
+
+            Vertex vertex;
+            iss >> vertex.x >> vertex.y >> vertex.z;
+            std::cout << "Vertex: (" << vertex.x << ", " << vertex.y << ", " << vertex.z << ")\n";
+            parsedVertices.push_back(vertex);
+        } else if (line[0] == 'f') {
+            // Todo: parse faces
+        }
     }
+
+    objFile.close();
+    /////////////////////////////////////////
 
     Window window;
     if (window.instance == nullptr) {
@@ -64,13 +98,14 @@ int main(int argc, char *argv[]) {
     input.setCamera(&camera);
     input.setWindow(window.instance);
 
-    Mesh cube(Vec3f(0.0f, 0.0f, -5.0f));
-    renderer.BindMeshData(cube);
+    Mesh mesh(Vec3f(0.0f, 0.0f, -5.0f));
+    mesh.setVertices(parsedVertices);
+    renderer.BindMeshData(mesh);
 
     while (!glfwWindowShouldClose(window.instance)) {
         input.processInput(getDeltaTime());
 
-        renderer.render(cube);
+        renderer.render(mesh);
 
         window.updateDisplay();
     }
