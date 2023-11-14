@@ -1,6 +1,8 @@
 #ifndef INC_RENDERER_H_
 #define INC_RENDERER_H_
 
+#include <cmath>
+
 #include "../lib/GLEW/include/glew.h"
 #include "../lib/GLFW/include/glfw3.h"
 
@@ -21,7 +23,8 @@ class Renderer {
 
  private:
     // Vertex buffer object
-    GLuint vbo;
+    GLuint vboVertices;
+    GLuint vboColors;
     // Vertex array object
     GLuint vao;
 

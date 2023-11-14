@@ -9,6 +9,10 @@ struct Vertex {
     float x, y, z;
 };
 
+struct VertexColor {
+    float r, g, b;
+};
+
 class Mesh {
  public:
      Mesh(Vec3f position);
@@ -16,6 +20,7 @@ class Mesh {
      // Note: make private?
      Vec3f position;
      std::vector<Vertex> vertices;
+     std::vector<VertexColor> verticesColors;
 };
 
 #endif

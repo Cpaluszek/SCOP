@@ -6,11 +6,12 @@ Renderer::Renderer(Camera const& camera): camera(camera) {
     glEnable(GL_DEPTH_TEST);
 
     glGenVertexArrays(1, &this->vao);
-    glGenBuffers(1, &this->vbo);
+
+    glGenBuffers(1, &this->vboVertices);
+    glGenBuffers(1, &this->vboColors);
 
     glBindVertexArray(this->vao);
-    glBindBuffer(GL_ARRAY_BUFFER, this->vbo);
-    glEnableVertexAttribArray(0);
+
 
     // Todo: protect new Shader -> static? reference may be better
 
@@ -18,12 +19,12 @@ Renderer::Renderer(Camera const& camera): camera(camera) {
     this->shader = new Shader("./shader/vertex.glsl", "./shader/fragment.glsl");
     this->shader->use();
 
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 Renderer::~Renderer() {
     glDeleteVertexArrays(1, &this->vao);
-    glDeleteBuffers(1, &this->vbo);
+    glDeleteBuffers(1, &this->vboVertices);
 
     delete this->shader;
 }
@@ -50,21 +51,35 @@ void Renderer::render(Mesh const &mesh) {
 
     Mat4f model = Mat4f::translate(identity, mesh.position);
 
-    float angle = math::radians(6.0f * currentTime);
-    model = Mat4f::rotate(model, angle, Vec3f(1.0f, 0.0f, 0.0f));
+    float angle = math::radians(30.0f * currentTime);
+    model = Mat4f::rotate(model, angle, Vec3f(1.0f, 0.0f, 0.4f));
     model = Mat4f::transpose(model);
     this->shader->setMat4("model", model);
     glDrawArrays(GL_TRIANGLES, 0, mesh.vertices.size());
 }
 
+    //Note: GL_DYNAMIC_DRAW ??
 void Renderer::BindMeshData(Mesh const& mesh) {
+    // Position
+    glBindBuffer(GL_ARRAY_BUFFER, this->vboVertices);
     glBufferData(
             GL_ARRAY_BUFFER,
             mesh.vertices.size() * sizeof(Vertex),
             mesh.vertices.data(),
             GL_STATIC_DRAW);
-    //Note: GL_DYNAMIC_DRAW ??
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+    glEnableVertexAttribArray(0);
 
+    // Color
+    glBindBuffer(GL_ARRAY_BUFFER, this->vboColors);
+    glBufferData(
+            GL_ARRAY_BUFFER,
+            mesh.verticesColors.size() * sizeof(VertexColor),
+            mesh.verticesColors.data(),
+            GL_STATIC_DRAW);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+    glEnableVertexAttribArray(1);
 }
+
