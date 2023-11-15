@@ -26,7 +26,6 @@ float getDeltaTime();
 int main(int argc, char *argv[]) {
 
     /////////////////////////////////////////
-    // Parse arguments
     try {
         program_options::parse(argc, argv);
     }
@@ -78,7 +77,6 @@ int main(int argc, char *argv[]) {
 
             Vertex vertex;
             iss >> vertex.x >> vertex.y >> vertex.z;
-            std::cout << "Vertex: (" << vertex.x << ", " << vertex.y << ", " << vertex.z << ")\n";
             parsedVertices.push_back(vertex);
         } else if (line[0] == 'f') {
             char f;
@@ -89,23 +87,18 @@ int main(int argc, char *argv[]) {
             int num;
             int count = 0;
             while (iss >> num) {
-                if (count++ == 3) {
-                    std::cout << "num: " << num << " - ";
-                    std::cout << *(parsedIndices.rbegin() + 2 - 1) << " ";
-                    std::cout << *(parsedIndices.rbegin() + 3 - 1) << std::endl;
-                    std::cout << "-----------" << std::endl;
-                    parsedIndices.push_back(*(parsedIndices.rbegin() + 2 - 1));
-                    parsedIndices.push_back(*(parsedIndices.rbegin() + 3 - 1));
-                }
                 // Todo: if num is negative
+                if (count++ == 3) {
+                    int a = *(parsedIndices.rbegin() + 3 - 1);
+                    int b = *(parsedIndices.rbegin() + 1 - 1);
+                    parsedIndices.push_back(a);
+                    parsedIndices.push_back(b);
+                }
                 parsedIndices.push_back(num - 1); 
-                // Note: if 4 values -> convert to 2 triangles?
-
             }
             
         }
     }
-
     objFile.close();
     /////////////////////////////////////////
     
