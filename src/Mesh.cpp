@@ -45,7 +45,7 @@ void Mesh::setupMesh() {
 }
 
 void Mesh::draw(Shader& shader, const double currentTime) const {
-    const Vec3f position;
+    const Vec3f position(0.0f, 0.0f, -5.0f);
     const Mat4f identity(1.0f);   // Note: store idenity as const?
     Mat4f model = Mat4f::translate(identity, position);
 
