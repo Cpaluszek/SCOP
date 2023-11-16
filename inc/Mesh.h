@@ -18,8 +18,8 @@ struct VertexColor {
 
 class Mesh {
  public:
-     Mesh();
      ~Mesh();
+     Mesh();
      Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
 
      // Todo: make private?

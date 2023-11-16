@@ -1,11 +1,11 @@
 #include "../inc/Mesh.h"
 
-// Todo: remove
-Mesh::Mesh() {}
+Mesh::Mesh() {};
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
     this->vertices = vertices;
     this->indices = indices;
+    std::cout << "new mesh: vertex count = " << this->vertices.size() << std::endl;
 
     this->setupMesh();
 }
@@ -45,10 +45,16 @@ void Mesh::setupMesh() {
     // vertex texture coords
     
     glBindVertexArray(0);
+
+    std::cout << "Buffer created" << std::endl;
+    std::cout << "glGetError: " << glGetError() << std::endl;
+    std::cout << "vao: " << vao << std::endl;
+    std::cout << "vbo: " << vbo << std::endl;
+    std::cout << "ebo: " << ebo << std::endl;
 }
 
 void Mesh::draw(Shader& shader, double currentTime) const {
-   
+    std::cout << "shader addr: " << &shader << std::endl;
     Vec3f position;
     Mat4f identity(1.0f);
     Mat4f model = Mat4f::translate(identity, position);
@@ -57,9 +63,13 @@ void Mesh::draw(Shader& shader, double currentTime) const {
     model = Mat4f::rotate(model, angle, Vec3f(0.0f, 1.0f, 0.0f));
     model = Mat4f::transpose(model);
     shader.setMat4("model", model);
+    std::cout << "model: " << model << std::endl;
 
+    std::cout << "glGetError: " << glGetError() << std::endl;
+    std::cout << "vao: " << this->vao << std::endl;
     glBindVertexArray(this->vao);
-    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+    std::cout << "glGetError: " << glGetError() << std::endl;
+    glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 

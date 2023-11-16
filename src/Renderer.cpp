@@ -18,7 +18,8 @@ Renderer::~Renderer() {
 }
 
 // Todo: use const str or define for shader parameter name
-void Renderer::render(const Model& model) {
+void Renderer::render(const Model& model, const Mesh& testMesh) {
+    this->shader->use();
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -37,5 +38,8 @@ void Renderer::render(const Model& model) {
     /////////////////////////////////////
     double currentTime = glfwGetTime();
     model.draw(*this->shader, currentTime);
+    (void) model;
+    // testMesh.draw(*this->shader,currentTime);
+    (void) testMesh;
 }
 

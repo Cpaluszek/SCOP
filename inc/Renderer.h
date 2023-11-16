@@ -18,7 +18,7 @@ class Renderer {
      explicit Renderer(const Camera& camera);
      ~Renderer();
 
-     void render(const Model& model);
+     void render(const Model& model, const Mesh &testMesh);
 
  private:
     Shader* shader;

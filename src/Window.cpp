@@ -1,4 +1,5 @@
 #include "../inc/Window.h"
+#include "glfw3.h"
 
 Window::Window() {
     if (!glfwInit()) {
@@ -12,6 +13,10 @@ Window::Window() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+    // Todo: remove
+    // DEBUG
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
 
     this->instance = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, "SCOP", nullptr, nullptr);
 

@@ -1,7 +1,6 @@
 #include <cstdlib>
 #include <exception>
 #include <fstream>
-#include <iostream>
 #include <ostream>
 #include <string>
 
@@ -26,7 +25,6 @@ float getDeltaTime();
 
 int main(int argc, char *argv[]) {
 
-    /////////////////////////////////////////
     try {
         program_options::parse(argc, argv);
     }
@@ -36,33 +34,30 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    // Todo: move to another file
-    std::ifstream objFile(program_options::inputFile(), std::ios::in);
-    if (!objFile.is_open()) {
-        std::cerr << "Could not open input file '" << program_options::inputFile() << "'!" << std::endl;
+    Window window;
+    if (window.instance == nullptr) {
+        std::cout << "Failed to create GLFW window" << std::endl;
         return EXIT_FAILURE;
     }
-    // [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
-    // o [object name]
-    // ...
-    //  g [group name]
-    //  ...
-    //
-    // mtllib [external .mtl file format] -> Reference materials
-    // usmtl [material name] -> material name specified in .mtl file
-    //
-    // s off -> smooth shading
-    //
-    // v x y z [w] -> vertex position (w) is optionnal - default to 1.0
-    //
-    // f v1 v2 v3 ... -> faces elements (start at 1) - -1 refers to the last
 
-    // Todo: order matter
-    // v -> f
+    if (!window.initGlew()) {
+        return EXIT_FAILURE;
+    }
 
+    Camera camera;
 
-    // Note: [LearnOpenGL - Mesh](https://learnopengl.com/Model-Loading/Mesh)
+    // Note: pass by reference or pointer
+    Renderer renderer(camera);
+    Input input;
+    input.setCamera(&camera);
+    input.setWindow(window.instance);
 
+    //////////////////////////////////////////
+    std::string inputFile = program_options::inputFile();
+    std::ifstream objFile(inputFile, std::ios::in);
+    // if (!objFile.is_open()) {
+    //     throw std::runtime_error("Could not open input file '" + inputFile + "'!");
+    // }
     std::string line;
     std::vector<Vertex> parsedVertices;
     std::vector<unsigned int> parsedIndices;
@@ -101,38 +96,20 @@ int main(int argc, char *argv[]) {
         }
     }
     objFile.close();
-    /////////////////////////////////////////
-    
-    // Todo: need to use DrawElements;
+    Mesh meshTest = Mesh(parsedVertices, parsedIndices);
 
-    Window window;
-    if (window.instance == nullptr) {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        return EXIT_FAILURE;
-    }
 
-    if (!window.initGlew()) {
-        return EXIT_FAILURE;
-    }
+    Model model(program_options::inputFile());
 
-    Camera camera;
-
-    // Note: pass by reference or pointer
-    Renderer renderer(camera);
-    Input input;
-    input.setCamera(&camera);
-    input.setWindow(window.instance);
-
-    Mesh mesh(parsedVertices, parsedIndices);
-    Model model;
-    model.mesh = mesh;
+    std::cout << "test: " << model.mesh.vertices.size() << std::endl;
 
     while (!glfwWindowShouldClose(window.instance)) {
         input.processInput(getDeltaTime());
 
-        renderer.render(model);
+        renderer.render(model, meshTest);
 
         window.updateDisplay();
+        break ;
     }
     return EXIT_SUCCESS;
 }
