@@ -122,10 +122,7 @@ int main(int argc, char *argv[]) {
     input.setCamera(&camera);
     input.setWindow(window.instance);
 
-    Mesh mesh(Vec3f(0.0f, 0.0f, -5.0f));
-    mesh.setVertices(parsedVertices);
-    mesh.setIndices(parsedIndices);
-    renderer.BindMeshData(mesh);
+    Mesh mesh(parsedVertices, parsedIndices);
 
     while (!glfwWindowShouldClose(window.instance)) {
         input.processInput(getDeltaTime());

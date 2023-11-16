@@ -19,18 +19,7 @@ class Renderer {
 
      void render(Mesh const& mesh);
 
-     void BindMeshData(Mesh const& mesh);
-
  private:
-    // Vertex buffer object
-    GLuint vboVertices;
-    GLuint vboColors;
-    // Vertex array object
-    GLuint vao;
-
-    // Element array buffer
-    GLuint ebo;
-
     Shader* shader;
 
     Camera const& camera;

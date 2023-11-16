@@ -1,8 +1,10 @@
 #ifndef INC_MESH_H_
 #define INC_MESH_H_
 
-#include "Camera.h"
 #include <vector>
+#include "../lib/GLEW/include/glew.h"
+#include "Camera.h"
+#include "Shader.h"
 
 // Note: store Vertex & color in same array?
 // Note: should use GLfloat?
@@ -16,7 +18,8 @@ struct VertexColor {
 
 class Mesh {
  public:
-     Mesh(Vec3f position);
+     ~Mesh();
+     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
 
      // Todo: make private?
      Vec3f position;
@@ -24,13 +27,18 @@ class Mesh {
      std::vector<VertexColor> verticesColors;
      std::vector<unsigned int> indices;
 
-     void setVertices(std::vector<Vertex> const& vertices);
-     void setIndices(std::vector<unsigned int> const& indices);
+     void setupMesh();
+     void draw(Shader& shader, double currentTime) const;
 
-     // Todo: move vao, vbo, ebo here
-     // [LearnOpenGL - Mesh](https://learnopengl.com/Model-Loading/Mesh)
  private:
      void computeVertexColor();
+
+     // Vertex array object
+     GLuint vao;
+     // Vertex buffer object
+     GLuint vbo;
+     // Element array buffer
+     GLuint ebo;
 };
 
 #endif
