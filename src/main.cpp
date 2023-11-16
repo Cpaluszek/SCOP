@@ -68,6 +68,7 @@ int main(int argc, char *argv[]) {
     return EXIT_SUCCESS;
 }
 
+// Note: move to utils?
 float getDeltaTime() {
     static float lastFrameTime = 0.0f;
     float currentTime = static_cast<float>(glfwGetTime());

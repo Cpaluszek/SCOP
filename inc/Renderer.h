@@ -1,8 +1,6 @@
 #ifndef INC_RENDERER_H_
 #define INC_RENDERER_H_
 
-#include <cmath>
-
 #include "../lib/GLEW/include/glew.h"
 #include "../lib/GLFW/include/glfw3.h"
 

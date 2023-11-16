@@ -15,8 +15,7 @@ Window::Window() {
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     // Todo: remove
-    // DEBUG
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+    // glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
 
     this->instance = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, "SCOP", nullptr, nullptr);
 
@@ -34,7 +33,7 @@ bool Window::initGlew() {
     glewExperimental = GL_TRUE;
     GLenum err = glewInit();
     if (err != GLEW_OK) {
-        std::cout << "glewInit err: " << glewGetErrorString(err) << std::endl;
+        std::cerr << "glewInit err: " << glewGetErrorString(err) << std::endl;
         return false;
     }
     return true;

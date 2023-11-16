@@ -2,13 +2,10 @@
 
 Mesh::Mesh() {};
 
-Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)
-: vertices(vertices), indices(indices) {
-    // this->vertices = vertices;
-    // this->indices = indices;
-
-    // setupMesh();
-}
+Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices):
+    vertices(vertices),
+    indices(indices)
+{}
 
 Mesh::~Mesh() {
     glDeleteVertexArrays(1, &this->vao);
@@ -49,7 +46,7 @@ void Mesh::setupMesh() {
 
 void Mesh::draw(Shader& shader, double currentTime) const {
     Vec3f position;
-    Mat4f identity(1.0f);
+    Mat4f identity(1.0f);   // Note: store idenity as const?
     Mat4f model = Mat4f::translate(identity, position);
 
     float angle = math::radians(30.0f * currentTime);
@@ -61,17 +58,4 @@ void Mesh::draw(Shader& shader, double currentTime) const {
     glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
-
-// void Mesh::computeVertexColor() {
-//     Vec3f startColor = Vec3f(0.4f, 0.4f, 0.4f);
-//     Vec3f endColor = Vec3f(1.0f, 1.0f, 1.0f);
-//     for (size_t i = 0; i < this->vertices.size(); i++) {
-//         float lerpValue = (i / 3.0f) / (this->vertices.size() / 3.0f);
-//
-//         float r = math::lerp(startColor.x, endColor.x, lerpValue);
-//         float g = math::lerp(startColor.y, endColor.y, lerpValue);
-//         float b = math::lerp(startColor.z, endColor.z, lerpValue);
-//         this->verticesColors.push_back({r, g, b});
-//     }
-// }
 
