@@ -18,7 +18,7 @@
 
 float getDeltaTime();
 
-int main(int argc, char *argv[]) {
+int main(const int argc, char *argv[]) {
 
     try {
         program_options::parse(argc, argv);
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 
     // Note: pass by reference or pointer
     Renderer renderer(camera);
-    Input input(camera, window.instance);
+    const Input input(camera, window.instance);
 
     Model* model = nullptr;
     try {
@@ -71,8 +71,8 @@ int main(int argc, char *argv[]) {
 // Note: move to utils?
 float getDeltaTime() {
     static float lastFrameTime = 0.0f;
-    float currentTime = static_cast<float>(glfwGetTime());
-    float deltaTime = currentTime - lastFrameTime;
+    const auto currentTime = static_cast<float>(glfwGetTime());
+    const float deltaTime = currentTime - lastFrameTime;
     lastFrameTime = currentTime;
     return deltaTime;
 }

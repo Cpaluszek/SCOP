@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "../lib/GLEW/include/glew.h"
-#include "Camera.h"
 #include "Shader.h"
 
 // Note: store Vertex & color in same array?

@@ -8,7 +8,7 @@ namespace {
     std::string   objFile;
 }
 
-void program_options::parse(int argc, char* argv[]) {
+void program_options::parse(const int argc, char* argv[]) {
     const std::vector<std::string> args(argv + 1, argv + argc);
 
     for (const auto& arg : args) {

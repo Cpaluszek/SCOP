@@ -4,7 +4,7 @@
 Input::Input(Camera& camera, GLFWwindow* windowInstance)
 : camera(camera), window(windowInstance) {}
 
-void Input::processInput(float deltaTime) const {
+void Input::processInput(const float deltaTime) const {
     if (this->window == nullptr) {
         // Note: use exception?
         return;

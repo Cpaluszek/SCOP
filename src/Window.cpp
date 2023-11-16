@@ -39,7 +39,7 @@ bool Window::initGlew() {
     return true;
 }
 
-void Window::updateDisplay() {
+void Window::updateDisplay() const {
     glfwSwapBuffers(this->instance);
     glfwPollEvents();
 }

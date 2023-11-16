@@ -1,7 +1,7 @@
 #include "../inc/Camera.h"
 
 // Todo: remove parameters
-Camera::Camera(Vec3f position, Vec3f up, float yaw, float pitch)
+Camera::Camera(const Vec3f position, const Vec3f up, const float yaw, const float pitch)
     : front(Vec3f(0.0f, 0.0f, -1.0f)), movementSpeed(MOVEMENT_SPEED), zoom(ZOOM) {
     this->position = position;
     this->worldUp = up;
@@ -26,8 +26,8 @@ void Camera::updateCameraVectors() {
     this->up    = Vec3f::normalize(Vec3f::cross(this->right, this->front));
 }
 
-void Camera::processKeyboardInput(Camera_Movement direction, float deltaTime) {
-   float velocity = this->movementSpeed * deltaTime;
+void Camera::processKeyboardInput(const Camera_Movement direction, const float deltaTime) {
+    const float velocity = this->movementSpeed * deltaTime;
 
    if (direction == FORWARD) {
        this->position += this->front * velocity;

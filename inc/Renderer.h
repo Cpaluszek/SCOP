@@ -16,7 +16,7 @@ class Renderer {
      explicit Renderer(const Camera& camera);
      ~Renderer();
 
-     void render(Model* model);
+     void render(const Model* model) const;
 
  private:
     Shader* shader;

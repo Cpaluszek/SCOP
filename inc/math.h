@@ -8,11 +8,11 @@
 #include "math/Vec2f.h"
 
 namespace math {
-    inline float radians(float degrees) {
+    inline float radians(const float degrees) {
         return degrees * 0.01745329251994329576923690768489f;
     }
 
-    inline float lerp(float start, float end, float t) {
+    inline float lerp(const float start, const float end, const float t) {
         return start + t * (end - start);
     }
 }

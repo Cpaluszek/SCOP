@@ -2,7 +2,6 @@
 #define INC_PROGRAM_OPTIONS_H_
 
 #include <string>
-#include <vector>
 
 namespace program_options {
     void parse(int argc, char* argv[]);

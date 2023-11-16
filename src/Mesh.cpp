@@ -44,12 +44,12 @@ void Mesh::setupMesh() {
     glBindVertexArray(0);
 }
 
-void Mesh::draw(Shader& shader, double currentTime) const {
-    Vec3f position;
-    Mat4f identity(1.0f);   // Note: store idenity as const?
+void Mesh::draw(Shader& shader, const double currentTime) const {
+    const Vec3f position;
+    const Mat4f identity(1.0f);   // Note: store idenity as const?
     Mat4f model = Mat4f::translate(identity, position);
 
-    float angle = math::radians(30.0f * currentTime);
+    const float angle = math::radians(currentTime * 30.0f);
     model = Mat4f::rotate(model, angle, Vec3f(0.0f, 1.0f, 0.0f));
     model = Mat4f::transpose(model);
     shader.setMat4("model", model);

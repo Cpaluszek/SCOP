@@ -30,7 +30,8 @@ Model::Model(const std::string& inputFile) {
     while (std::getline(objFile, line)) {
         if (line.empty() || line[0] == '#') {
             continue;
-        } else if (line[0] == 'v') {
+        }
+        if (line[0] == 'v') {
             std::istringstream iss(line);
 
             char v;
