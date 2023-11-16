@@ -1,11 +1,6 @@
-#include <cstdlib>
 #include <exception>
-#include <fstream>
-#include <ostream>
-#include <string>
 
 #include "../inc/Input.h"
-#include "../inc/Mesh.h"
 #include "../inc/Model.h"
 #include "../inc/Renderer.h"
 #include "../inc/Window.h"
@@ -49,9 +44,7 @@ int main(int argc, char *argv[]) {
 
     // Note: pass by reference or pointer
     Renderer renderer(camera);
-    Input input;
-    input.setCamera(&camera);
-    input.setWindow(window.instance);
+    Input input(camera, window.instance);
 
     Model* model = nullptr;
     try {

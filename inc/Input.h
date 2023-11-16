@@ -1,7 +1,6 @@
 #ifndef INC_INPUT_H_
 #define INC_INPUT_H_
 
-
 #include "./Camera.h"
 #include "./Window.h"
 
@@ -9,15 +8,12 @@
 
 class Input {
  public:
+     Input(Camera& camera, GLFWwindow* windowInstance);
      void processInput(float deltaTime) const;
 
-     void setCamera(Camera* camera);
-     void setWindow(GLFWwindow* window);
-
  private:
-     Camera* camera;
+     Camera& camera;
      GLFWwindow* window;
-     // Todo: protect ptr access
 };
 
 #endif  // INC_INPUT_H_
