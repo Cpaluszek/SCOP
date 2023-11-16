@@ -18,6 +18,7 @@ struct VertexColor {
 
 class Mesh {
  public:
+     Mesh();
      ~Mesh();
      Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
 
@@ -31,7 +32,7 @@ class Mesh {
      void draw(Shader& shader, double currentTime) const;
 
  private:
-     void computeVertexColor();
+     // void computeVertexColor();
 
      // Vertex array object
      GLuint vao;

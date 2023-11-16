@@ -7,6 +7,7 @@
 
 #include "../inc/Input.h"
 #include "../inc/Mesh.h"
+#include "../inc/Model.h"
 #include "../inc/Renderer.h"
 #include "../inc/Window.h"
 
@@ -123,11 +124,13 @@ int main(int argc, char *argv[]) {
     input.setWindow(window.instance);
 
     Mesh mesh(parsedVertices, parsedIndices);
+    Model model;
+    model.mesh = mesh;
 
     while (!glfwWindowShouldClose(window.instance)) {
         input.processInput(getDeltaTime());
 
-        renderer.render(mesh);
+        renderer.render(model);
 
         window.updateDisplay();
     }

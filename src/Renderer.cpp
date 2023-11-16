@@ -18,7 +18,7 @@ Renderer::~Renderer() {
 }
 
 // Todo: use const str or define for shader parameter name
-void Renderer::render(Mesh const &mesh) {
+void Renderer::render(const Model& model) {
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -28,13 +28,14 @@ void Renderer::render(Mesh const &mesh) {
     this->shader->setMat4("view", view);
 
     // Set projection matrix
-    Mat4f projection = Mat4f::perspective(math::radians(camera.zoom),
+    Mat4f projection = Mat4f::perspective(
+            math::radians(camera.zoom),
             ASPECT_RATIO, NEAR_CLIP, FAR_CLIP);
     projection = Mat4f::transpose(projection);
     this->shader->setMat4("projection", projection);
     
     /////////////////////////////////////
     double currentTime = glfwGetTime();
-    mesh.draw(*this->shader, currentTime);
+    model.draw(*this->shader, currentTime);
 }
 

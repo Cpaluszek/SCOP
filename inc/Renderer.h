@@ -8,16 +8,17 @@
 
 #include "./Camera.h"
 #include "./Mesh.h"
+#include "./Model.h"
 #include "./Shader.h"
 #include "./Window.h"
 #include "./math.h"
 
 class Renderer {
  public:
-     explicit Renderer(Camera const& camera);
+     explicit Renderer(const Camera& camera);
      ~Renderer();
 
-     void render(Mesh const& mesh);
+     void render(const Model& model);
 
  private:
     Shader* shader;
