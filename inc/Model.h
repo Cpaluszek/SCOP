@@ -10,7 +10,7 @@ class Model {
      void draw(Shader& shader, double currentTime) const;
 
  // private:
-     Mesh mesh;
+     Mesh mesh; // Todo: switch to ptr
 };
 
 #endif  // INC_MODEL_H_

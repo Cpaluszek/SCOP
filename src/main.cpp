@@ -36,11 +36,12 @@ int main(int argc, char *argv[]) {
 
     Window window;
     if (window.instance == nullptr) {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        std::cerr << "Failed to create GLFW window" << std::endl;
         return EXIT_FAILURE;
     }
 
     if (!window.initGlew()) {
+        std::cerr << "Failed to initialize GLEW" << std::endl;
         return EXIT_FAILURE;
     }
 
@@ -52,64 +53,24 @@ int main(int argc, char *argv[]) {
     input.setCamera(&camera);
     input.setWindow(window.instance);
 
-    //////////////////////////////////////////
-    std::string inputFile = program_options::inputFile();
-    std::ifstream objFile(inputFile, std::ios::in);
-    // if (!objFile.is_open()) {
-    //     throw std::runtime_error("Could not open input file '" + inputFile + "'!");
-    // }
-    std::string line;
-    std::vector<Vertex> parsedVertices;
-    std::vector<unsigned int> parsedIndices;
-
-    while (std::getline(objFile, line)) {
-        if (line.empty() || line[0] == '#') {
-            continue;
-        } else if (line[0] == 'v') {
-            std::istringstream iss(line);
-
-            char v;
-            iss >> v;
-
-            Vertex vertex;
-            iss >> vertex.x >> vertex.y >> vertex.z;
-            parsedVertices.push_back(vertex);
-        } else if (line[0] == 'f') {
-            char f;
-
-            std::istringstream iss(line);
-            iss >> f;
-
-            int num;
-            int count = 0;
-            while (iss >> num) {
-                // Todo: if num is negative
-                if (count++ == 3) {
-                    int a = *(parsedIndices.rbegin() + 3 - 1);
-                    int b = *(parsedIndices.rbegin() + 1 - 1);
-                    parsedIndices.push_back(a);
-                    parsedIndices.push_back(b);
-                }
-                parsedIndices.push_back(num - 1); 
-            }
-            
-        }
+    Model* model = nullptr;
+    try {
+        model = new Model(program_options::inputFile());
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
     }
-    objFile.close();
-    Mesh meshTest = Mesh(parsedVertices, parsedIndices);
-
-
-    Model model(program_options::inputFile());
-
-    std::cout << "test: " << model.mesh.vertices.size() << std::endl;
+    if (model == nullptr) {
+        // Todo: test
+        return EXIT_FAILURE;
+    }
 
     while (!glfwWindowShouldClose(window.instance)) {
         input.processInput(getDeltaTime());
 
-        renderer.render(model, meshTest);
+        renderer.render(model);
 
         window.updateDisplay();
-        break ;
     }
     return EXIT_SUCCESS;
 }

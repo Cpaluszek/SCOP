@@ -61,8 +61,12 @@ Model::Model(const std::string& inputFile) {
         }
     }
     objFile.close();
-    std::cout << "parsing done" << std::endl;
     this->mesh = Mesh(parsedVertices, parsedIndices);
+
+    /////////////////////////////
+    // DO NOT TOUCH THIS!
+    this->mesh.setupMesh();
+    /////////////////////////////
 }
 
 void Model::draw(Shader& shader, double currentTime) const {

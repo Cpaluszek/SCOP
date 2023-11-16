@@ -20,7 +20,7 @@ class Mesh {
  public:
      ~Mesh();
      Mesh();
-     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+     Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 
      // Todo: make private?
      Vec3f position;
