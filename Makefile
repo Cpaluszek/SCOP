@@ -7,6 +7,7 @@ HEADERS_DIR		:= inc
 HEADERS_FILES	:= 	Camera.h \
 					Input.h \
 					Mesh.h \
+					Model.h \
 					Renderer.h \
 					Shader.h \
 					Window.h \
@@ -23,6 +24,7 @@ SRC_FILES		:=	main.cpp \
 					Camera.cpp \
 					Input.cpp \
 					Mesh.cpp \
+					Model.cpp \
 					Renderer.cpp \
 					Shader.cpp \
 					Window.cpp \
