@@ -6,20 +6,9 @@
 #include <random>
 #include <stdexcept>
 #include <random>
+#include <vector>
 #include "./Mesh.h"
 #include "./utils.h"
-
-#define COMMENT_KEYWORD "#"
-#define VERTEX_KEYWORD "v"
-#define FACE_KEYWORD "f"
-#define SMOOTH_SHADING_KEYWORD "s"
-#define OBJ_NAME_KEYWORD "o"
-#define GROUP_NAME_KEYWORD "g"
-#define LINE_KEYWORD "l"
-#define TEXT_COORDS_KEYWORD "vt"
-#define VERTEX_NOMALS_KEYWORD "vn"
-#define MAT_FILE_KEYWORD "mtllib"
-#define MAT_NAME_KEYWORD "usemtl"
 
 class Model {
  public:

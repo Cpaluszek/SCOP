@@ -1,6 +1,16 @@
 #include "../inc/Model.h"
-#include <stdexcept>
-#include <vector>
+
+#define COMMENT_KEYWORD "#"
+#define VERTEX_KEYWORD "v"
+#define FACE_KEYWORD "f"
+#define SMOOTH_SHADING_KEYWORD "s"
+#define OBJ_NAME_KEYWORD "o"
+#define GROUP_NAME_KEYWORD "g"
+#define LINE_KEYWORD "l"
+#define TEXT_COORDS_KEYWORD "vt"
+#define VERTEX_NOMALS_KEYWORD "vn"
+#define MAT_FILE_KEYWORD "mtllib"
+#define MAT_NAME_KEYWORD "usemtl"
 
 Model::~Model() {
     delete mesh;
@@ -72,6 +82,10 @@ Model::Model(const std::string& inputFile) {
                 throw std::runtime_error("Argument is out of range:" + line);
             }
         } else if (lineSplit[0] == FACE_KEYWORD) {
+            if (parsedVertices.size() == 0) {
+                objFile.close();
+                throw std::runtime_error("Incorrect file format: need vertices to specify faces");
+            }
             if (lineSplit.size() < 4 || lineSplit.size() > 5) {
                 objFile.close();
                 throw std::runtime_error("Incorrect face format: should be triangle or quad");
@@ -107,6 +121,26 @@ Model::Model(const std::string& inputFile) {
                 objFile.close();
                 throw std::runtime_error("Argument is out of range: " + line);
             }
+        }
+        // Todo: check for other keywords
+        else if (lineSplit[0] == SMOOTH_SHADING_KEYWORD) {
+            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else if (lineSplit[0] == OBJ_NAME_KEYWORD) {
+            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else if (lineSplit[0] == GROUP_NAME_KEYWORD) {
+            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else if (lineSplit[0] == LINE_KEYWORD) {
+            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else if (lineSplit[0] == TEXT_COORDS_KEYWORD) {
+            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else if (lineSplit[0] == VERTEX_NOMALS_KEYWORD) {
+            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else if (lineSplit[0] == MAT_FILE_KEYWORD) {
+            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else if (lineSplit[0] == MAT_NAME_KEYWORD) {
+            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else {
+            std::cerr << "Parsing: '" << line << "' unknown keyword" << std::endl;
         }
     }
 
