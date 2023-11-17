@@ -8,7 +8,7 @@
 
 // Note: should use GLfloat?
 struct Vertex {
-    float x, y, z;
+    GLfloat x, y, z;
 };
 
 class Mesh {
