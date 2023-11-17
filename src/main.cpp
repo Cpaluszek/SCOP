@@ -37,7 +37,6 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-
     Camera camera;
 
     // Note: pass by reference or pointer
@@ -49,6 +48,7 @@ int main(const int argc, char *argv[]) {
         model = new Model(program_options::inputFile());
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
+        delete window;
         return EXIT_FAILURE;
     }
 
