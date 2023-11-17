@@ -18,8 +18,6 @@ class Model {
 
  private:
      Mesh* mesh;
-
-     std::vector<std::string> splitString(const std::string& input, char delimiter);
 };
 
 #endif  // INC_MODEL_H_
