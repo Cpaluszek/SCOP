@@ -17,24 +17,8 @@ Model::~Model() {
 }
 
 // Todo: move parsing to another file
-
 // [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
-// o [object name]
-// ...
-//  g [group name]
-//  ...
-//
-// mtllib [external .mtl file format] -> Reference materials
-// usmtl [material name] -> material name specified in .mtl file
-//
-// s off -> smooth shading
-//
-// v x y z [w] -> vertex position (w) is optionnal - default to 1.0
-//
-// f v1 v2 v3 ... -> faces elements (start at 1) - -1 refers to the last
 
-// Todo: order matter
-// v -> f
 Model::Model(const std::string& inputFile) {
     // Setup random
     std::random_device rd;
