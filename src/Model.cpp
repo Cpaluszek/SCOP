@@ -16,25 +16,38 @@ Model::~Model() {
     delete mesh;
 }
 
-// Todo: move parsing to another file
-// [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
-
 Model::Model(const std::string& inputFile) {
-    // Setup random
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> dis(0.0f, 1.0f);
-
     std::ifstream objFile(inputFile, std::ios::in);
     if (!objFile.is_open()) {
         throw std::runtime_error("Could not open input file '" + inputFile + "'!");
     }
 
+    try {
+        this->parseOBJFile(objFile);
+        objFile.close();
+    } catch (const std::exception& e){
+        objFile.close();
+        throw;
+    }
+}
+
+void Model::draw(Shader& shader, double currentTime) const {
+    this->mesh->draw(shader, currentTime);
+}
+
+
+// [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
+void Model::parseOBJFile(std::ifstream& file){
+    // Setup random
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> dis(0.0f, 1.0f);
+
     std::vector<Vertex> parsedVertices;
     std::vector<Vertex> finalVertices;
 
     std::string line;
-    while (std::getline(objFile, line)) {
+    while (std::getline(file, line)) {
         if (line.empty()) {
             continue ;
         }
@@ -46,7 +59,6 @@ Model::Model(const std::string& inputFile) {
 
         if (lineSplit[0] == VERTEX_KEYWORD) {
             if (lineSplit.size() < 4 || lineSplit.size() > 5) {
-                objFile.close();
                 throw std::runtime_error("Incorrect vertex format: (x, y, z, [w])");
             }
 
@@ -59,19 +71,15 @@ Model::Model(const std::string& inputFile) {
                 };
                 parsedVertices.push_back(vertex);
              } catch (const std::invalid_argument &e) {
-                objFile.close();
                 throw std::runtime_error("Argument is invalid: " + line);
             } catch (const std::out_of_range &e) {
-                objFile.close();
                 throw std::runtime_error("Argument is out of range:" + line);
             }
         } else if (lineSplit[0] == FACE_KEYWORD) {
             if (parsedVertices.size() == 0) {
-                objFile.close();
                 throw std::runtime_error("Incorrect file format: need vertices to specify faces");
             }
             if (lineSplit.size() < 4 || lineSplit.size() > 5) {
-                objFile.close();
                 throw std::runtime_error("Incorrect face format: should be triangle or quad");
             }
             Vec3f randomColor(dis(gen), dis(gen), dis(gen));
@@ -99,10 +107,8 @@ Model::Model(const std::string& inputFile) {
                     finalVertices.push_back(currentVertex);
                 }
             } catch (const std::invalid_argument &e) {
-                objFile.close();
                 throw std::runtime_error("Argument is invalid: " + line);
             } catch (const std::out_of_range &e) {
-                objFile.close();
                 throw std::runtime_error("Argument is out of range: " + line);
             }
         }
@@ -127,12 +133,5 @@ Model::Model(const std::string& inputFile) {
             std::cerr << "Parsing: '" << line << "' unknown keyword" << std::endl;
         }
     }
-
-    objFile.close();
     this->mesh = new Mesh(finalVertices);
 }
-
-void Model::draw(Shader& shader, double currentTime) const {
-    this->mesh->draw(shader, currentTime);
-}
-

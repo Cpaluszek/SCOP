@@ -18,6 +18,8 @@ class Model {
 
  private:
      Mesh* mesh;
+
+     void parseOBJFile(std::ifstream& file);
 };
 
 #endif  // INC_MODEL_H_
