@@ -35,7 +35,6 @@ void Model::draw(Shader& shader, double currentTime) const {
     this->mesh->draw(shader, currentTime);
 }
 
-
 // [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
 void Model::loadOBJFile(std::ifstream& file) {
     // Setup random
@@ -60,42 +59,8 @@ void Model::loadOBJFile(std::ifstream& file) {
         if (lineSplit[0] == VERTEX_KEYWORD) {
             this->parseVertex(parsedVertices, lineSplit, line);
         } else if (lineSplit[0] == FACE_KEYWORD) {
-            if (parsedVertices.size() == 0) {
-                throw std::runtime_error("Incorrect file format: need vertices to specify faces");
-            }
-            if (lineSplit.size() < 4 || lineSplit.size() > 5) {
-                throw std::runtime_error("Incorrect face format: should be triangle or quad");
-            }
-            // Todo: use Vec3f for vertexColor
             Vec3f randomColor(dis(gen), dis(gen), dis(gen));
-
-            try {
-                for (size_t i = 1; i < lineSplit.size(); i++) {
-                    int index = std::stoi(lineSplit[i]);
-                    // Todo: check for neg or overflow
-                    if (i == 4) {
-                        auto a = *(finalVertices.rbegin() + 3 - 1);
-                        auto b = *(finalVertices.rbegin() + 1 - 1);
-                        a.r = randomColor.x;
-                        a.g = randomColor.y;
-                        a.b = randomColor.z;
-                        finalVertices.push_back(a);
-                        b.r = randomColor.x;
-                        b.g = randomColor.y;
-                        b.b = randomColor.z;
-                        finalVertices.push_back(b);
-                    }
-                    auto currentVertex = parsedVertices[index - 1];
-                    currentVertex.r = randomColor.x;
-                    currentVertex.g = randomColor.y;
-                    currentVertex.b = randomColor.z;
-                    finalVertices.push_back(currentVertex);
-                }
-            } catch (const std::invalid_argument &e) {
-                throw std::runtime_error("Argument is invalid: " + line);
-            } catch (const std::out_of_range &e) {
-                throw std::runtime_error("Argument is out of range: " + line);
-            }
+            this->parseFace(parsedVertices, finalVertices, randomColor, lineSplit, line);
         }
         // Todo: check for other keywords
         else if (lineSplit[0] == SMOOTH_SHADING_KEYWORD) {
@@ -142,3 +107,47 @@ void Model::parseVertex(VertexVector& parsedVertices,
         throw std::runtime_error("Argument is out of range:" + line);
     }
 }
+
+void Model::parseFace(
+             const VertexVector& parsedVertices,
+             VertexVector& finalVertices,
+             const Vec3f& faceColor,
+             const std::vector<std::string>& lineSplit,
+             const std::string& line) {
+
+    if (parsedVertices.size() == 0) {
+        throw std::runtime_error("Incorrect file format: need vertices to specify faces");
+    }
+    if (lineSplit.size() < 4 || lineSplit.size() > 5) {
+        throw std::runtime_error("Incorrect face format: should be triangle or quad");
+    }
+    // Todo: use Vec3f for vertexColor
+    try {
+        for (size_t i = 1; i < lineSplit.size(); i++) {
+            int index = std::stoi(lineSplit[i]);
+            // Todo: check for neg or overflow
+            if (i == 4) {
+                auto a = *(finalVertices.rbegin() + 3 - 1);
+                auto b = *(finalVertices.rbegin() + 1 - 1);
+                a.r = faceColor.x;
+                a.g = faceColor.y;
+                a.b = faceColor.z;
+                finalVertices.push_back(a);
+                b.r = faceColor.x;
+                b.g = faceColor.y;
+                b.b = faceColor.z;
+                finalVertices.push_back(b);
+            }
+            auto currentVertex = parsedVertices[index - 1];
+            currentVertex.r = faceColor.x;
+            currentVertex.g = faceColor.y;
+            currentVertex.b = faceColor.z;
+            finalVertices.push_back(currentVertex);
+        }
+    } catch (const std::invalid_argument &e) {
+        throw std::runtime_error("Argument is invalid: " + line);
+    } catch (const std::out_of_range &e) {
+        throw std::runtime_error("Argument is out of range: " + line);
+    }
+}
+

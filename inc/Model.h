@@ -26,6 +26,12 @@ class Model {
              VertexVector& parsedVertices,
              const std::vector<std::string>& lineSplit,
              const std::string& line);
+     void parseFace(
+             const VertexVector& parsedVertices,
+             VertexVector& finalVertices,
+             const Vec3f& faceColor,
+             const std::vector<std::string>& lineSplit,
+             const std::string& line);
 };
 
 #endif  // INC_MODEL_H_
