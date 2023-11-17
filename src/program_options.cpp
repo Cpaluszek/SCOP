@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <vector>
 
+// Anonymous namespace - limit visibility
 namespace {
     std::string   objFile;
 }
