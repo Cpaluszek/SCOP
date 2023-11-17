@@ -2,6 +2,7 @@
 #define INC_MODEL_H_
 
 #include <iostream>
+#include <random>
 #include "./Mesh.h"
 
 class Model {

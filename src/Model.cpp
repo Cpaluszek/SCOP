@@ -1,4 +1,6 @@
 #include "../inc/Model.h"
+#include <cstdlib>
+#include <random>
 #include <stdexcept>
 
 Model::~Model() {
@@ -23,6 +25,13 @@ Model::~Model() {
 // Todo: order matter
 // v -> f
 Model::Model(const std::string& inputFile) {
+    // Setup random
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> dis(0.0f, 1.0f);
+
+
+
     std::ifstream objFile(inputFile, std::ios::in);
     if (!objFile.is_open()) {
         throw std::runtime_error("Could not open input file '" + inputFile + "'!");
@@ -30,6 +39,8 @@ Model::Model(const std::string& inputFile) {
     std::string line;
     std::vector<Vertex> parsedVertices;
     std::vector<GLuint> parsedIndices;
+
+    std::vector<Vertex> finalVertices;
 
     while (std::getline(objFile, line)) {
         if (line.empty() || line[0] == '#') {
@@ -45,6 +56,8 @@ Model::Model(const std::string& inputFile) {
             iss >> vertex.x >> vertex.y >> vertex.z;
             parsedVertices.push_back(vertex);
         } else if (line[0] == 'f') {
+            Vec3f randomColor(dis(gen), dis(gen), dis(gen));
+
             char f;
 
             std::istringstream iss(line);
@@ -54,25 +67,38 @@ Model::Model(const std::string& inputFile) {
             int count = 0;
             while (iss >> num) {
                 // Todo: if num is negative
+                
+                // Todo: clean trash code
                 if (count++ == 3) {
                     int a = *(parsedIndices.rbegin() + 3 - 1);
                     int b = *(parsedIndices.rbegin() + 1 - 1);
                     parsedIndices.push_back(a);
                     parsedIndices.push_back(b);
+                    auto currentVertex = parsedVertices[a];
+                    currentVertex.r = randomColor.x;
+                    currentVertex.g = randomColor.y;
+                    currentVertex.b = randomColor.z;
+                    finalVertices.push_back(currentVertex);
+
+                    currentVertex = parsedVertices[b];
+                    currentVertex.r = randomColor.x;
+                    currentVertex.g = randomColor.y;
+                    currentVertex.b = randomColor.z;
+                    finalVertices.push_back(currentVertex);
                 }
-                parsedIndices.push_back(num - 1); 
+                parsedIndices.push_back(num - 1);
+                
+                auto currentVertex = parsedVertices[num - 1];
+                currentVertex.r = randomColor.x;
+                currentVertex.g = randomColor.y;
+                currentVertex.b = randomColor.z;
+                finalVertices.push_back(currentVertex);
             }
         }
     }
 
-    // Uses indices to create final vertices array
-    std::vector<Vertex> finalVertices;
-    for (auto i: parsedIndices) {
-        finalVertices.push_back(parsedVertices[i]);
-    }
-
     objFile.close();
-    this->mesh = new Mesh(finalVertices, parsedIndices);
+    this->mesh = new Mesh(finalVertices);
 }
 
 void Model::draw(Shader& shader, double currentTime) const {

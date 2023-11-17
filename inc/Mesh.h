@@ -14,7 +14,7 @@ struct Vertex {
 class Mesh {
  public:
      ~Mesh();
-     Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices);
+     Mesh(const std::vector<Vertex>& vertices);
 
      void draw(Shader& shader, double currentTime) const;
 
@@ -25,7 +25,6 @@ class Mesh {
 
      Vec3f position;
      std::vector<Vertex> vertices;
-     std::vector<GLuint> indices;
 
      void setupMesh();
      void computVerticesColors();
