@@ -37,7 +37,6 @@ void Model::draw(Shader& shader, double currentTime) const {
 
 // [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
 void Model::loadOBJFile(std::ifstream& file) {
-    // Setup random
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<float> dis(0.0f, 1.0f);
