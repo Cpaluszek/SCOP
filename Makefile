@@ -60,8 +60,11 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp Makefile $(HEADERS)
 	@mkdir -p $(@D)
 	$(CC) $(CC_FLAGS) $(CC_HEADERS) -c $< -o $@
 
-run: re
+42:  all
 	./$(NAME) resources/42.obj
+
+teapot: all
+	./$(NAME) resources/teapot.obj
 
 lint:
 	cpplint --linelength=120 --filter=-legal/copyright --exclude=inc/stb_image.h $(SRCS) $(HEADERS)
@@ -74,4 +77,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re lint
+.PHONY: all clean fclean re lint 42 teapot
