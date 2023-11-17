@@ -8,5 +8,4 @@ namespace utils {
     std::vector<std::string> splitString(const std::string& input, char delimiter);
 };
 
-
 #endif  // INC_UTILS_H_

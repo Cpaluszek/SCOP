@@ -5,7 +5,6 @@
 
 #include <string>
 
-
 namespace program_options {
     void parse(int argc, char* argv[]);
 
