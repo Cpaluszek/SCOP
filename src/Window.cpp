@@ -1,10 +1,11 @@
 #include "../inc/Window.h"
 #include "glfw3.h"
+#include <stdexcept>
 
 Window::Window() {
     if (!glfwInit()) {
         this->instance = nullptr;
-        return;
+        throw std::runtime_error("Failed to initialize GLFW");
     }
 
     // Configure GLFW window
@@ -20,23 +21,20 @@ Window::Window() {
     this->instance = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, "SCOP", nullptr, nullptr);
 
     if (this->instance == nullptr) {
-        return;
+        throw std::runtime_error("Failed to create GLFW window");
     }
     glfwMakeContextCurrent(this->instance);
-}
 
-Window::~Window() {
-    glfwTerminate();
-}
-
-bool Window::initGlew() {
+    // Init GLEW
     glewExperimental = GL_TRUE;
     GLenum err = glewInit();
     if (err != GLEW_OK) {
         std::cerr << "glewInit err: " << glewGetErrorString(err) << std::endl;
-        return false;
     }
-    return true;
+}
+
+Window::~Window() {
+    glfwTerminate();
 }
 
 void Window::updateDisplay() const {

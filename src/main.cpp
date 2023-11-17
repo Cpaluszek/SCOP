@@ -23,28 +23,26 @@ int main(const int argc, char *argv[]) {
     try {
         program_options::parse(argc, argv);
     }
-    catch (const std::exception &e) {
+    catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
         std::cerr << "Usage: ./SCOP <obj file>" << std::endl;
         return EXIT_FAILURE;
     }
 
-    Window window;
-    if (window.instance == nullptr) {
-        std::cerr << "Failed to create GLFW window" << std::endl;
+    Window* window;
+    try {
+        window = new Window();
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
         return EXIT_FAILURE;
     }
 
-    if (!window.initGlew()) {
-        std::cerr << "Failed to initialize GLEW" << std::endl;
-        return EXIT_FAILURE;
-    }
 
     Camera camera;
 
     // Note: pass by reference or pointer
     Renderer renderer(camera);
-    const Input input(camera, window.instance);
+    const Input input(camera, window->instance);
 
     Model* model = nullptr;
     try {
@@ -54,13 +52,15 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    while (!glfwWindowShouldClose(window.instance)) {
+    while (!glfwWindowShouldClose(window->instance)) {
         input.processInput(getDeltaTime());
 
         renderer.render(model);
 
-        window.updateDisplay();
+        window->updateDisplay();
     }
+    delete model;
+    delete window;
     return EXIT_SUCCESS;
 }
 

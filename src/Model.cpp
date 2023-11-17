@@ -67,12 +67,6 @@ Model::Model(const std::string& inputFile) {
     }
     objFile.close();
     this->mesh = new Mesh(parsedVertices, parsedIndices);
-    // Todo: check for protection - catch bad_alloc
-
-    /////////////////////////////
-    // DO NOT TOUCH THIS!
-    // this->mesh->setupMesh();
-    /////////////////////////////
 }
 
 void Model::draw(Shader& shader, double currentTime) const {
