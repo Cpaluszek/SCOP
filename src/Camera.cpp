@@ -46,6 +46,12 @@ void Camera::processKeyboardInput(const Camera_Movement direction, const float d
    } else if (direction == ROTATE_LEFT) {
         this->yaw -= this->rotationSpeed * deltaTime;
         this->updateCameraVectors();
+   } else if (direction == ROTATE_UP) {
+        this->pitch += this->rotationSpeed * deltaTime;
+        this->updateCameraVectors();
+   } else if (direction == ROTATE_DOWN) {
+        this->pitch -= this->rotationSpeed * deltaTime;
+        this->updateCameraVectors();
    }
 }
 

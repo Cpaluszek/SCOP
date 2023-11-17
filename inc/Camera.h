@@ -21,7 +21,9 @@ enum Camera_Movement {
     RIGHT,
     LEFT,
     ROTATE_RIGHT,
-    ROTATE_LEFT
+    ROTATE_LEFT,
+    ROTATE_UP,
+    ROTATE_DOWN
 };
 
 class Camera {

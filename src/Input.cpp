@@ -24,11 +24,18 @@ void Input::processInput(const float deltaTime) {
     }
 
     // Camera Rotation
+    // Note: use numpad instead?
     if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
         camera.processKeyboardInput(ROTATE_LEFT, deltaTime);
     }
     if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
         camera.processKeyboardInput(ROTATE_RIGHT, deltaTime);
+    }
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+        camera.processKeyboardInput(ROTATE_UP, deltaTime);
+    }
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+        camera.processKeyboardInput(ROTATE_DOWN, deltaTime);
     }
 
     // Reset Camera
