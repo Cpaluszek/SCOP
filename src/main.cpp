@@ -10,14 +10,13 @@
 #include "glfw3.h"
 
 // Todo: stb_image.h authorized?
-// Todo: check for smart_ptr usage - shared - uniqueq
 
 // Todo: LSPzero Format on save
 
 // Todo: use cmake
 
 int main(const int argc, char *argv[]) {
-
+    // Check for program arguments
     try {
         program_options::parse(argc, argv);
     }
@@ -27,6 +26,7 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    // Create glfw window
     Window* window;
     try {
         window = new Window();
@@ -35,13 +35,12 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    // Init program systems
     Camera camera;
-
-    // Note: pass by reference or pointer
     Renderer renderer(camera);
     const Input input(camera, window->instance);
 
-    Model* model = nullptr;
+    Model* model;
     try {
         model = new Model(program_options::inputFile());
     } catch (const std::exception &e) {

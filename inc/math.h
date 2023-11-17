@@ -1,11 +1,8 @@
 #ifndef INC_MATH_H_
 #define INC_MATH_H_
 
-// Note: Vec2f useful?
-
 #include "math/Mat4f.h"
 #include "math/Vec3f.h"
-#include "math/Vec2f.h"
 
 namespace math {
     inline float radians(const float degrees) {
