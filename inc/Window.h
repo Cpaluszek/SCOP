@@ -21,6 +21,8 @@ class Window {
     ~Window();
 
     void updateDisplay() const;
+
+    static float getDeltaTime();
 };
 
 #endif  // INC_WINDOW_H_

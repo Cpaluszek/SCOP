@@ -16,8 +16,6 @@
 
 // Todo: use cmake
 
-float getDeltaTime();
-
 int main(const int argc, char *argv[]) {
 
     try {
@@ -53,7 +51,7 @@ int main(const int argc, char *argv[]) {
     }
 
     while (!glfwWindowShouldClose(window->instance)) {
-        input.processInput(getDeltaTime());
+        input.processInput(Window::getDeltaTime());
 
         renderer.render(model);
 
@@ -62,14 +60,5 @@ int main(const int argc, char *argv[]) {
     delete model;
     delete window;
     return EXIT_SUCCESS;
-}
-
-// Note: move to utils?
-float getDeltaTime() {
-    static float lastFrameTime = 0.0f;
-    const auto currentTime = static_cast<float>(glfwGetTime());
-    const float deltaTime = currentTime - lastFrameTime;
-    lastFrameTime = currentTime;
-    return deltaTime;
 }
 

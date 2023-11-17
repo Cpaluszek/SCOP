@@ -42,3 +42,11 @@ void Window::updateDisplay() const {
     glfwPollEvents();
 }
 
+float Window::getDeltaTime() {
+    static float lastFrameTime = 0.0f;
+    const auto currentTime = static_cast<float>(glfwGetTime());
+    const float deltaTime = currentTime - lastFrameTime;
+    lastFrameTime = currentTime;
+    return deltaTime;
+}
+
