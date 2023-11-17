@@ -32,15 +32,28 @@ void Input::processInput(const float deltaTime) {
     }
 
     // Reset Camera
-    if (glfwGetKey(this->window, GLFW_KEY_SPACE)) {
+    if (!this->keyStateMap[GLFW_KEY_SPACE] && glfwGetKey(this->window, GLFW_KEY_SPACE)) {
+        this->keyStateMap[GLFW_KEY_SPACE] = true;
         camera.reset();
     }
 
     // Toggle wireframe
-    if (glfwGetKey(this->window, GLFW_KEY_P) == GLFW_PRESS) {
+    if (!this->keyStateMap[GLFW_KEY_P] && glfwGetKey(this->window, GLFW_KEY_P) == GLFW_PRESS) {
+        this->keyStateMap[GLFW_KEY_P] = true;
         this->polygonMode ^= true;
         glPolygonMode(GL_FRONT_AND_BACK, this->polygonMode ? GL_LINE : GL_FILL);
-        // std::cout << "Polygon mode" << std::endl;
     }
+
+    this->resetKeyState();
 }
 
+void Input::resetKeyState() {
+    for (auto &keyState: this->keyStateMap) {
+        int key = keyState.first;
+        bool &state = keyState.second;
+
+        if (state && glfwGetKey(this->window, key) == GLFW_RELEASE) {
+            state = false;
+        }
+    }
+}

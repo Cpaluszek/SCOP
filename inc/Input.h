@@ -5,6 +5,7 @@
 #include "./Window.h"
 
 #include "../lib/GLFW/include/glfw3.h"
+#include <unordered_map>
 
 class Input {
  public:
@@ -15,7 +16,10 @@ class Input {
      Camera& camera;
      GLFWwindow* window;
 
-     bool polygonMode;
+     bool polygonMode = false;
+     std::unordered_map<int, bool> keyStateMap;
+
+     void resetKeyState();
 };
 
 #endif  // INC_INPUT_H_
