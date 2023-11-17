@@ -6,7 +6,6 @@
 #include "../lib/GLEW/include/glew.h"
 #include "Shader.h"
 
-// Note: store Vertex & color in same array?
 // Note: should use GLfloat?
 struct Vertex {
     float x, y, z;
@@ -20,12 +19,9 @@ class Mesh {
      void draw(Shader& shader, double currentTime) const;
 
  private:
-     // Vertex array object
-     GLuint vao;
-     // Vertex buffer object
-     GLuint vbo;
-     // Element array buffer
-     GLuint ebo;
+     GLuint vao;   // Vertex array object
+     GLuint vbo;    // Vertex buffer object
+     GLuint ebo;    // Element array buffer
 
      Vec3f position;
      std::vector<Vertex> vertices;
