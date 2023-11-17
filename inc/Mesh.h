@@ -17,12 +17,6 @@ class Mesh {
      ~Mesh();
      Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 
-     // Todo: make private?
-     Vec3f position;
-     std::vector<Vertex> vertices;
-     std::vector<unsigned int> indices;
-
-     void setupMesh();
      void draw(Shader& shader, double currentTime) const;
 
  private:
@@ -32,6 +26,12 @@ class Mesh {
      GLuint vbo;
      // Element array buffer
      GLuint ebo;
+
+     Vec3f position;
+     std::vector<Vertex> vertices;
+     std::vector<unsigned int> indices;
+
+     void setupMesh();
 };
 
 #endif
