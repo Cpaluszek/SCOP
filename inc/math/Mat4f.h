@@ -22,10 +22,6 @@ class Mat4f {
     static Mat4f lookAt(Vec3f const& eye, Vec3f const& center, Vec3f const& up);
     static Mat4f transpose(Mat4f const& m);
 
-    // Todo: project
-    // Todo: frustum?
-    // Todo: ortho?
-
     Mat4f operator+(Mat4f const& other) const;
     Mat4f operator-(Mat4f const& other) const;
     Mat4f operator*(Mat4f const& other) const;
