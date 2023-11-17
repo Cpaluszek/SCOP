@@ -6,11 +6,12 @@
 
 class Model {
  public:
+     ~Model();
      Model(const std::string& inputFile);
      void draw(Shader& shader, double currentTime) const;
 
  // private:
-     Mesh mesh; // Todo: switch to ptr
+     Mesh* mesh;
 };
 
 #endif  // INC_MODEL_H_

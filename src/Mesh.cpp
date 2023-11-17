@@ -1,11 +1,11 @@
 #include "../inc/Mesh.h"
 
-Mesh::Mesh() {};
-
 Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices):
     vertices(vertices),
     indices(indices)
-{}
+{
+    this->setupMesh();
+}
 
 Mesh::~Mesh() {
     glDeleteVertexArrays(1, &this->vao);

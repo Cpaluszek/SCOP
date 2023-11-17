@@ -15,7 +15,6 @@ struct Vertex {
 class Mesh {
  public:
      ~Mesh();
-     Mesh();
      Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 
      // Todo: make private?

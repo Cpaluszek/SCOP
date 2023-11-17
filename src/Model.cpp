@@ -1,6 +1,10 @@
 #include "../inc/Model.h"
 #include <stdexcept>
 
+Model::~Model() {
+    delete mesh;
+}
+
 // [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
 // o [object name]
 // ...
@@ -62,15 +66,16 @@ Model::Model(const std::string& inputFile) {
         }
     }
     objFile.close();
-    this->mesh = Mesh(parsedVertices, parsedIndices);
+    this->mesh = new Mesh(parsedVertices, parsedIndices);
+    // Todo: check for protection - catch bad_alloc
 
     /////////////////////////////
     // DO NOT TOUCH THIS!
-    this->mesh.setupMesh();
+    // this->mesh->setupMesh();
     /////////////////////////////
 }
 
 void Model::draw(Shader& shader, double currentTime) const {
-    this->mesh.draw(shader, currentTime);
+    this->mesh->draw(shader, currentTime);
 }
 

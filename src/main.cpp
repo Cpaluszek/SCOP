@@ -53,10 +53,6 @@ int main(const int argc, char *argv[]) {
         std::cerr << e.what() << std::endl;
         return EXIT_FAILURE;
     }
-    if (model == nullptr) {
-        // Todo: test
-        return EXIT_FAILURE;
-    }
 
     while (!glfwWindowShouldClose(window.instance)) {
         input.processInput(getDeltaTime());
