@@ -8,9 +8,8 @@
 #include <random>
 #include <vector>
 #include "./Mesh.h"
+#include "./math.h"
 #include "./utils.h"
-
-typedef std::vector<Vertex> VertexVector;
 
 class Model {
  public:

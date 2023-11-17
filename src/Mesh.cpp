@@ -3,7 +3,6 @@
 Mesh::Mesh(const std::vector<Vertex>& vertices):
     vertices(vertices)
 {
-    // this->computVerticesColors();
     this->setupMesh();
 }
 
@@ -52,20 +51,3 @@ void Mesh::setupMesh() {
     glBindVertexArray(0);
 }
 
-void Mesh::computVerticesColors() {
-    if (this->vertices.size() == 0) {
-        return ;
-    }
-
-    Vec3f startColor = Vec3f(0.3f, 0.3f, 0.3f);
-    Vec3f endColor = Vec3f(0.9f, 0.9f, 0.9f);
-    float triangleCount = this->vertices.size() / 3.0f;
-
-    for (size_t i = 0; i < this->vertices.size(); i++) {
-        float lerpValue = (i / 3.0f) / triangleCount;
-
-        this->vertices[i].r = math::lerp(startColor.x, endColor.x, lerpValue);
-        this->vertices[i].g = math::lerp(startColor.y, endColor.y, lerpValue);
-        this->vertices[i].b = math::lerp(startColor.z, endColor.z, lerpValue);
-    }
-}

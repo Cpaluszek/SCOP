@@ -4,12 +4,15 @@
 #include <vector>
 
 #include "../lib/GLEW/include/glew.h"
-#include "Shader.h"
+#include "./math.h"
+#include "./Shader.h"
 
 struct Vertex {
-    GLfloat x, y, z;
-    GLfloat r, g, b;
+    Vec3f position;
+    Vec3f color;
 };
+
+typedef std::vector<Vertex> VertexVector;
 
 class Mesh {
  public:
@@ -27,7 +30,6 @@ class Mesh {
      std::vector<Vertex> vertices;
 
      void setupMesh();
-     void computVerticesColors();
 };
 
 #endif

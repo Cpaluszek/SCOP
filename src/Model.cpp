@@ -94,10 +94,11 @@ void Model::parseVertex(VertexVector& parsedVertices,
 
     try {
         Vertex vertex {
-            std::stof(lineSplit[1]),
-                std::stof(lineSplit[2]), 
-                std::stof(lineSplit[3]),
-                0.0f, 0.0f, 0.0f
+            Vec3f(
+                    std::stof(lineSplit[1]),
+                    std::stof(lineSplit[2]),
+                    std::stof(lineSplit[3])),
+            Vec3f()
         };
         parsedVertices.push_back(vertex);
     } catch (const std::invalid_argument &e) {
@@ -128,19 +129,13 @@ void Model::parseFace(
             if (i == 4) {
                 auto a = *(finalVertices.rbegin() + 3 - 1);
                 auto b = *(finalVertices.rbegin() + 1 - 1);
-                a.r = faceColor.x;
-                a.g = faceColor.y;
-                a.b = faceColor.z;
+                a.color = faceColor;
                 finalVertices.push_back(a);
-                b.r = faceColor.x;
-                b.g = faceColor.y;
-                b.b = faceColor.z;
+                b.color = faceColor;
                 finalVertices.push_back(b);
             }
             auto currentVertex = parsedVertices[index - 1];
-            currentVertex.r = faceColor.x;
-            currentVertex.g = faceColor.y;
-            currentVertex.b = faceColor.z;
+            currentVertex.color = faceColor;
             finalVertices.push_back(currentVertex);
         }
     } catch (const std::invalid_argument &e) {
