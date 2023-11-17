@@ -1,7 +1,4 @@
 #include "../inc/Model.h"
-#include <cstdlib>
-#include <random>
-#include <stdexcept>
 
 Model::~Model() {
     delete mesh;
@@ -29,8 +26,6 @@ Model::Model(const std::string& inputFile) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<float> dis(0.0f, 1.0f);
-
-
 
     std::ifstream objFile(inputFile, std::ios::in);
     if (!objFile.is_open()) {
