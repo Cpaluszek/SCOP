@@ -23,7 +23,7 @@ Model::Model(const std::string& inputFile) {
     }
 
     try {
-        this->parseOBJFile(objFile);
+        this->loadOBJFile(objFile);
         objFile.close();
     } catch (const std::exception& e){
         objFile.close();
@@ -37,7 +37,7 @@ void Model::draw(Shader& shader, double currentTime) const {
 
 
 // [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
-void Model::parseOBJFile(std::ifstream& file) {
+void Model::loadOBJFile(std::ifstream& file) {
     // Setup random
     std::random_device rd;
     std::mt19937 gen(rd());

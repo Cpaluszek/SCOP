@@ -21,7 +21,7 @@ class Model {
  private:
      Mesh* mesh;
 
-     void parseOBJFile(std::ifstream& file);
+     void loadOBJFile(std::ifstream& file);
      void parseVertex(
              VertexVector& parsedVertices,
              const std::vector<std::string>& lineSplit,
