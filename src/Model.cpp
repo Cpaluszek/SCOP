@@ -29,7 +29,7 @@ Model::Model(const std::string& inputFile) {
     }
     std::string line;
     std::vector<Vertex> parsedVertices;
-    std::vector<unsigned int> parsedIndices;
+    std::vector<GLuint> parsedIndices;
 
     while (std::getline(objFile, line)) {
         if (line.empty() || line[0] == '#') {

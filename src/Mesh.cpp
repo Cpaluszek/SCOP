@@ -1,6 +1,6 @@
 #include "../inc/Mesh.h"
 
-Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices):
+Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices):
     vertices(vertices),
     indices(indices)
 {
@@ -49,7 +49,7 @@ void Mesh::draw(Shader& shader, const double currentTime) const {
     const Mat4f identity(1.0f);   // Note: store idenity as const?
     Mat4f model = Mat4f::translate(identity, position);
 
-    const float angle = math::radians(currentTime * 30.0f);
+    const GLfloat angle = math::radians(currentTime * 30.0f);
     model = Mat4f::rotate(model, angle, Vec3f(0.0f, 1.0f, 0.0f));
     model = Mat4f::transpose(model);
     shader.setMat4("model", model);
