@@ -6,7 +6,6 @@ Input::Input(Camera& camera, GLFWwindow* windowInstance)
 
 void Input::processInput(const float deltaTime) const {
     if (this->window == nullptr) {
-        // Note: use exception?
         return;
     }
     if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {

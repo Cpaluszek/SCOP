@@ -11,8 +11,6 @@
 
 // Todo: stb_image.h authorized?
 
-// Todo: LSPzero Format on save
-
 // Todo: use cmake
 
 int main(const int argc, char *argv[]) {

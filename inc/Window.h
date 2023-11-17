@@ -14,7 +14,6 @@ constexpr float ASPECT_RATIO = static_cast<float>(WIN_WIDTH) / static_cast<float
 
 class Window {
  public:
-    // Note: static instance? static getter?
     GLFWwindow* instance;
 
     Window();
