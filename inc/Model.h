@@ -10,6 +10,8 @@
 #include "./Mesh.h"
 #include "./utils.h"
 
+typedef std::vector<Vertex> VertexVector;
+
 class Model {
  public:
      ~Model();
@@ -20,6 +22,10 @@ class Model {
      Mesh* mesh;
 
      void parseOBJFile(std::ifstream& file);
+     void parseVertex(
+             VertexVector& parsedVertices,
+             const std::vector<std::string>& lineSplit,
+             const std::string& line);
 };
 
 #endif  // INC_MODEL_H_

@@ -37,14 +37,14 @@ void Model::draw(Shader& shader, double currentTime) const {
 
 
 // [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
-void Model::parseOBJFile(std::ifstream& file){
+void Model::parseOBJFile(std::ifstream& file) {
     // Setup random
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<float> dis(0.0f, 1.0f);
 
-    std::vector<Vertex> parsedVertices;
-    std::vector<Vertex> finalVertices;
+    VertexVector parsedVertices;
+    VertexVector finalVertices;
 
     std::string line;
     while (std::getline(file, line)) {
@@ -58,23 +58,7 @@ void Model::parseOBJFile(std::ifstream& file){
         }
 
         if (lineSplit[0] == VERTEX_KEYWORD) {
-            if (lineSplit.size() < 4 || lineSplit.size() > 5) {
-                throw std::runtime_error("Incorrect vertex format: (x, y, z, [w])");
-            }
-
-            try {
-                Vertex vertex {
-                    std::stof(lineSplit[1]),
-                    std::stof(lineSplit[2]), 
-                    std::stof(lineSplit[3]),
-                    0.0f, 0.0f, 0.0f
-                };
-                parsedVertices.push_back(vertex);
-             } catch (const std::invalid_argument &e) {
-                throw std::runtime_error("Argument is invalid: " + line);
-            } catch (const std::out_of_range &e) {
-                throw std::runtime_error("Argument is out of range:" + line);
-            }
+            this->parseVertex(parsedVertices, lineSplit, line);
         } else if (lineSplit[0] == FACE_KEYWORD) {
             if (parsedVertices.size() == 0) {
                 throw std::runtime_error("Incorrect file format: need vertices to specify faces");
@@ -134,4 +118,26 @@ void Model::parseOBJFile(std::ifstream& file){
         }
     }
     this->mesh = new Mesh(finalVertices);
+}
+
+void Model::parseVertex(VertexVector& parsedVertices,
+        const std::vector<std::string>& lineSplit,
+        const std::string& line) {
+    if (lineSplit.size() < 4 || lineSplit.size() > 5) {
+        throw std::runtime_error("Incorrect vertex format: (x, y, z, [w])");
+    }
+
+    try {
+        Vertex vertex {
+            std::stof(lineSplit[1]),
+                std::stof(lineSplit[2]), 
+                std::stof(lineSplit[3]),
+                0.0f, 0.0f, 0.0f
+        };
+        parsedVertices.push_back(vertex);
+    } catch (const std::invalid_argument &e) {
+        throw std::runtime_error("Argument is invalid: " + line);
+    } catch (const std::out_of_range &e) {
+        throw std::runtime_error("Argument is out of range:" + line);
+    }
 }
