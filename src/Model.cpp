@@ -66,6 +66,7 @@ void Model::loadOBJFile(std::ifstream& file) {
             if (lineSplit.size() < 4 || lineSplit.size() > 5) {
                 throw std::runtime_error("Incorrect face format: should be triangle or quad");
             }
+            // Todo: use Vec3f for vertexColor
             Vec3f randomColor(dis(gen), dis(gen), dis(gen));
 
             try {
