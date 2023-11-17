@@ -4,7 +4,7 @@
 #include "./math.h"
 
 const Vec3f START_POSITION = Vec3f(0.0f, 0.0f, 3.0f);
-const Vec3f UP = Vec3f(0.0f, 1.0f, 0.0f);
+const Vec3f UP_DIR = Vec3f(0.0f, 1.0f, 0.0f);
 
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
@@ -20,6 +20,8 @@ enum Camera_Movement {
     BACKWARD,
     RIGHT,
     LEFT,
+    UP,
+    DOWN,
     ROTATE_RIGHT,
     ROTATE_LEFT,
     ROTATE_UP,
@@ -28,7 +30,7 @@ enum Camera_Movement {
 
 class Camera {
  public:
-     Camera(Vec3f position = START_POSITION, Vec3f up = UP,
+     Camera(Vec3f position = START_POSITION, Vec3f up = UP_DIR,
              float yaw = YAW, float pitch = PITCH);
 
      Vec3f position;

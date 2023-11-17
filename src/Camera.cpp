@@ -37,6 +37,10 @@ void Camera::processKeyboardInput(const Camera_Movement direction, const float d
        this->position += this->right* velocity;
    } else if (direction == LEFT) {
        this->position -= this->right * velocity;
+   } else if (direction == UP) {
+       this->position += this->up * velocity;
+   } else if (direction == DOWN) {
+       this->position -= this->up * velocity;
    }
 
    // Todo: create function for rotation
@@ -57,7 +61,7 @@ void Camera::processKeyboardInput(const Camera_Movement direction, const float d
 
 void Camera::reset() {
     this->position = START_POSITION;
-    this->up = UP;
+    this->up = UP_DIR;
     this->yaw = YAW;
     this->pitch = PITCH;
     updateCameraVectors();
