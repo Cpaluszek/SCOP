@@ -62,11 +62,17 @@ Model::Model(const std::string& inputFile) {
                 }
                 parsedIndices.push_back(num - 1); 
             }
-            
         }
     }
+
+    // Uses indices to create final vertices array
+    std::vector<Vertex> finalVertices;
+    for (auto i: parsedIndices) {
+        finalVertices.push_back(parsedVertices[i]);
+    }
+
     objFile.close();
-    this->mesh = new Mesh(parsedVertices, parsedIndices);
+    this->mesh = new Mesh(finalVertices, parsedIndices);
 }
 
 void Model::draw(Shader& shader, double currentTime) const {

@@ -6,9 +6,9 @@
 #include "../lib/GLEW/include/glew.h"
 #include "Shader.h"
 
-// Note: should use GLfloat?
 struct Vertex {
     GLfloat x, y, z;
+    GLfloat r, g, b;
 };
 
 class Mesh {
@@ -21,13 +21,14 @@ class Mesh {
  private:
      GLuint vao;   // Vertex array object
      GLuint vbo;    // Vertex buffer object
-     GLuint ebo;    // Element array buffer
+     // GLuint ebo;    // Element array buffer
 
      Vec3f position;
      std::vector<Vertex> vertices;
      std::vector<GLuint> indices;
 
      void setupMesh();
+     void computVerticesColors();
 };
 
 #endif
