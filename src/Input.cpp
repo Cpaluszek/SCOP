@@ -4,10 +4,7 @@
 Input::Input(Camera& camera, GLFWwindow* windowInstance)
 : camera(camera), window(windowInstance) {}
 
-void Input::processInput(const float deltaTime) const {
-    if (this->window == nullptr) {
-        return;
-    }
+void Input::processInput(const float deltaTime) { 
     if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(this->window, GL_TRUE);
     }
@@ -37,6 +34,13 @@ void Input::processInput(const float deltaTime) const {
     // Reset Camera
     if (glfwGetKey(this->window, GLFW_KEY_SPACE)) {
         camera.reset();
+    }
+
+    // Toggle wireframe
+    if (glfwGetKey(this->window, GLFW_KEY_P) == GLFW_PRESS) {
+        this->polygonMode ^= true;
+        glPolygonMode(GL_FRONT_AND_BACK, this->polygonMode ? GL_LINE : GL_FILL);
+        // std::cout << "Polygon mode" << std::endl;
     }
 }
 

@@ -9,11 +9,13 @@
 class Input {
  public:
      Input(Camera& camera, GLFWwindow* windowInstance);
-     void processInput(float deltaTime) const;
+     void processInput(const float deltaTime);
 
  private:
      Camera& camera;
      GLFWwindow* window;
+
+     bool polygonMode;
 };
 
 #endif  // INC_INPUT_H_

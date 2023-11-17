@@ -36,7 +36,7 @@ int main(const int argc, char *argv[]) {
     // Init program systems
     Camera camera;
     Renderer renderer(camera);
-    const Input input(camera, window->instance);
+    Input input(camera, window->instance);
 
     Model* model;
     try {
