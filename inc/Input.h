@@ -2,6 +2,7 @@
 #define INC_INPUT_H_
 
 #include "./Camera.h"
+#include "./Model.h"
 #include "./Window.h"
 
 #include "../lib/GLFW/include/glfw3.h"
@@ -10,16 +11,17 @@
 class Input {
  public:
      Input(Camera& camera, GLFWwindow* windowInstance);
-     void processInput(const float deltaTime);
+     void processInput(Model& model, const float deltaTime);
 
  private:
      Camera& camera;
      GLFWwindow* window;
 
-     bool polygonMode = false;
+
      std::unordered_map<int, bool> keyStateMap;
 
      void resetKeyState();
+     void cameraInput(const float deltaTime);
 };
 
 #endif  // INC_INPUT_H_

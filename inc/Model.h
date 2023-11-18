@@ -17,6 +17,9 @@ class Model {
      Model(const std::string& inputFile);
      void draw(Shader& shader, double currentTime) const;
 
+     bool useTexture = false;
+     bool polygonMode = false;
+
  private:
      Mesh* mesh;
 

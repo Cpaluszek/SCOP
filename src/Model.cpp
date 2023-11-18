@@ -32,6 +32,11 @@ Model::Model(const std::string& inputFile) {
 }
 
 void Model::draw(Shader& shader, double currentTime) const {
+    // Todo: use events / callback
+    glPolygonMode(GL_FRONT_AND_BACK, this->polygonMode ? GL_LINE : GL_FILL);
+
+    shader.setBool("useTexture", this->useTexture);
+
     this->mesh->draw(shader, currentTime);
 }
 

@@ -51,7 +51,8 @@ int main(const int argc, char *argv[]) {
     texture.loadTextureFile("./resources/textures/uvmap.jpeg");
 
     while (!glfwWindowShouldClose(window->instance)) {
-        input.processInput(Window::getDeltaTime());
+        // Note: use ptr??
+        input.processInput(*model, Window::getDeltaTime());
 
         renderer.render(model, texture.id);
 
