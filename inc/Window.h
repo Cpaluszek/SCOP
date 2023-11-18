@@ -22,6 +22,9 @@ class Window {
     void updateDisplay() const;
 
     static float getDeltaTime();
+
+ private:
+    static void errorCallback(int error, const char* description);
 };
 
 #endif  // INC_WINDOW_H_

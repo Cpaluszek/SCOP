@@ -47,7 +47,7 @@ int main(const int argc, char *argv[]) {
         delete window;
         return EXIT_FAILURE;
     }
-
+    
     while (!glfwWindowShouldClose(window->instance)) {
         input.processInput(Window::getDeltaTime());
 

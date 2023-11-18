@@ -3,6 +3,8 @@
 #include <stdexcept>
 
 Window::Window() {
+    glfwSetErrorCallback(errorCallback);
+
     if (!glfwInit()) {
         this->instance = nullptr;
         throw std::runtime_error("Failed to initialize GLFW");
@@ -31,6 +33,7 @@ Window::Window() {
 }
 
 Window::~Window() {
+    glfwDestroyWindow(this->instance);
     glfwTerminate();
 }
 
@@ -45,5 +48,9 @@ float Window::getDeltaTime() {
     const float deltaTime = currentTime - lastFrameTime;
     lastFrameTime = currentTime;
     return deltaTime;
+}
+void Window::errorCallback(int error, const char* description) {
+    (void) error;
+    std::cerr << "GLFW error: " << description << std::endl;
 }
 
