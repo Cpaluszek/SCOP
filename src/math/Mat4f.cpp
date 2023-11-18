@@ -138,6 +138,14 @@ float& Mat4f::operator[](int index) {
     return data[index];
 }
 
+const float& Mat4f::operator[](int index) const {
+    if (index >= Mat4f::Size) {
+        std::cout << "Array index out of bounds" << std::endl;
+        exit(0);
+    }
+    return data[index];
+}
+
 std::ostream& operator<<(std::ostream& os, const Mat4f& src) {
     os << std::fixed << std::setprecision(6) << "mat4x4(";
     for (int i = 0; i < Mat4f::Size; i++) {

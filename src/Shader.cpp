@@ -21,7 +21,6 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath) {
 
         vShaderFile.close();
         fShaderFile.close();
-//         convert stream into string
         vertexCode = vShaderStream.str();
         fragmentCode = fShaderStream.str();
     }
@@ -127,7 +126,7 @@ void Shader::setVec4(const std::string &name, float x, float y, float z, float w
 //    glUniformMatrix3fv(glGetUniformLocation(this->ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 //  }
 //
-void Shader::setMat4(const std::string& name, Mat4f& mat) {
+void Shader::setMat4(const std::string& name, const Mat4f& mat) const {
     glUniformMatrix4fv(glGetUniformLocation(this->id, name.c_str()), 1, GL_FALSE, &mat[0]);
 }
 
