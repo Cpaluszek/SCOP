@@ -10,6 +10,7 @@ HEADERS_FILES	:= 	Camera.h \
 					Model.h \
 					Renderer.h \
 					Shader.h \
+					Texture.h \
 					Window.h \
 					program_options.h \
 					utils.h \
@@ -28,6 +29,7 @@ SRC_FILES		:=	main.cpp \
 					Model.cpp \
 					Renderer.cpp \
 					Shader.cpp \
+					Texture.cpp \
 					Window.cpp \
 					program_options.cpp \
 					utils.cpp \
