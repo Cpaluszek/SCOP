@@ -61,7 +61,7 @@ void Mesh::mapTextureCoordinates() {
         float theta = std::atan2(vertex.position.z, vertex.position.x);
         float phi = std::acos(vertex.position.y / vertex.position.length());
 
-        vertex.textX = (theta + phi) / (2.0f * M_PI);
+        vertex.textX = (theta + M_PI) / (2.0f * M_PI);
         vertex.textY = phi / M_PI;
     }
 }

@@ -16,6 +16,9 @@ Texture::Texture() {
 void Texture::loadTextureFile(const char* texturePath) {
     // load and generate the texture
     int width, height, nbChannels;
+
+    stbi_set_flip_vertically_on_load(true);
+
     unsigned char* data = stbi_load(texturePath, &width, &height, &nbChannels, 0);
     if (data) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);    
@@ -29,6 +32,6 @@ void Texture::loadTextureFile(const char* texturePath) {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, this->id);
 
-    // Note: stbi_set_flip_vertically_on_load(true);
+    stbi_set_flip_vertically_on_load(true);
 }
 

@@ -98,13 +98,14 @@ void Model::parseVertex(VertexVector& parsedVertices,
     }
 
     try {
+        GLfloat x = std::stof(lineSplit[1]);
+        GLfloat y = std::stof(lineSplit[2]);
+        GLfloat z = std::stof(lineSplit[3]);
         Vertex vertex {
-            Vec3f(
-                    std::stof(lineSplit[1]),
-                    std::stof(lineSplit[2]),
-                    std::stof(lineSplit[3])),
+            Vec3f(x, y, z),
             Vec3f(),
-            0.0f, 0.0f
+            x, y
+            
         };
         parsedVertices.push_back(vertex);
     } catch (const std::invalid_argument &e) {
