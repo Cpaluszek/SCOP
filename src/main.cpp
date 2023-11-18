@@ -53,7 +53,7 @@ int main(const int argc, char *argv[]) {
     while (!glfwWindowShouldClose(window->instance)) {
         input.processInput(Window::getDeltaTime());
 
-        renderer.render(model);
+        renderer.render(model, texture.id);
 
         window->updateDisplay();
     }

@@ -1,4 +1,5 @@
 #include "../inc/Renderer.h"
+#include <GL/gl.h>
 
 Renderer::Renderer(Camera const& camera): camera(camera) {
     // Todo: check for errors
@@ -18,9 +19,12 @@ Renderer::~Renderer() {
     delete this->shader;
 }
 
-void Renderer::render(const Model* model) const {
+void Renderer::render(const Model* model, GLuint textureId) const {
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureId);
 
     // Set view matrix
     Mat4f view = camera.getViewMatrix();

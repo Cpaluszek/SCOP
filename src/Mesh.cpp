@@ -3,6 +3,7 @@
 Mesh::Mesh(const std::vector<Vertex>& vertices):
     vertices(vertices)
 {
+    this->mapTextureCoordinates();
     this->setupMesh();
 }
 
@@ -48,7 +49,20 @@ void Mesh::setupMesh() {
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
             reinterpret_cast<void*>(3 * sizeof(GLfloat)));
     // vertex texture coords
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+            reinterpret_cast<void*>(6 * sizeof(GLfloat)));
     
     glBindVertexArray(0);
+}
+
+void Mesh::mapTextureCoordinates() {
+    for (auto &vertex: this->vertices) {
+        float theta = std::atan2(vertex.position.z, vertex.position.x);
+        float phi = std::acos(vertex.position.y / vertex.position.length());
+
+        vertex.textX = (theta + phi) / (2.0f * M_PI);
+        vertex.textY = phi / M_PI;
+    }
 }
 

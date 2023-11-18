@@ -16,7 +16,7 @@ class Renderer {
      explicit Renderer(const Camera& camera);
      ~Renderer();
 
-     void render(const Model* model) const;
+     void render(const Model* model, GLuint textureId) const;
 
  private:
     Shader* shader;

@@ -1,6 +1,7 @@
 #ifndef INC_MESH_H_
 #define INC_MESH_H_
 
+#include <cmath>
 #include <vector>
 
 #include "../lib/GLEW/include/glew.h"
@@ -10,6 +11,7 @@
 struct Vertex {
     Vec3f position;
     Vec3f color;
+    GLfloat textX, textY;
 };
 
 typedef std::vector<Vertex> VertexVector;
@@ -30,6 +32,7 @@ class Mesh {
      std::vector<Vertex> vertices;
 
      void setupMesh();
+     void mapTextureCoordinates();
 };
 
 #endif

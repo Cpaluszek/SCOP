@@ -98,7 +98,8 @@ void Model::parseVertex(VertexVector& parsedVertices,
                     std::stof(lineSplit[1]),
                     std::stof(lineSplit[2]),
                     std::stof(lineSplit[3])),
-            Vec3f()
+            Vec3f(),
+            0.0f, 0.0f
         };
         parsedVertices.push_back(vertex);
     } catch (const std::invalid_argument &e) {
@@ -121,7 +122,6 @@ void Model::parseFace(
     if (lineSplit.size() < 4 || lineSplit.size() > 5) {
         throw std::runtime_error("Incorrect face format: should be triangle or quad");
     }
-    // Todo: use Vec3f for vertexColor
     try {
         for (size_t i = 1; i < lineSplit.size(); i++) {
             int index = std::stoi(lineSplit[i]);
