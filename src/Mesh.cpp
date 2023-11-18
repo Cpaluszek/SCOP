@@ -45,7 +45,8 @@ void Mesh::setupMesh() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nullptr);
     // vertex colors
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+            reinterpret_cast<void*>(3 * sizeof(GLfloat)));
     // vertex texture coords
     
     glBindVertexArray(0);

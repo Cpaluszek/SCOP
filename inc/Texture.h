@@ -7,6 +7,7 @@
 #include "../lib/GLEW/include/glew.h"
 #include "glfw3.h"
 
+// Note: Model should contains a texture instance?
 class Texture {
  public:
      Texture();

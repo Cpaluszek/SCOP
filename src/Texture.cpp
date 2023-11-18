@@ -28,5 +28,7 @@ void Texture::loadTextureFile(const char* texturePath) {
     // Bind texture
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, this->id);
+
+    // Note: stbi_set_flip_vertically_on_load(true);
 }
 
