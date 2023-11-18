@@ -15,7 +15,8 @@ HEADERS_FILES	:= 	Camera.h \
 					utils.h \
 					math.h \
 					math/Vec3f.h \
-					math/Mat4f.h
+					math/Mat4f.h \
+					stb_image.h
 
 HEADERS			:= $(addprefix $(HEADERS_DIR)/, $(HEADERS_FILES))
 
@@ -31,7 +32,8 @@ SRC_FILES		:=	main.cpp \
 					program_options.cpp \
 					utils.cpp \
 					math/Vec3f.cpp \
-					math/Mat4f.cpp
+					math/Mat4f.cpp \
+					stb_image.cpp
 
 SRCS			:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
