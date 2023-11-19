@@ -13,9 +13,9 @@ Mat4f::Mat4f(float value) {
 
 Mat4f Mat4f::translate(Mat4f const& m, Vec3f const& translation) {
     Mat4f result(m);
-    result.data[3 + Mat4f::Size * 0] = translation.x;
-    result.data[3 + Mat4f::Size * 1] = translation.y;
-    result.data[3 + Mat4f::Size * 2] = translation.z;
+    result.data[3 + Mat4f::Size * 0] += translation.x;
+    result.data[3 + Mat4f::Size * 1] += translation.y;
+    result.data[3 + Mat4f::Size * 2] += translation.z;
     return result;
 }
 

@@ -3,7 +3,7 @@
 Mesh::Mesh(const std::vector<Vertex>& vertices):
     vertices(vertices)
 {
-    this->mapTextureCoordinates();
+    // this->mapTextureCoordinates();
     this->findObjectOrigin();
     this->setupMesh();
 }
@@ -16,14 +16,15 @@ Mesh::~Mesh() {
 void Mesh::draw(Shader& shader, const double currentTime) const {
     // const Vec3f negPosition(-3.0f, 0.0f, -4.0f);
     const Mat4f identity(1.0f);   // Note: store idenity as const?
-    Mat4f model = Mat4f::translate(identity, this->origin.scale(-1.0f));
-    // std::cout << "model position: " << this->position << std::endl;
+    Mat4f model = Mat4f::translate(identity, this->origin);
+    // std::cout << "model tr: " << model << std::endl;
 
-    // (void) currentTime;
+    (void) currentTime;
     const GLfloat angle = math::radians(currentTime * 20.0f);
     model = Mat4f::rotate(model, angle, Vec3f(0.0f, 1.0f, 0.0f));
-    model = Mat4f::translate(model, this->origin);
-    model = Mat4f::translate(model, this->position);
+    model = Mat4f::translate(model, this->origin.scale(-1.0f));
+    // std::cout << "model tr: " << model << std::endl;
+    // model = Mat4f::translate(model, this->position);
     model = Mat4f::transpose(model);
     shader.setMat4("model", model);
 
