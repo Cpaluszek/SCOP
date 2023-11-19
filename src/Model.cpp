@@ -37,6 +37,7 @@ void Model::draw(Shader& shader, double currentTime) const {
 
     shader.setBool("useTexture", this->useTexture);
 
+    this->mesh->position = this->position;
     this->mesh->draw(shader, currentTime);
 }
 

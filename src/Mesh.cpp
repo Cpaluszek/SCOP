@@ -4,6 +4,7 @@ Mesh::Mesh(const std::vector<Vertex>& vertices):
     vertices(vertices)
 {
     this->mapTextureCoordinates();
+    this->findObjectOrigin();
     this->setupMesh();
 }
 
@@ -13,12 +14,16 @@ Mesh::~Mesh() {
 }
 
 void Mesh::draw(Shader& shader, const double currentTime) const {
-    const Vec3f position(0.0f, 0.0f, -5.0f);
+    // const Vec3f negPosition(-3.0f, 0.0f, -4.0f);
     const Mat4f identity(1.0f);   // Note: store idenity as const?
-    Mat4f model = Mat4f::translate(identity, position);
+    Mat4f model = Mat4f::translate(identity, this->origin.scale(-1.0f));
+    // std::cout << "model position: " << this->position << std::endl;
 
+    // (void) currentTime;
     const GLfloat angle = math::radians(currentTime * 20.0f);
     model = Mat4f::rotate(model, angle, Vec3f(0.0f, 1.0f, 0.0f));
+    model = Mat4f::translate(model, this->origin);
+    model = Mat4f::translate(model, this->position);
     model = Mat4f::transpose(model);
     shader.setMat4("model", model);
 
@@ -58,11 +63,19 @@ void Mesh::setupMesh() {
 
 void Mesh::mapTextureCoordinates() {
     for (auto &vertex: this->vertices) {
-        float theta = std::atan2(vertex.position.z, vertex.position.x);
-        float phi = std::acos(vertex.position.y / vertex.position.length());
 
+        float theta = std::atan2(vertex.position.z, vertex.position.x); float phi = std::acos(vertex.position.y / vertex.position.length());
         vertex.textX = (theta + M_PI) / (2.0f * M_PI);
         vertex.textY = phi / M_PI;
     }
+}
+
+void Mesh::findObjectOrigin() {
+    Vec3f sum;
+    for (Vertex v: this->vertices) {
+        sum += v.position;
+    }
+    this->origin = sum.scale(1.0f / this->vertices.size());
+    std::cout << "Origin: " << this->origin << std::endl;
 }
 

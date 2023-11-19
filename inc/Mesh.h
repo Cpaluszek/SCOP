@@ -22,17 +22,20 @@ class Mesh {
      Mesh(const std::vector<Vertex>& vertices);
 
      void draw(Shader& shader, double currentTime) const;
+     // Todo: set private
+     Vec3f position;
+     Vec3f origin;
 
  private:
      GLuint vao;   // Vertex array object
      GLuint vbo;    // Vertex buffer object
      // GLuint ebo;    // Element array buffer
 
-     Vec3f position;
      std::vector<Vertex> vertices;
 
      void setupMesh();
      void mapTextureCoordinates();
+     void findObjectOrigin();
 };
 
 #endif

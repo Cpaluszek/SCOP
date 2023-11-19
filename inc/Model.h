@@ -19,6 +19,7 @@ class Model {
 
      bool useTexture = false;
      bool polygonMode = false;
+     Vec3f position;
 
  private:
      Mesh* mesh;

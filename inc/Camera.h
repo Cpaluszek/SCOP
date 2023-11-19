@@ -3,7 +3,7 @@
 
 #include "./math.h"
 
-const Vec3f START_POSITION = Vec3f(0.0f, 0.0f, 3.0f);
+const Vec3f START_POSITION = Vec3f(0.0f, 0.0f, 9.0f);
 const Vec3f UP_DIR = Vec3f(0.0f, 1.0f, 0.0f);
 
 const float YAW = -90.0f;
