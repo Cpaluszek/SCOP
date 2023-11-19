@@ -31,10 +31,9 @@ void Renderer::render(const Model* model, GLuint textureId) const {
     view = Mat4f::transpose(view);
     this->shader->setMat4("view", view);
 
+    // Todo: if projection is static remove of the main loop
     // Set projection matrix
-    Mat4f projection = Mat4f::perspective(
-            math::radians(camera.zoom),
-            ASPECT_RATIO, NEAR_CLIP, FAR_CLIP);
+    Mat4f projection = camera.getProjectionMatrix();
     projection = Mat4f::transpose(projection);
     this->shader->setMat4("projection", projection);
     

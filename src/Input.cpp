@@ -9,8 +9,6 @@ void Input::processInput(Model& model, const float deltaTime) {
         glfwSetWindowShouldClose(this->window, GL_TRUE);
     }
 
-    this->cameraInput(deltaTime);
-
     // Toggle wireframe
     if (!this->keyStateMap[GLFW_KEY_P] && glfwGetKey(this->window, GLFW_KEY_P) == GLFW_PRESS) {
         this->keyStateMap[GLFW_KEY_P] = true;
@@ -23,69 +21,31 @@ void Input::processInput(Model& model, const float deltaTime) {
         model.useTexture ^= true;
     }
     if (glfwGetKey(this->window, GLFW_KEY_W) == GLFW_PRESS) {
-        model.position.y += 0.5f * deltaTime;
+        model.processKeyboardInput(UP, deltaTime);
     }
     if (glfwGetKey(this->window, GLFW_KEY_S) == GLFW_PRESS) {
-        model.position.y -= 0.5f * deltaTime;
+        model.processKeyboardInput(DOWN, deltaTime);
     }
     if (glfwGetKey(this->window, GLFW_KEY_A) == GLFW_PRESS) {
-        model.position.x -= 0.5f * deltaTime;
+        model.processKeyboardInput(LEFT, deltaTime);
     }
     if (glfwGetKey(this->window, GLFW_KEY_D) == GLFW_PRESS) {
-        model.position.x += 0.5f * deltaTime;
+        model.processKeyboardInput(RIGHT, deltaTime);
     }
-    if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS) {
-        model.position.z += 0.5f * deltaTime;
+    if (glfwGetKey(this->window, GLFW_KEY_R) == GLFW_PRESS) {
+        model.processKeyboardInput(BACKWARD, deltaTime);
     }
-    if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-        model.position.z -= 0.5f * deltaTime;
+    if (glfwGetKey(this->window, GLFW_KEY_F) == GLFW_PRESS) {
+        model.processKeyboardInput(FORWARD, deltaTime);
     }
+
+    // Todo: Reset Model
+    // if (!this->keyStateMap[GLFW_KEY_SPACE] && glfwGetKey(this->window, GLFW_KEY_SPACE)) {
+    //     this->keyStateMap[GLFW_KEY_SPACE] = true;
+    //     camera.reset();
+    // }
 
     this->resetKeyState();
-}
-
-void Input::cameraInput(const float deltaTime) {
-
-    // Camera Translation
-    // if (glfwGetKey(this->window, GLFW_KEY_W) == GLFW_PRESS) {
-    //     camera.processKeyboardInput(FORWARD, deltaTime);
-    // }
-    // if (glfwGetKey(this->window, GLFW_KEY_S) == GLFW_PRESS) {
-    //     camera.processKeyboardInput(BACKWARD, deltaTime);
-    // }
-    // if (glfwGetKey(this->window, GLFW_KEY_A) == GLFW_PRESS) {
-    //     camera.processKeyboardInput(LEFT, deltaTime);
-    // }
-    // if (glfwGetKey(this->window, GLFW_KEY_D) == GLFW_PRESS) {
-    //     camera.processKeyboardInput(RIGHT, deltaTime);
-    // }
-    // if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS) {
-    //     camera.processKeyboardInput(UP, deltaTime);
-    // }
-    // if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-    //     camera.processKeyboardInput(DOWN, deltaTime);
-    // }
-
-    // Camera Rotation
-    // Note: use numpad instead?
-    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
-        camera.processKeyboardInput(ROTATE_LEFT, deltaTime);
-    }
-    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
-        camera.processKeyboardInput(ROTATE_RIGHT, deltaTime);
-    }
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
-        camera.processKeyboardInput(ROTATE_UP, deltaTime);
-    }
-    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
-        camera.processKeyboardInput(ROTATE_DOWN, deltaTime);
-    }
-    
-    // Reset Camera
-    if (!this->keyStateMap[GLFW_KEY_SPACE] && glfwGetKey(this->window, GLFW_KEY_SPACE)) {
-        this->keyStateMap[GLFW_KEY_SPACE] = true;
-        camera.reset();
-    }
 }
 
 void Input::resetKeyState() {

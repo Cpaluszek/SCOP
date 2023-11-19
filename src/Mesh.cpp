@@ -16,7 +16,8 @@ Mesh::~Mesh() {
 void Mesh::draw(Shader& shader, const double currentTime) const {
     const Mat4f identity(1.0f);   // Note: store idenity as const?
 
-    Mat4f model = Mat4f::translate(identity, this->origin);
+    Mat4f model = Mat4f::translate(identity, this->position);
+    model = Mat4f::translate(model, this->origin);
 
     const GLfloat angle = math::radians(currentTime * 20.0f);
     model = Mat4f::rotate(model, angle, Vec3f(0.0f, 1.0f, 0.0f));
@@ -73,6 +74,5 @@ void Mesh::findObjectOrigin() {
         sum += v.position;
     }
     this->origin = sum.scale(1.0f / this->vertices.size());
-    std::cout << "Origin: " << this->origin << std::endl;
 }
 

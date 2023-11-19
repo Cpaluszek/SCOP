@@ -37,8 +37,25 @@ void Model::draw(Shader& shader, double currentTime) const {
 
     shader.setBool("useTexture", this->useTexture);
 
-    this->mesh->position = this->position;
     this->mesh->draw(shader, currentTime);
+}
+
+void Model::processKeyboardInput(Model_Movement direction, float deltaTime) {
+    float velocity = MOVEMENT_SPEED * deltaTime;
+
+    if (direction == UP) {
+        this->mesh->position.y += velocity;
+    } else if (direction == DOWN) {
+        this->mesh->position.y -= velocity;
+    } else if (direction == LEFT) {
+        this->mesh->position.x += velocity;
+    } else if (direction == RIGHT) {
+        this->mesh->position.x -= velocity;
+    } else if (direction == FORWARD) {
+        this->mesh->position.z -= velocity;
+    } else if (direction == BACKWARD) {
+        this->mesh->position.z += velocity;
+    }
 }
 
 // [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)

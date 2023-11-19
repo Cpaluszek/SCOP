@@ -11,15 +11,27 @@
 #include "./math.h"
 #include "./utils.h"
 
+enum Model_Movement {
+    UP,
+    DOWN,
+    RIGHT,
+    LEFT,
+    FORWARD,
+    BACKWARD
+};
+
+const float MOVEMENT_SPEED = 1.5f;
+
 class Model {
  public:
      ~Model();
      Model(const std::string& inputFile);
      void draw(Shader& shader, double currentTime) const;
 
+     void processKeyboardInput(Model_Movement direction, float deltaTime);
+
      bool useTexture = false;
      bool polygonMode = false;
-     Vec3f position;
 
  private:
      Mesh* mesh;

@@ -21,7 +21,6 @@ class Input {
      std::unordered_map<int, bool> keyStateMap;
 
      void resetKeyState();
-     void cameraInput(const float deltaTime);
 };
 
 #endif  // INC_INPUT_H_

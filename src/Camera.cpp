@@ -2,16 +2,21 @@
 
 // Todo: remove parameters
 Camera::Camera(const Vec3f position, const Vec3f up, const float yaw, const float pitch)
-    : front(Vec3f(0.0f, 0.0f, -1.0f)), movementSpeed(MOVEMENT_SPEED), zoom(ZOOM) {
+    : front(Vec3f(0.0f, 0.0f, -1.0f)), zoom(ZOOM) {
     this->position = position;
     this->worldUp = up;
     this->yaw = yaw;
     this->pitch = pitch;
-    this->rotationSpeed = ROTATION_SPEED;
     updateCameraVectors();
 }
 
 Mat4f Camera::getViewMatrix() const {
+    return Mat4f::lookAt(this->position, this->position + this->front, this->up);
+}
+
+Mat4f Camera::getProjectionMatrix() const {
+    return Mat4f::perspective(math::radians(this->zoom),
+            ASPECT_RATIO, NEAR_CLIP, FAR_CLIP);
     return Mat4f::lookAt(this->position, this->position + this->front, this->up);
 }
 
@@ -24,46 +29,5 @@ void Camera::updateCameraVectors() {
 
     this->right = Vec3f::normalize(Vec3f::cross(this->front, this->worldUp));
     this->up    = Vec3f::normalize(Vec3f::cross(this->right, this->front));
-}
-
-void Camera::processKeyboardInput(const Camera_Movement direction, const float deltaTime) {
-    const float velocity = this->movementSpeed * deltaTime;
-
-   if (direction == FORWARD) {
-       this->position += this->front * velocity;
-   } else if (direction == BACKWARD) {
-       this->position -= this->front * velocity;
-   } else if (direction == RIGHT) {
-       this->position += this->right* velocity;
-   } else if (direction == LEFT) {
-       this->position -= this->right * velocity;
-   } else if (direction == UP) {
-       this->position += this->up * velocity;
-   } else if (direction == DOWN) {
-       this->position -= this->up * velocity;
-   }
-
-   // Todo: create function for rotation
-   if (direction == ROTATE_RIGHT) {
-        this->yaw += this->rotationSpeed * deltaTime;
-        this->updateCameraVectors();
-   } else if (direction == ROTATE_LEFT) {
-        this->yaw -= this->rotationSpeed * deltaTime;
-        this->updateCameraVectors();
-   } else if (direction == ROTATE_UP) {
-        this->pitch += this->rotationSpeed * deltaTime;
-        this->updateCameraVectors();
-   } else if (direction == ROTATE_DOWN) {
-        this->pitch -= this->rotationSpeed * deltaTime;
-        this->updateCameraVectors();
-   }
-}
-
-void Camera::reset() {
-    this->position = START_POSITION;
-    this->up = UP_DIR;
-    this->yaw = YAW;
-    this->pitch = PITCH;
-    updateCameraVectors();
 }
 
