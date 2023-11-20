@@ -52,10 +52,11 @@ int main(const int argc, char *argv[]) {
     texture.loadTextureFile("./resources/textures/uvmap.jpeg");
 
     while (!glfwWindowShouldClose(window->instance)) {
+        float deltaTime = Window::getDeltaTime();
         // Note: use ptr??
-        input.processInput(*model, Window::getDeltaTime());
+        input.processInput(*model, deltaTime);
 
-        renderer.render(model, texture.id);
+        renderer.render(model, texture.id, deltaTime);
 
         window->updateDisplay();
     }

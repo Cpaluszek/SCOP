@@ -19,7 +19,7 @@ Renderer::~Renderer() {
     delete this->shader;
 }
 
-void Renderer::render(const Model* model, GLuint textureId) const {
+void Renderer::render(Model* model, GLuint textureId, float deltaTime) const {
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -38,6 +38,6 @@ void Renderer::render(const Model* model, GLuint textureId) const {
     this->shader->setMat4("projection", projection);
     
     /////////////////////////////////////
-    model->draw(*this->shader, glfwGetTime());
+    model->draw(*this->shader, glfwGetTime(), deltaTime);
 }
 

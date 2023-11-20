@@ -31,11 +31,16 @@ Model::Model(const std::string& inputFile) {
     }
 }
 
-void Model::draw(Shader& shader, double currentTime) const {
+void Model::draw(Shader& shader, double currentTime, float deltaTime) {
     // Todo: use events / callback
     glPolygonMode(GL_FRONT_AND_BACK, this->polygonMode ? GL_LINE : GL_FILL);
 
-    shader.setBool("useTexture", this->useTexture);
+    if (this->useTexture && this->textureTransitionFactor < 1.0f) {
+        this->textureTransitionFactor = std::min(this->textureTransitionFactor + deltaTime, 1.0f);
+    } else if (!this->useTexture && this->textureTransitionFactor > 0.0f) {
+        this->textureTransitionFactor = std::max(this->textureTransitionFactor - deltaTime, 0.0f);
+    }
+    shader.setFloat("textureTransitionFactor", this->textureTransitionFactor);
 
     this->mesh->draw(shader, currentTime);
 }

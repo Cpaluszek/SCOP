@@ -5,14 +5,14 @@ in vec2 TexCoord;
 
 out vec4 FragColor;
 
-uniform bool useTexture;
+uniform float textureTransitionFactor;
 uniform sampler2D customTexture;
 
 void main() {
-    if (useTexture) {
-        FragColor = texture(customTexture, TexCoord);
-    } else {
-        FragColor = color;
-    }
+    vec4 textureColor = texture(customTexture, TexCoord);
+
+    vec4 finalColor = mix(color, textureColor, textureTransitionFactor);
+
+    FragColor = finalColor;
 }
 

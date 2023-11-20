@@ -26,12 +26,13 @@ class Model {
  public:
      ~Model();
      Model(const std::string& inputFile);
-     void draw(Shader& shader, double currentTime) const;
+     void draw(Shader& shader, double currentTime, float deltaTime);
 
      void processKeyboardInput(Model_Movement direction, float deltaTime);
 
      bool useTexture = false;
      bool polygonMode = false;
+     float textureTransitionFactor = 0.0f;
 
  private:
      Mesh* mesh;
