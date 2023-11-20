@@ -3,20 +3,21 @@
 
 Input::Input(Camera& camera, GLFWwindow* windowInstance)
 : camera(camera), window(windowInstance) {
-    std::cout << "----- Keybinds: -----" << std::endl;
-    std::cout << " Object movements:" << std::endl;
-    std::cout << "  W: move up" << std::endl;
-    std::cout << "  A: move left" << std::endl;
-    std::cout << "  S: move down" << std::endl;
-    std::cout << "  D: move right" << std::endl;
-    std::cout << "  R: move forward" << std::endl;
-    std::cout << "  F: move backward" << std::endl;
-    std::cout << " Object Rotation:" << std::endl;
-    std::cout << "  TODO" << std::endl;
-    std::cout << " Polygon Mode:" << std::endl;
-    std::cout << "  P: switch between wireframe and fill" << std::endl;
-    std::cout << "---------------------" << std::endl;
-
+    std::cout << ANSI_COLOR_YELLOW << "----- Keybinds: -----" << ANSI_RESET << std::endl;
+    std::cout << ANSI_COLOR_CYAN << " Object Movements:" << ANSI_RESET << std::endl;
+    std::cout << "   W: Move Up" << std::endl;
+    std::cout << "   A: Move Left" << std::endl;
+    std::cout << "   S: Move Down" << std::endl;
+    std::cout << "   D: Move Right" << std::endl;
+    std::cout << "   R: Move Forward" << std::endl;
+    std::cout << "   F: Move Backward" << std::endl;
+    std::cout << ANSI_COLOR_CYAN << " Object Rotation:" << ANSI_RESET << std::endl;
+    std::cout << "   TODO" << std::endl; // Placeholder for rotation controls
+    std::cout << ANSI_COLOR_CYAN << " Polygon Mode:" << ANSI_RESET << std::endl;
+    std::cout << "   P: Switch between Wireframe and Fill" << std::endl;
+    std::cout << ANSI_COLOR_CYAN << " Texture:" << ANSI_RESET << std::endl;
+    std::cout << "   T: Switch between Texture and Color" << std::endl;
+    std::cout << ANSI_COLOR_YELLOW << "---------------------" << ANSI_RESET << std::endl;
 }
 
 void Input::processInput(Model& model, const float deltaTime) { 
