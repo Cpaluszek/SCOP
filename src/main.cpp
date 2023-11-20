@@ -34,10 +34,6 @@ int main(const int argc, char *argv[]) {
     }
 
     // Init program systems
-    Camera camera;
-    Renderer renderer(camera);
-    Input input(camera, window->instance);
-
     Model* model;
     try {
         model = new Model(program_options::inputFile());
@@ -47,6 +43,11 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    Camera camera;
+    Renderer renderer(camera);
+    Input input(camera, window->instance);
+
+    // Todo: move texture to model class
     Texture texture;
     texture.loadTextureFile("./resources/textures/uvmap.jpeg");
 
