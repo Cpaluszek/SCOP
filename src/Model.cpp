@@ -72,6 +72,7 @@ void Model::loadOBJFile(std::ifstream& file) {
     std::uniform_real_distribution<float> dis(0.0f, 1.0f);
 
     size_t normalCount = 0;
+    size_t textureCoordCount = 0;
     VertexVector parsedVertices;
     VertexVector finalVertices;
 
@@ -92,6 +93,8 @@ void Model::loadOBJFile(std::ifstream& file) {
                 throw std::runtime_error("Vertex need be listed before faces");
             } else if (normalCount != 0 && normalCount != parsedVertices.size()) {
                 throw std::runtime_error("Vertex count does not match normal count");
+            } else if (textureCoordCount != 0 && textureCoordCount != parsedVertices.size()) {
+                throw std::runtime_error("Vertex count does not match normal count");
             }
             Vec3f randomColor(dis(gen), dis(gen), dis(gen));
             this->parseFace(parsedVertices, finalVertices, randomColor, lineSplit, line);
@@ -108,7 +111,7 @@ void Model::loadOBJFile(std::ifstream& file) {
             else if (lineSplit[1] == "off") this->useSmoothShading = false;
             else throw std::runtime_error("Incorrect smooth shading parameter: " + lineSplit[1]);
         } else if (lineSplit[0] == TEXT_COORDS_KEYWORD) {
-            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+            this->parseVertexTextureCoords(parsedVertices, textureCoordCount, lineSplit, line);
         } else if (lineSplit[0] == MAT_FILE_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
         } else if (lineSplit[0] == MAT_NAME_KEYWORD) {
@@ -174,6 +177,34 @@ void Model::parseVertexNormal(
         GLfloat z = std::stof(lineSplit[3]);
         Vec3f normal(x, y, z);
         parsedVertices[normalCount++].normal = Vec3f::normalize(normal);
+    } catch (const std::invalid_argument& e) {
+        throw std::runtime_error("Argument is invalid: " + line);
+    } catch (const std::out_of_range& e) {
+        throw std::runtime_error("Argument is out of range: " + line);
+    }
+}
+
+void Model::parseVertexTextureCoords(
+        VertexVector& parsedVertices,
+        size_t& textureCoordsCount,
+        const std::vector<std::string>& lineSplit,
+        const std::string& line) {
+
+    if (lineSplit.size() < 2 || lineSplit.size() > 4) {
+        throw std::runtime_error("Incorrect vertex texture coords format: (u, [v, w])");
+    }
+
+    if (textureCoordsCount >= parsedVertices.size()) {
+        throw std::runtime_error("Texture coords count is greater than vertex count");
+    }
+    try {
+        GLfloat u = std::stof(lineSplit[1]);
+        GLfloat v = lineSplit.size() > 2 ? std::stof(lineSplit[2]) : 0.0f;
+        if (u < 0.0f || u > 1.0f || v < 0.0f || v > 1.0f) {
+            throw std::runtime_error("Texture coords should in range [0.0f, 1.0f]");
+        }
+        parsedVertices[textureCoordsCount].textX = u;
+        parsedVertices[textureCoordsCount++].textY = v;
     } catch (const std::invalid_argument& e) {
         throw std::runtime_error("Argument is invalid: " + line);
     } catch (const std::out_of_range& e) {

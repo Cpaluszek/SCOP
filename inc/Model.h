@@ -49,6 +49,11 @@ class Model {
              size_t& normalCount,
              const std::vector<std::string>& lineSplit,
              const std::string& line);
+     void parseVertexTextureCoords(
+             VertexVector& parsedVertices,
+             size_t& textureCoordCount,
+             const std::vector<std::string>& lineSplit,
+             const std::string& line);
      void parseFace(
              const VertexVector& parsedVertices,
              VertexVector& finalVertices,
