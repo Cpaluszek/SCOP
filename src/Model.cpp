@@ -362,19 +362,16 @@ void Model::parseFaceNormal(
 }
 
 void Model::determineFaceFormat(const std::vector<std::string>& lineSplit) {
-    size_t slashPos = lineSplit[1].find('/');
-    if (slashPos == std::string::npos) {
+    std::vector<std::string> slashSplit = utils::splitString(lineSplit[1], '/');
+    if (slashSplit.size() == 1) {
         this->faceFormat = VERTEX;
-    } else {
-        size_t secondSlashPos = lineSplit[1].find('/', slashPos + 1);
-        if (secondSlashPos == std::string::npos) {
-            this->faceFormat = VERTEX_TEXTURE;
+    } else if (slashSplit.size() == 2) {
+        this->faceFormat = VERTEX_TEXTURE;
+    } else if (slashSplit.size() == 3) {
+        if (slashSplit[1].size() == 0) {
+            this->faceFormat = VERTEX_NORMAL;
         } else {
-            if (secondSlashPos == slashPos + 1) {
-                this->faceFormat = VERTEX_NORMAL;
-            } else {
-                this->faceFormat = VERTEX_TEXTURE_NORMAL;
-            }
+            this->faceFormat = VERTEX_TEXTURE_NORMAL;
         }
     }
 }
