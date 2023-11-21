@@ -179,7 +179,6 @@ void Model::parseVertexNormal(
         std::vector<Vec3f>& normals,
         const std::vector<std::string>& lineSplit,
         const std::string& line) {
-
     if (lineSplit.size() != 4) {
         throw std::runtime_error("Incorrect vertex normal format: (x, y, z)");
     }
@@ -201,7 +200,6 @@ void Model::parseVertexTextureCoords(
         std::vector<Vec3f>& textureCoords,
         const std::vector<std::string>& lineSplit,
         const std::string& line) {
-
     if (lineSplit.size() < 2 || lineSplit.size() > 4) {
         throw std::runtime_error("Incorrect vertex texture coords format: (u, [v, w])");
     }
@@ -228,7 +226,6 @@ void Model::parseFace(
              const std::string& line) {
     try {
         for (size_t i = 1; i < lineSplit.size(); i++) {
-
             size_t slashPos = lineSplit[i].find('/');
             if (slashPos != std::string::npos) {
                 throw std::runtime_error("Inconsistent face format");
@@ -265,7 +262,6 @@ void Model::parseFaceTexture(
         const std::string& line) {
     try {
         for (size_t i = 1; i < lineSplit.size(); i++) {
-
             size_t slashPos = lineSplit[i].find('/');
             if (slashPos == std::string::npos) {
                 throw std::runtime_error("Inconsistent face format");
@@ -309,7 +305,6 @@ void Model::parseFaceTextureNormal(
         const std::string& line) {
     try {
         for (size_t i = 1; i < lineSplit.size(); i++) {
-
             size_t slashPos = lineSplit[i].find('/');
             if (slashPos == std::string::npos) {
                 throw std::runtime_error("Inconsistent face format");
@@ -321,7 +316,7 @@ void Model::parseFaceTextureNormal(
 
             int vertexIndex = std::stoi(indices[0]);
             int textCoordIndex = std::stoi(indices[1]);
-            int normalIndex = std::stoi(indices[1]);
+            int normalIndex = std::stoi(indices[2]);
             // Todo: check for neg or overflow
             if (i == 4) {
                 auto a = *(finalVertices.rbegin() + 3 - 1);
@@ -352,13 +347,38 @@ void Model::parseFaceNormal(
         const Vec3f& faceColor,
         const std::vector<std::string>& lineSplit,
         const std::string& line) {
-    (void) parsedVertices;
-    (void) normals;
-    (void) finalVertices;
-    (void) faceColor;
-    (void) lineSplit;
-    (void) line;
+    try {
+        for (size_t i = 1; i < lineSplit.size(); i++) {
+            size_t slashPos = lineSplit[i].find('/');
+            if (slashPos == std::string::npos) {
+                throw std::runtime_error("Inconsistent face format");
+            }
+            std::vector<std::string> indices = utils::splitString(lineSplit[i], '/');
+            if (indices.size() != 3 || (indices.size() == 3 && indices[1].size() != 0)) {
+                throw std::runtime_error("Inconsistent face format");
+            }
 
+            int vertexIndex = std::stoi(indices[0]);
+            int normalIndex = std::stoi(indices[2]);
+            // Todo: check for neg or overflow
+            if (i == 4) {
+                auto a = *(finalVertices.rbegin() + 3 - 1);
+                auto b = *(finalVertices.rbegin() + 1 - 1);
+                a.color = faceColor;
+                finalVertices.push_back(a);
+                b.color = faceColor;
+                finalVertices.push_back(b);
+            }
+            auto currentVertex = parsedVertices[vertexIndex - 1];
+            currentVertex.normal = normals[normalIndex - 1];
+            currentVertex.color = faceColor;
+            finalVertices.push_back(currentVertex);
+        }
+    } catch (const std::invalid_argument &e) {
+        throw std::runtime_error("Argument is invalid: " + line);
+    } catch (const std::out_of_range &e) {
+        throw std::runtime_error("Argument is out of range: " + line);
+    }
 }
 
 void Model::determineFaceFormat(const std::vector<std::string>& lineSplit) {
