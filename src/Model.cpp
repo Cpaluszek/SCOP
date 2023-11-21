@@ -118,9 +118,9 @@ void Model::loadOBJFile(std::ifstream& file) {
         } else if (lineSplit[0] == GROUP_NAME_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
         } else if (lineSplit[0] == LINE_KEYWORD) {
-            std::cerr << "This project do not support line elements" << std::endl;
+            std::cerr << "This project does not support line elements" << std::endl;
         } else if (lineSplit[0] == PARAM_SPACE_VERTICES_KEYWORD) {
-            std::cerr << "This project do not support parameter space vertices" << std::endl;
+            std::cerr << "This project does not support parameter space vertices" << std::endl;
         } else {
             std::cerr << "Parsing: '" << line << "' unknown keyword" << std::endl;
         }
