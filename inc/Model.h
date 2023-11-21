@@ -37,6 +37,8 @@ class Model {
  private:
      Mesh* mesh;
 
+     bool useSmoothShading = false;     // Todo: use in shaders
+
      void loadOBJFile(std::ifstream& file);
      void parseVertex(
              VertexVector& parsedVertices,

@@ -101,7 +101,12 @@ void Model::loadOBJFile(std::ifstream& file) {
         else if (lineSplit[0] == VERTEX_NORMALS_KEYWORD) {
             this->parseVertexNormal(parsedVertices, normalCount, lineSplit, line);
         } else if (lineSplit[0] == SMOOTH_SHADING_KEYWORD) {
-            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+            if (lineSplit.size() != 2) {
+                throw std::runtime_error("Incorrect smooth shading format: (1 / off)");
+            }
+            if (lineSplit[1] == "1") this->useSmoothShading = true;
+            else if (lineSplit[1] == "off") this->useSmoothShading = false;
+            else throw std::runtime_error("Incorrect smooth shading parameter: " + lineSplit[1]);
         } else if (lineSplit[0] == TEXT_COORDS_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
         } else if (lineSplit[0] == MAT_FILE_KEYWORD) {
