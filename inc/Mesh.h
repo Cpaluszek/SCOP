@@ -23,14 +23,13 @@ class Mesh {
      Mesh(const std::vector<Vertex>& vertices);
 
      void draw(Shader& shader, double currentTime) const;
-     // Todo: set private
      Vec3f position;
-     Vec3f origin;
 
  private:
      GLuint vao;   // Vertex array object
      GLuint vbo;    // Vertex buffer object
 
+     Vec3f origin;
      std::vector<Vertex> vertices;
 
      void setupMesh();
