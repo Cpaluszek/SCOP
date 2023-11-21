@@ -14,7 +14,7 @@ Vec3f Vec3f::operator+(const Vec3f& other) const {
             this->z + other.z);
 }
 
-Vec3f Vec3f::operator+=(const Vec3f &other) {
+Vec3f Vec3f::operator+=(const Vec3f& other) {
     this->x += other.x;
     this->y += other.y;
     this->z += other.z;
@@ -28,7 +28,7 @@ Vec3f Vec3f::operator-(const Vec3f& other) const {
             this->z - other.z);
 }
 
-Vec3f Vec3f::operator-=(const Vec3f &other) {
+Vec3f Vec3f::operator-=(const Vec3f& other) {
     this->x -= other.x;
     this->y -= other.y;
     this->z -= other.z;

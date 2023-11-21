@@ -15,10 +15,10 @@ class Vec3f {
     explicit Vec3f(float value);
     Vec3f(float x, float y, float z);
 
-    Vec3f operator+(const Vec3f &other) const;
-    Vec3f operator+=(const Vec3f &other);
-    Vec3f operator-(const Vec3f &other) const;
-    Vec3f operator-=(const Vec3f &other);
+    Vec3f operator+(const Vec3f& other) const;
+    Vec3f operator+=(const Vec3f& other);
+    Vec3f operator-(const Vec3f& other) const;
+    Vec3f operator-=(const Vec3f& other);
     Vec3f operator*(float) const;
 
     float length() const;

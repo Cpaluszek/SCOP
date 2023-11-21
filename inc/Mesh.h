@@ -10,6 +10,7 @@
 
 struct Vertex {
     Vec3f position;
+    Vec3f normal;
     Vec3f color;
     GLfloat textX, textY;
 };

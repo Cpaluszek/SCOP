@@ -42,6 +42,11 @@ class Model {
              VertexVector& parsedVertices,
              const std::vector<std::string>& lineSplit,
              const std::string& line);
+     void parseVertexNormal(
+             VertexVector& parsedVertices,
+             size_t& normalCount,
+             const std::vector<std::string>& lineSplit,
+             const std::string& line);
      void parseFace(
              const VertexVector& parsedVertices,
              VertexVector& finalVertices,

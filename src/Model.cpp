@@ -1,4 +1,5 @@
 #include "../inc/Model.h"
+#include <stdexcept>
 
 #define COMMENT_KEYWORD "#"
 #define VERTEX_KEYWORD "v"
@@ -70,41 +71,46 @@ void Model::loadOBJFile(std::ifstream& file) {
     std::mt19937 gen(rd());
     std::uniform_real_distribution<float> dis(0.0f, 1.0f);
 
+    size_t normalCount = 0;
     VertexVector parsedVertices;
     VertexVector finalVertices;
 
     std::string line;
     while (std::getline(file, line)) {
-        if (line.empty()) {
-            continue ;
-        }
+        if (line.empty()) continue ;
 
         std::vector<std::string> lineSplit = utils::splitString(line, ' ');
-        if (lineSplit.size() == 1 || lineSplit[0] == COMMENT_KEYWORD) {
-            continue ;
-        }
+        if (lineSplit.size() == 1 || lineSplit[0] == COMMENT_KEYWORD) continue ;
 
         if (lineSplit[0] == VERTEX_KEYWORD) {
+            if (finalVertices.size() != 0) {
+                throw std::runtime_error("Vertex to need be listed before faces");
+            }
             this->parseVertex(parsedVertices, lineSplit, line);
         } else if (lineSplit[0] == FACE_KEYWORD) {
+            if (parsedVertices.size() == 0) {
+                throw std::runtime_error("Vertex need be listed before faces");
+            } else if (normalCount != 0 && normalCount != parsedVertices.size()) {
+                throw std::runtime_error("Vertex count does not match normal count");
+            }
             Vec3f randomColor(dis(gen), dis(gen), dis(gen));
             this->parseFace(parsedVertices, finalVertices, randomColor, lineSplit, line);
         }
         // Todo: check for other keywords
         // How to process invalid or unsupported keyword - exit??
-        else if (lineSplit[0] == SMOOTH_SHADING_KEYWORD) {
+        else if (lineSplit[0] == VERTEX_NORMALS_KEYWORD) {
+            this->parseVertexNormal(parsedVertices, normalCount, lineSplit, line);
+        } else if (lineSplit[0] == SMOOTH_SHADING_KEYWORD) {
+            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else if (lineSplit[0] == TEXT_COORDS_KEYWORD) {
+            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else if (lineSplit[0] == MAT_FILE_KEYWORD) {
+            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else if (lineSplit[0] == MAT_NAME_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
         } else if (lineSplit[0] == OBJ_NAME_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
         } else if (lineSplit[0] == GROUP_NAME_KEYWORD) {
-            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        } else if (lineSplit[0] == TEXT_COORDS_KEYWORD) {
-            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        } else if (lineSplit[0] == VERTEX_NORMALS_KEYWORD) {
-            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        }else if (lineSplit[0] == MAT_FILE_KEYWORD) {
-            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        } else if (lineSplit[0] == MAT_NAME_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
         } else if (lineSplit[0] == LINE_KEYWORD) {
             std::cerr << "This project do not support line elements" << std::endl;
@@ -117,7 +123,8 @@ void Model::loadOBJFile(std::ifstream& file) {
     this->mesh = new Mesh(finalVertices);
 }
 
-void Model::parseVertex(VertexVector& parsedVertices,
+void Model::parseVertex(
+        VertexVector& parsedVertices,
         const std::vector<std::string>& lineSplit,
         const std::string& line) {
     if (lineSplit.size() < 4 || lineSplit.size() > 5) {
@@ -131,6 +138,7 @@ void Model::parseVertex(VertexVector& parsedVertices,
         Vertex vertex {
             Vec3f(x, y, z),
             Vec3f(),
+            Vec3f(),
             x, y
             
         };
@@ -139,6 +147,32 @@ void Model::parseVertex(VertexVector& parsedVertices,
         throw std::runtime_error("Argument is invalid: " + line);
     } catch (const std::out_of_range &e) {
         throw std::runtime_error("Argument is out of range:" + line);
+    }
+}
+
+void Model::parseVertexNormal(
+        VertexVector& parsedVertices,
+        size_t& normalCount,
+        const std::vector<std::string>& lineSplit,
+        const std::string& line) {
+
+    if (lineSplit.size() != 4) {
+        throw std::runtime_error("Incorrect vertex normal format: (x, y, z)");
+    }
+
+    if (normalCount >= parsedVertices.size()) {
+        throw std::runtime_error("Normal count is greater than vertex count");
+    }
+    try {
+        GLfloat x = std::stof(lineSplit[1]);
+        GLfloat y = std::stof(lineSplit[2]);
+        GLfloat z = std::stof(lineSplit[3]);
+        Vec3f normal(x, y, z);
+        parsedVertices[normalCount++].normal = Vec3f::normalize(normal);
+    } catch (const std::invalid_argument& e) {
+        throw std::runtime_error("Argument is invalid: " + line);
+    } catch (const std::out_of_range& e) {
+        throw std::runtime_error("Argument is out of range: " + line);
     }
 }
 
