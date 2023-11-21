@@ -8,6 +8,7 @@ HEADERS_FILES	:= 	Camera.h \
 					Input.h \
 					Mesh.h \
 					Model.h \
+					ObjParser.h \
 					Renderer.h \
 					Shader.h \
 					Texture.h \
@@ -27,6 +28,7 @@ SRC_FILES		:=	main.cpp \
 					Input.cpp \
 					Mesh.cpp \
 					Model.cpp \
+					ObjParser.cpp \
 					Renderer.cpp \
 					Shader.cpp \
 					Texture.cpp \

@@ -8,6 +8,7 @@
 #include "./math.h"
 #include "./Shader.h"
 
+// Note: define vertex on its own file?
 struct Vertex {
     Vec3f position;
     Vec3f normal;       // Todo: use normals in shaders

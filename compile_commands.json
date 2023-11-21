@@ -106,6 +106,25 @@
       "-I./lib/GLFW/include",
       "-c",
       "-o",
+      "build/ObjParser.o",
+      "src/ObjParser.cpp"
+    ],
+    "directory": "/home/noon/github/SCOP",
+    "file": "/home/noon/github/SCOP/src/ObjParser.cpp",
+    "output": "/home/noon/github/SCOP/build/ObjParser.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wextra",
+      "-Werror",
+      "-Wall",
+      "-std=c++17",
+      "-O2",
+      "-g3",
+      "-I./lib/GLFW/include",
+      "-c",
+      "-o",
       "build/Renderer.o",
       "src/Renderer.cpp"
     ],
