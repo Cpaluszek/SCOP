@@ -307,15 +307,44 @@ void Model::parseFaceTextureNormal(
         const Vec3f& faceColor,
         const std::vector<std::string>& lineSplit,
         const std::string& line) {
-    (void) parsedVertices;
-    (void) textureCoords;
-    (void) normals;
-    (void) finalVertices;
-    (void) faceColor;
-    (void) lineSplit;
-    (void) line;
+    try {
+        for (size_t i = 1; i < lineSplit.size(); i++) {
 
+            size_t slashPos = lineSplit[i].find('/');
+            if (slashPos == std::string::npos) {
+                throw std::runtime_error("Inconsistent face format");
+            }
+            std::vector<std::string> indices = utils::splitString(lineSplit[i], '/');
+            if (indices.size() != 3) {
+                throw std::runtime_error("Inconsistent face format");
+            }
+
+            int vertexIndex = std::stoi(indices[0]);
+            int textCoordIndex = std::stoi(indices[1]);
+            int normalIndex = std::stoi(indices[1]);
+            // Todo: check for neg or overflow
+            if (i == 4) {
+                auto a = *(finalVertices.rbegin() + 3 - 1);
+                auto b = *(finalVertices.rbegin() + 1 - 1);
+                a.color = faceColor;
+                finalVertices.push_back(a);
+                b.color = faceColor;
+                finalVertices.push_back(b);
+            }
+            auto currentVertex = parsedVertices[vertexIndex - 1];
+            currentVertex.textX = textureCoords[textCoordIndex - 1].x;
+            currentVertex.textY = textureCoords[textCoordIndex - 1].y;
+            currentVertex.normal = normals[normalIndex - 1];
+            currentVertex.color = faceColor;
+            finalVertices.push_back(currentVertex);
+        }
+    } catch (const std::invalid_argument &e) {
+        throw std::runtime_error("Argument is invalid: " + line);
+    } catch (const std::out_of_range &e) {
+        throw std::runtime_error("Argument is out of range: " + line);
+    }
 }
+
 void Model::parseFaceNormal(
         const VertexVector& parsedVertices,
         std::vector<Vec3f>& normals,
