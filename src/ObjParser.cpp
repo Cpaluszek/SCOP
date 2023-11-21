@@ -1,6 +1,7 @@
 #include "../inc/ObjParser.h"
 #include <random>
 
+// Todo: in face parsing test for invalid index access
 
 ObjParser::ObjParser() {
     // Setup random distribution for colors
@@ -13,64 +14,69 @@ ObjParser::ObjParser() {
 void ObjParser::parseObjFile(std::ifstream& file) {
     std::string line;
     while (std::getline(file, line)) {
-        // Todo: check for other keywords
-        // How to process invalid or unsupported keyword - exit??
+        // Todo: How to process invalid or unsupported keyword - exit??
         if (line.empty()) continue ;
 
         VecString lineSplit = utils::splitString(line, ' ');
         if (lineSplit.size() == 1 || lineSplit[0] == COMMENT_KEYWORD) continue ;
+        
+        this->parseLine(lineSplit, line);
+    }
+}
 
-        // Note: maybe use map with functions to iterate
-        if (lineSplit[0] == VERTEX_KEYWORD) {
-            if (finalVertices.size() != 0) {
-                throw std::runtime_error("Vertex to need be listed before faces");
-            }
-            this->parseVertex(lineSplit, line);
-        } else if (lineSplit[0] == FACE_KEYWORD) {
-            if (parsedVertices.size() == 0) {
-                throw std::runtime_error("Vertex need be listed before faces");
-            } else if (finalVertices.size() == 0) {
-                this->determineFaceFormat(lineSplit);
-            } else if (lineSplit.size() < 4 || lineSplit.size() > 5) {
-                throw std::runtime_error("Incorrect face format: should be triangle or quad");
-            }
-    
-            switch (this->faceFormat) {
-                case VERTEX:
-                    this->parseFace(getRandomColor(), lineSplit, line);
-                    break;
-                case VERTEX_TEXTURE:
-                    this->parseFaceTexture(getRandomColor(), lineSplit, line);
-                    break;
-                case VERTEX_TEXTURE_NORMAL:
-                    this->parseFaceTextureNormal(getRandomColor(), lineSplit, line);
-                    break;
-                case VERTEX_NORMAL:
-                    this->parseFaceNormal(getRandomColor(), lineSplit, line);
-                    break;
-            }
+void ObjParser::parseLine(const VecString& lineSplit, const std::string& line) {
+    // Note: maybe use map with functions to iterate
+    if (lineSplit[0] == VERTEX_KEYWORD) {
+        if (finalVertices.size() != 0) {
+            throw std::runtime_error("Vertex to need be listed before faces");
         }
-        else if (lineSplit[0] == VERTEX_NORMALS_KEYWORD) {
-            this->parseVertexNormal(lineSplit, line);
-        } else if (lineSplit[0] == SMOOTH_SHADING_KEYWORD) {
-            this->parseSmoothShading(lineSplit);
-        } else if (lineSplit[0] == TEXT_COORDS_KEYWORD) {
-            this->parseVertexTextureCoords(lineSplit, line);
-        } else if (lineSplit[0] == MAT_FILE_KEYWORD) {
-            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        } else if (lineSplit[0] == MAT_NAME_KEYWORD) {
-            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        } else if (lineSplit[0] == OBJ_NAME_KEYWORD) {
-            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        } else if (lineSplit[0] == GROUP_NAME_KEYWORD) {
-            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        } else if (lineSplit[0] == LINE_KEYWORD) {
-            std::cerr << "This project does not support line elements" << std::endl;
-        } else if (lineSplit[0] == PARAM_SPACE_VERTICES_KEYWORD) {
-            std::cerr << "This project does not support parameter space vertices" << std::endl;
-        } else {
-            std::cerr << "Parsing: '" << line << "' unknown keyword" << std::endl;
+        this->parseVertex(lineSplit, line);
+    } else if (lineSplit[0] == FACE_KEYWORD) {
+        if (parsedVertices.size() == 0) {
+            throw std::runtime_error("Vertex need be listed before faces");
+        } 
+        if (lineSplit.size() < 4 || lineSplit.size() > 5) {
+            throw std::runtime_error("Incorrect face format: should be triangle or quad");
         }
+        if (finalVertices.size() == 0) {
+            this->determineFaceFormat(lineSplit);
+        }
+
+        switch (this->faceFormat) {
+            case VERTEX:
+                this->parseFace(getRandomColor(), lineSplit, line);
+                break;
+            case VERTEX_TEXTURE:
+                this->parseFaceTexture(getRandomColor(), lineSplit, line);
+                break;
+            case VERTEX_TEXTURE_NORMAL:
+                this->parseFaceTextureNormal(getRandomColor(), lineSplit, line);
+                break;
+            case VERTEX_NORMAL:
+                this->parseFaceNormal(getRandomColor(), lineSplit, line);
+                break;
+        }
+    }
+    else if (lineSplit[0] == VERTEX_NORMALS_KEYWORD) {
+        this->parseVertexNormal(lineSplit, line);
+    } else if (lineSplit[0] == SMOOTH_SHADING_KEYWORD) {
+        this->parseSmoothShading(lineSplit);
+    } else if (lineSplit[0] == TEXT_COORDS_KEYWORD) {
+        this->parseVertexTextureCoords(lineSplit, line);
+    } else if (lineSplit[0] == MAT_FILE_KEYWORD) {
+        std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+    } else if (lineSplit[0] == MAT_NAME_KEYWORD) {
+        std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+    } else if (lineSplit[0] == OBJ_NAME_KEYWORD) {
+        std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+    } else if (lineSplit[0] == GROUP_NAME_KEYWORD) {
+        std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+    } else if (lineSplit[0] == LINE_KEYWORD) {
+        std::cerr << "This project does not support line elements" << std::endl;
+    } else if (lineSplit[0] == PARAM_SPACE_VERTICES_KEYWORD) {
+        std::cerr << "This project does not support parameter space vertices" << std::endl;
+    } else {
+        std::cerr << "Parsing: '" << line << "' unknown keyword" << std::endl;
     }
 }
 

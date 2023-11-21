@@ -49,6 +49,7 @@ class ObjParser {
 
     Face_Format faceFormat = VERTEX;
 
+    void parseLine(const VecString& lineSplit, const std::string& line);
     void parseVertex(
             const std::vector<std::string>& lineSplit,
             const std::string& line);
