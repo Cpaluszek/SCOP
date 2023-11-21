@@ -10,7 +10,7 @@
 
 struct Vertex {
     Vec3f position;
-    Vec3f normal;
+    Vec3f normal;       // Todo: use normals in shaders
     Vec3f color;
     GLfloat textX, textY;
 };
@@ -30,7 +30,6 @@ class Mesh {
  private:
      GLuint vao;   // Vertex array object
      GLuint vbo;    // Vertex buffer object
-     // GLuint ebo;    // Element array buffer
 
      std::vector<Vertex> vertices;
 
