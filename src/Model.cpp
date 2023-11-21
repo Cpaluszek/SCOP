@@ -1,5 +1,6 @@
 #include "../inc/Model.h"
 #include <stdexcept>
+#include <vector>
 
 #define COMMENT_KEYWORD "#"
 #define VERTEX_KEYWORD "v"
@@ -67,22 +68,26 @@ void Model::processKeyboardInput(Model_Movement direction, float deltaTime) {
 
 // [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
 void Model::loadOBJFile(std::ifstream& file) {
+    // TODO: move to another file
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<float> dis(0.0f, 1.0f);
 
-    size_t normalCount = 0;
-    size_t textureCoordCount = 0;
+    std::vector<Vec3f> normals;
+    std::vector<Vec3f> textureCoords;
     VertexVector parsedVertices;
     VertexVector finalVertices;
 
     std::string line;
     while (std::getline(file, line)) {
+        // Todo: check for other keywords
+        // How to process invalid or unsupported keyword - exit??
         if (line.empty()) continue ;
 
         std::vector<std::string> lineSplit = utils::splitString(line, ' ');
         if (lineSplit.size() == 1 || lineSplit[0] == COMMENT_KEYWORD) continue ;
 
+        // Note: maybe use map with functions to iterate
         if (lineSplit[0] == VERTEX_KEYWORD) {
             if (finalVertices.size() != 0) {
                 throw std::runtime_error("Vertex to need be listed before faces");
@@ -91,18 +96,30 @@ void Model::loadOBJFile(std::ifstream& file) {
         } else if (lineSplit[0] == FACE_KEYWORD) {
             if (parsedVertices.size() == 0) {
                 throw std::runtime_error("Vertex need be listed before faces");
-            } else if (normalCount != 0 && normalCount != parsedVertices.size()) {
-                throw std::runtime_error("Vertex count does not match normal count");
-            } else if (textureCoordCount != 0 && textureCoordCount != parsedVertices.size()) {
-                throw std::runtime_error("Vertex count does not match normal count");
+            } else if (finalVertices.size() == 0) {
+                this->determineFaceFormat(lineSplit);
+            } else if (lineSplit.size() < 4 || lineSplit.size() > 5) {
+                throw std::runtime_error("Incorrect face format: should be triangle or quad");
             }
+    
             Vec3f randomColor(dis(gen), dis(gen), dis(gen));
-            this->parseFace(parsedVertices, finalVertices, randomColor, lineSplit, line);
+            switch (this->faceFormat) {
+                case VERTEX:
+                    this->parseFace(parsedVertices, finalVertices, randomColor, lineSplit, line);
+                    break;
+                case VERTEX_TEXTURE:
+                    this->parseFaceTexture(parsedVertices, textureCoords, finalVertices, randomColor, lineSplit, line);
+                    break;
+                case VERTEX_TEXTURE_NORMAL:
+                    this->parseFaceTextureNormal(parsedVertices, textureCoords, normals, finalVertices, randomColor, lineSplit, line);
+                    break;
+                case VERTEX_NORMAL:
+                    this->parseFaceNormal(parsedVertices, normals, finalVertices, randomColor, lineSplit, line);
+                    break;
+            }
         }
-        // Todo: check for other keywords
-        // How to process invalid or unsupported keyword - exit??
         else if (lineSplit[0] == VERTEX_NORMALS_KEYWORD) {
-            this->parseVertexNormal(parsedVertices, normalCount, lineSplit, line);
+            this->parseVertexNormal(normals, lineSplit, line);
         } else if (lineSplit[0] == SMOOTH_SHADING_KEYWORD) {
             if (lineSplit.size() != 2) {
                 throw std::runtime_error("Incorrect smooth shading format: (1 / off)");
@@ -111,7 +128,7 @@ void Model::loadOBJFile(std::ifstream& file) {
             else if (lineSplit[1] == "off") this->useSmoothShading = false;
             else throw std::runtime_error("Incorrect smooth shading parameter: " + lineSplit[1]);
         } else if (lineSplit[0] == TEXT_COORDS_KEYWORD) {
-            this->parseVertexTextureCoords(parsedVertices, textureCoordCount, lineSplit, line);
+            this->parseVertexTextureCoords(textureCoords, lineSplit, line);
         } else if (lineSplit[0] == MAT_FILE_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
         } else if (lineSplit[0] == MAT_NAME_KEYWORD) {
@@ -159,8 +176,7 @@ void Model::parseVertex(
 }
 
 void Model::parseVertexNormal(
-        VertexVector& parsedVertices,
-        size_t& normalCount,
+        std::vector<Vec3f>& normals,
         const std::vector<std::string>& lineSplit,
         const std::string& line) {
 
@@ -168,15 +184,12 @@ void Model::parseVertexNormal(
         throw std::runtime_error("Incorrect vertex normal format: (x, y, z)");
     }
 
-    if (normalCount >= parsedVertices.size()) {
-        throw std::runtime_error("Normal count is greater than vertex count");
-    }
     try {
         GLfloat x = std::stof(lineSplit[1]);
         GLfloat y = std::stof(lineSplit[2]);
         GLfloat z = std::stof(lineSplit[3]);
         Vec3f normal(x, y, z);
-        parsedVertices[normalCount++].normal = Vec3f::normalize(normal);
+        normals.push_back(Vec3f::normalize(normal));
     } catch (const std::invalid_argument& e) {
         throw std::runtime_error("Argument is invalid: " + line);
     } catch (const std::out_of_range& e) {
@@ -185,8 +198,7 @@ void Model::parseVertexNormal(
 }
 
 void Model::parseVertexTextureCoords(
-        VertexVector& parsedVertices,
-        size_t& textureCoordsCount,
+        std::vector<Vec3f>& textureCoords,
         const std::vector<std::string>& lineSplit,
         const std::string& line) {
 
@@ -194,17 +206,13 @@ void Model::parseVertexTextureCoords(
         throw std::runtime_error("Incorrect vertex texture coords format: (u, [v, w])");
     }
 
-    if (textureCoordsCount >= parsedVertices.size()) {
-        throw std::runtime_error("Texture coords count is greater than vertex count");
-    }
     try {
         GLfloat u = std::stof(lineSplit[1]);
         GLfloat v = lineSplit.size() > 2 ? std::stof(lineSplit[2]) : 0.0f;
         if (u < 0.0f || u > 1.0f || v < 0.0f || v > 1.0f) {
             throw std::runtime_error("Texture coords should in range [0.0f, 1.0f]");
         }
-        parsedVertices[textureCoordsCount].textX = u;
-        parsedVertices[textureCoordsCount++].textY = v;
+        textureCoords.push_back(Vec3f(u, v, 0.0f));
     } catch (const std::invalid_argument& e) {
         throw std::runtime_error("Argument is invalid: " + line);
     } catch (const std::out_of_range& e) {
@@ -212,24 +220,26 @@ void Model::parseVertexTextureCoords(
     }
 }
 
+// f v1 v2 v3
+// f v1/vt1 ...
+// f v1/vt1/vn1 ...
+// f v1//vn1
+
 void Model::parseFace(
              const VertexVector& parsedVertices,
              VertexVector& finalVertices,
              const Vec3f& faceColor,
              const std::vector<std::string>& lineSplit,
              const std::string& line) {
-    // Todo: check for f 3/1 4/2 5/3
-    // f 6/4/1 3/5/3 7/6/5
-    // f 7//1 8//2 9//3
-
-    if (parsedVertices.size() == 0) {
-        throw std::runtime_error("Incorrect file format: need vertices to specify faces");
-    }
-    if (lineSplit.size() < 4 || lineSplit.size() > 5) {
-        throw std::runtime_error("Incorrect face format: should be triangle or quad");
-    }
+    
     try {
         for (size_t i = 1; i < lineSplit.size(); i++) {
+
+            size_t slashPos = lineSplit[i].find('/');
+            if (slashPos != std::string::npos) {
+                throw std::runtime_error("Inconsistent face format");
+            }
+
             int index = std::stoi(lineSplit[i]);
             // Todo: check for neg or overflow
             if (i == 4) {
@@ -248,6 +258,71 @@ void Model::parseFace(
         throw std::runtime_error("Argument is invalid: " + line);
     } catch (const std::out_of_range &e) {
         throw std::runtime_error("Argument is out of range: " + line);
+    }
+}
+void Model::parseFaceTexture(
+        const VertexVector& parsedVertices,
+        std::vector<Vec3f>& textureCoords,
+        VertexVector& finalVertices,
+        const Vec3f& faceColor,
+        const std::vector<std::string>& lineSplit,
+        const std::string& line) {
+    (void) parsedVertices;
+    (void) textureCoords;
+    (void) finalVertices;
+    (void) faceColor;
+    (void) lineSplit;
+    (void) line;
+
+}
+void Model::parseFaceTextureNormal(
+        const VertexVector& parsedVertices,
+        std::vector<Vec3f>& textureCoords,
+        std::vector<Vec3f>& normals,
+        VertexVector& finalVertices,
+        const Vec3f& faceColor,
+        const std::vector<std::string>& lineSplit,
+        const std::string& line) {
+    (void) parsedVertices;
+    (void) textureCoords;
+    (void) normals;
+    (void) finalVertices;
+    (void) faceColor;
+    (void) lineSplit;
+    (void) line;
+
+}
+void Model::parseFaceNormal(
+        const VertexVector& parsedVertices,
+        std::vector<Vec3f>& normals,
+        VertexVector& finalVertices,
+        const Vec3f& faceColor,
+        const std::vector<std::string>& lineSplit,
+        const std::string& line) {
+    (void) parsedVertices;
+    (void) normals;
+    (void) finalVertices;
+    (void) faceColor;
+    (void) lineSplit;
+    (void) line;
+
+}
+
+void Model::determineFaceFormat(const std::vector<std::string>& lineSplit) {
+    size_t slashPos = lineSplit[1].find('/');
+    if (slashPos == std::string::npos) {
+        this->faceFormat = VERTEX;
+    } else {
+        size_t secondSlashPos = lineSplit[1].find('/', slashPos + 1);
+        if (secondSlashPos == std::string::npos) {
+            this->faceFormat = VERTEX_TEXTURE;
+        } else {
+            if (secondSlashPos == slashPos + 1) {
+                this->faceFormat = VERTEX_NORMAL;
+            } else {
+                this->faceFormat = VERTEX_TEXTURE_NORMAL;
+            }
+        }
     }
 }
 

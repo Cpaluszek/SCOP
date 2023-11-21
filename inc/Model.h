@@ -20,6 +20,13 @@ enum Model_Movement {
     BACKWARD
 };
 
+enum Face_Format {
+    VERTEX,
+    VERTEX_TEXTURE,
+    VERTEX_TEXTURE_NORMAL,
+    VERTEX_NORMAL
+};
+
 const float MOVEMENT_SPEED = 1.5f;
 
 class Model {
@@ -37,6 +44,7 @@ class Model {
  private:
      Mesh* mesh;
 
+     Face_Format faceFormat = VERTEX;
      bool useSmoothShading = false;     // Todo: use in shaders
 
      void loadOBJFile(std::ifstream& file);
@@ -45,13 +53,11 @@ class Model {
              const std::vector<std::string>& lineSplit,
              const std::string& line);
      void parseVertexNormal(
-             VertexVector& parsedVertices,
-             size_t& normalCount,
+             std::vector<Vec3f>& normals,
              const std::vector<std::string>& lineSplit,
              const std::string& line);
      void parseVertexTextureCoords(
-             VertexVector& parsedVertices,
-             size_t& textureCoordCount,
+             std::vector<Vec3f>& textureCoords,
              const std::vector<std::string>& lineSplit,
              const std::string& line);
      void parseFace(
@@ -60,6 +66,29 @@ class Model {
              const Vec3f& faceColor,
              const std::vector<std::string>& lineSplit,
              const std::string& line);
+     void parseFaceTexture(
+             const VertexVector& parsedVertices,
+             std::vector<Vec3f>& textureCoords,
+             VertexVector& finalVertices,
+             const Vec3f& faceColor,
+             const std::vector<std::string>& lineSplit,
+             const std::string& line);
+     void parseFaceTextureNormal(
+             const VertexVector& parsedVertices,
+             std::vector<Vec3f>& textureCoords,
+             std::vector<Vec3f>& normals,
+             VertexVector& finalVertices,
+             const Vec3f& faceColor,
+             const std::vector<std::string>& lineSplit,
+             const std::string& line);
+     void parseFaceNormal(
+             const VertexVector& parsedVertices,
+             std::vector<Vec3f>& normals,
+             VertexVector& finalVertices,
+             const Vec3f& faceColor,
+             const std::vector<std::string>& lineSplit,
+             const std::string& line);
+     void determineFaceFormat(const std::vector<std::string>& lineSplit);
 };
 
 #endif  // INC_MODEL_H_
