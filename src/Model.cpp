@@ -8,7 +8,8 @@
 #define GROUP_NAME_KEYWORD "g"
 #define LINE_KEYWORD "l"
 #define TEXT_COORDS_KEYWORD "vt"
-#define VERTEX_NOMALS_KEYWORD "vn"
+#define VERTEX_NORMALS_KEYWORD "vn"
+#define PARAM_SPACE_VERTICES_KEYWORD "vn"
 #define MAT_FILE_KEYWORD "mtllib"
 #define MAT_NAME_KEYWORD "usemtl"
 
@@ -90,22 +91,25 @@ void Model::loadOBJFile(std::ifstream& file) {
             this->parseFace(parsedVertices, finalVertices, randomColor, lineSplit, line);
         }
         // Todo: check for other keywords
+        // How to process invalid or unsupported keyword - exit??
         else if (lineSplit[0] == SMOOTH_SHADING_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
         } else if (lineSplit[0] == OBJ_NAME_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
         } else if (lineSplit[0] == GROUP_NAME_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        } else if (lineSplit[0] == LINE_KEYWORD) {
-            std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
         } else if (lineSplit[0] == TEXT_COORDS_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        } else if (lineSplit[0] == VERTEX_NOMALS_KEYWORD) {
+        } else if (lineSplit[0] == VERTEX_NORMALS_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        } else if (lineSplit[0] == MAT_FILE_KEYWORD) {
+        }else if (lineSplit[0] == MAT_FILE_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
         } else if (lineSplit[0] == MAT_NAME_KEYWORD) {
             std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        } else if (lineSplit[0] == LINE_KEYWORD) {
+            std::cerr << "This project do not support line elements" << std::endl;
+        } else if (lineSplit[0] == PARAM_SPACE_VERTICES_KEYWORD) {
+            std::cerr << "This project do not support parameter space vertices" << std::endl;
         } else {
             std::cerr << "Parsing: '" << line << "' unknown keyword" << std::endl;
         }
@@ -144,6 +148,9 @@ void Model::parseFace(
              const Vec3f& faceColor,
              const std::vector<std::string>& lineSplit,
              const std::string& line) {
+    // Todo: check for f 3/1 4/2 5/3
+    // f 6/4/1 3/5/3 7/6/5
+    // f 7//1 8//2 9//3
 
     if (parsedVertices.size() == 0) {
         throw std::runtime_error("Incorrect file format: need vertices to specify faces");
