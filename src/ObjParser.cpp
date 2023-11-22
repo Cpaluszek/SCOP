@@ -81,9 +81,7 @@ void ObjParser::parseLine(const VecString& lineSplit, const std::string& line) {
     }
 }
 
-void ObjParser::parseVertex(
-        const std::vector<std::string>& lineSplit,
-        const std::string& line) {
+void ObjParser::parseVertex(const VecString& lineSplit, const std::string& line) {
     if (lineSplit.size() < 4 || lineSplit.size() > 5) {
         throw std::runtime_error("Incorrect vertex format: (x, y, z, [w])");
     }
@@ -107,9 +105,7 @@ void ObjParser::parseVertex(
     }
 }
 
-void ObjParser::parseVertexNormal(
-        const std::vector<std::string>& lineSplit,
-        const std::string& line) {
+void ObjParser::parseVertexNormal(const VecString& lineSplit, const std::string& line) {
     if (lineSplit.size() != 4) {
         throw std::runtime_error("Incorrect vertex normal format: (x, y, z)");
     }
@@ -127,9 +123,7 @@ void ObjParser::parseVertexNormal(
     }
 }
 
-void ObjParser::parseVertexTextureCoords(
-        const std::vector<std::string>& lineSplit,
-        const std::string& line) {
+void ObjParser::parseVertexTextureCoords(const VecString& lineSplit, const std::string& line) {
     if (lineSplit.size() < 2 || lineSplit.size() > 4) {
         throw std::runtime_error("Incorrect vertex texture coords format: (u, [v, w])");
     }
@@ -148,10 +142,7 @@ void ObjParser::parseVertexTextureCoords(
     }
 }
 
-void ObjParser::parseFace(
-             const Vec3f& faceColor,
-             const std::vector<std::string>& lineSplit,
-             const std::string& line) {
+void ObjParser::parseFace(const Vec3f& faceColor, const VecString& lineSplit, const std::string& line) {
     try {
         for (size_t i = 1; i < lineSplit.size(); i++) {
             size_t slashPos = lineSplit.at(i).find('/');
@@ -181,17 +172,14 @@ void ObjParser::parseFace(
 }
 
 // Todo: test
-void ObjParser::parseFaceTexture(
-        const Vec3f& faceColor,
-        const std::vector<std::string>& lineSplit,
-        const std::string& line) {
+void ObjParser::parseFaceTexture(const Vec3f& faceColor, const VecString& lineSplit, const std::string& line) {
     try {
         for (size_t i = 1; i < lineSplit.size(); i++) {
             size_t slashPos = lineSplit.at(i).find('/');
             if (slashPos == std::string::npos) {
                 throw std::runtime_error("Inconsistent face format");
             }
-            std::vector<std::string> indices = utils::splitString(lineSplit.at(i), '/');
+            VecString indices = utils::splitString(lineSplit.at(i), '/');
             if (indices.size() != 2) {
                 throw std::runtime_error("Inconsistent face format");
             }
@@ -220,9 +208,7 @@ void ObjParser::parseFaceTexture(
     }
 }
 
-void ObjParser::parseFaceTextureNormal(
-        const Vec3f& faceColor,
-        const std::vector<std::string>& lineSplit,
+void ObjParser::parseFaceTextureNormal(const Vec3f& faceColor, const VecString& lineSplit,
         const std::string& line) {
     try {
         for (size_t i = 1; i < lineSplit.size(); i++) {
@@ -230,7 +216,7 @@ void ObjParser::parseFaceTextureNormal(
             if (slashPos == std::string::npos) {
                 throw std::runtime_error("Inconsistent face format");
             }
-            std::vector<std::string> indices = utils::splitString(lineSplit.at(i), '/');
+            VecString indices = utils::splitString(lineSplit.at(i), '/');
             if (indices.size() != 3) {
                 throw std::runtime_error("Inconsistent face format");
             }
@@ -261,17 +247,14 @@ void ObjParser::parseFaceTextureNormal(
     }
 }
 
-void ObjParser::parseFaceNormal(
-        const Vec3f& faceColor,
-        const std::vector<std::string>& lineSplit,
-        const std::string& line) {
+void ObjParser::parseFaceNormal(const Vec3f& faceColor, const VecString& lineSplit, const std::string& line) {
     try {
         for (size_t i = 1; i < lineSplit.size(); i++) {
             size_t slashPos = lineSplit.at(i).find('/');
             if (slashPos == std::string::npos) {
                 throw std::runtime_error("Inconsistent face format");
             }
-            std::vector<std::string> indices = utils::splitString(lineSplit.at(i), '/');
+            VecString indices = utils::splitString(lineSplit.at(i), '/');
             if (indices.size() != 3 || (indices.size() == 3 && indices.at(1).size() != 0)) {
                 throw std::runtime_error("Inconsistent face format");
             }
@@ -312,7 +295,7 @@ void ObjParser::parseSmoothShading(const VecString& lineSplit) {
     }
 }
 
-void ObjParser::determineFaceFormat(const std::vector<std::string>& lineSplit) {
+void ObjParser::determineFaceFormat(const VecString& lineSplit) {
     VecString slashSplit = utils::splitString(lineSplit.at(1), '/');
     if (slashSplit.size() == 1) {
         this->faceFormat = VERTEX;

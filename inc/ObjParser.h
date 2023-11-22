@@ -50,33 +50,17 @@ class ObjParser {
     Face_Format faceFormat = VERTEX;
 
     void parseLine(const VecString& lineSplit, const std::string& line);
-    void parseVertex(
-            const std::vector<std::string>& lineSplit,
-            const std::string& line);
-    void parseVertexNormal(
-            const std::vector<std::string>& lineSplit,
-            const std::string& line);
-    void parseVertexTextureCoords(
-            const std::vector<std::string>& lineSplit,
-            const std::string& line);
-    void parseFace(
-            const Vec3f& faceColor,
-            const std::vector<std::string>& lineSplit,
-            const std::string& line);
-    void parseFaceTexture(
-            const Vec3f& faceColor,
-            const std::vector<std::string>& lineSplit,
-            const std::string& line);
-    void parseFaceTextureNormal(
-            const Vec3f& faceColor,
-            const std::vector<std::string>& lineSplit,
-            const std::string& line);
-    void parseFaceNormal(
-            const Vec3f& faceColor,
-            const std::vector<std::string>& lineSplit,
-            const std::string& line);
+    void parseVertex(const VecString& lineSplit, const std::string& line);
+    void parseVertexNormal(const VecString& lineSplit, const std::string& line);
+    void parseVertexTextureCoords(const VecString& lineSplit, const std::string& line);
+
+    void parseFace(const Vec3f& faceColor, const VecString& lineSplit, const std::string& line);
+    void parseFaceTexture(const Vec3f& faceColor, const VecString& lineSplit, const std::string& line);
+    void parseFaceTextureNormal(const Vec3f& faceColor, const VecString& lineSplit, const std::string& line);
+    void parseFaceNormal(const Vec3f& faceColor, const VecString& lineSplit, const std::string& line);
+
     void parseSmoothShading(const VecString& lineSplit);
-    void determineFaceFormat(const std::vector<std::string>& lineSplit);
+    void determineFaceFormat(const VecString& lineSplit);
     inline Vec3f getRandomColor();
 };
 

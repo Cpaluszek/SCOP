@@ -24,16 +24,6 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    // Init program systems
-    Model* model;
-    try {
-        model = new Model(program_options::inputFile());
-    } catch (const std::exception &e) {
-        std::cerr << e.what() << std::endl;
-        return EXIT_FAILURE;
-    }
-
-    // Create glfw window
     Window* window;
     try {
         window = new Window();
@@ -42,6 +32,14 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    // Init program systems
+    Model* model;
+    try {
+        model = new Model(program_options::inputFile());
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 
     Camera camera;
     Renderer renderer(camera);

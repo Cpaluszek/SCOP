@@ -45,7 +45,6 @@ BUILD_DIR		:=	build
 OBJS			:=	$(SRC_FILES:%.cpp=$(BUILD_DIR)/%.o)
 
 CC				:=	g++
-DEBUG_FLAG		:=	-g3 -D DEBUG
 
 CC_FLAGS		:= -Wextra -Werror -Wall -std=c++17 -O2 -g3
 CC_LINKS		:= -L./lib
