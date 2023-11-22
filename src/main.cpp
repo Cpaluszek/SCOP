@@ -13,7 +13,6 @@
 
 // Todo: check https://learnopengl.com/Advanced-OpenGL/Face-culling
 int main(const int argc, char *argv[]) {
-    // Check for program arguments
     try {
         program_options::parse(argc, argv);
     }
@@ -47,7 +46,7 @@ int main(const int argc, char *argv[]) {
 
     while (!glfwWindowShouldClose(window->instance)) {
         float deltaTime = Window::getDeltaTime();
-        // Note: use ptr??
+
         input.processInput(*model, deltaTime);
 
         renderer.render(*model, deltaTime);

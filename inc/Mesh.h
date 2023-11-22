@@ -7,21 +7,12 @@
 #include "../lib/GLEW/include/glew.h"
 #include "./math.h"
 #include "./Shader.h"
-
-// Note: define vertex on its own file?
-struct Vertex {
-    Vec3f position;
-    Vec3f normal;       // Todo: use normals in shaders
-    Vec3f color;
-    GLfloat textX, textY;
-};
-
-typedef std::vector<Vertex> VertexVector;
+#include "./Vertex.h"
 
 class Mesh {
  public:
      ~Mesh();
-     Mesh(const std::vector<Vertex>& vertices);
+     Mesh(const VertexVector& vertices);
 
      void draw(Shader& shader, double currentTime) const;
      Vec3f position;

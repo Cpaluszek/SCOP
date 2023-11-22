@@ -5,10 +5,8 @@
 #include "../lib/GLFW/include/glfw3.h"
 
 #include "./Camera.h"
-#include "./Mesh.h"
 #include "./Model.h"
 #include "./Shader.h"
-#include "./Window.h"
 #include "./math.h"
 
 class Renderer {
