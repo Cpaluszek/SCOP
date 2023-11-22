@@ -62,3 +62,7 @@ void Model::processKeyboardInput(Model_Movement direction, float deltaTime) {
         this->mesh->position.z += velocity;
     }
 }
+
+void Model::resetPosition() {
+    this->mesh->position = Vec3f();
+}

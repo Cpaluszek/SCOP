@@ -31,6 +31,7 @@ class Model {
      void draw(Shader& shader, double currentTime, float deltaTime);
 
      void processKeyboardInput(Model_Movement direction, float deltaTime);
+     void resetPosition();
 
      GLuint getTextureId() const;
 

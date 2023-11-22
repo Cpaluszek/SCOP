@@ -48,6 +48,7 @@ void Mesh::setupMesh() {
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nullptr);
     // vertex normal
+    // Todo: normals
 
     // vertex color
     glEnableVertexAttribArray(1);

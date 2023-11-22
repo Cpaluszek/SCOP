@@ -167,7 +167,6 @@ std::ostream& operator<<(std::ostream& os, const Mat4f& src) {
     return os;
 }
 
-// Note: change all computations?
 Mat4f Mat4f::transpose(Mat4f const& m) {
     Mat4f result;
     for (int i = 0; i < 4; i++) {

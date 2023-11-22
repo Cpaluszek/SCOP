@@ -55,11 +55,10 @@ void Input::processInput(Model& model, const float deltaTime) {
         model.processKeyboardInput(FORWARD, deltaTime);
     }
 
-    // Todo: Reset Model
-    // if (!this->keyStateMap[GLFW_KEY_SPACE] && glfwGetKey(this->window, GLFW_KEY_SPACE)) {
-    //     this->keyStateMap[GLFW_KEY_SPACE] = true;
-    //     camera.reset();
-    // }
+    if (!this->keyStateMap[GLFW_KEY_SPACE] && glfwGetKey(this->window, GLFW_KEY_SPACE)) {
+        this->keyStateMap[GLFW_KEY_SPACE] = true;
+        model.resetPosition();
+    }
 
     this->resetKeyState();
 }
