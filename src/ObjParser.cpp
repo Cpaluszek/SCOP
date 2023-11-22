@@ -1,8 +1,4 @@
 #include "../inc/ObjParser.h"
-#include <random>
-
-// Todo: in face parsing test for invalid index access
-// throw std::out_of_range
 
 ObjParser::ObjParser() {
     // Setup random distribution for colors

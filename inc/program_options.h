@@ -4,6 +4,10 @@
 #define DESIRED_EXTENSION ".obj"
 
 #include <string>
+#include <filesystem>
+#include <stdexcept>
+#include <vector>
+#include "./utils.h"
 
 namespace program_options {
     void parse(int argc, char* argv[]);

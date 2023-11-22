@@ -29,9 +29,6 @@ enum Face_Format {
     VERTEX_NORMAL
 };
 
-typedef std::vector<std::string> VecString;
-
-
 class ObjParser {
  public:
      ObjParser();

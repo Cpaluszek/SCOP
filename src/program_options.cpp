@@ -1,16 +1,12 @@
 #include "../inc/program_options.h"
 
-#include <filesystem>
-#include <stdexcept>
-#include <vector>
-
 // Anonymous namespace - limit visibility
 namespace {
     std::string   objFile;
 }
 
 void program_options::parse(const int argc, char* argv[]) {
-    const std::vector<std::string> args(argv + 1, argv + argc);
+    const VecString args(argv + 1, argv + argc);
 
     for (const auto& arg : args) {
         if (!std::filesystem::exists(arg)) {

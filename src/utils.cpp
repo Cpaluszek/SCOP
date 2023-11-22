@@ -1,7 +1,7 @@
 #include "../inc/utils.h"
 
-std::vector<std::string> utils::splitString(const std::string& input, char delimiter) {
-    std::vector<std::string> tokens;
+VecString utils::splitString(const std::string& input, char delimiter) {
+    VecString tokens;
 
     size_t start = 0;
     size_t end = 0;

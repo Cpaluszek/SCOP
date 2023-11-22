@@ -4,8 +4,10 @@
 #include <vector>
 #include <string>
 
+typedef std::vector<std::string> VecString;
+
 namespace utils {
-    std::vector<std::string> splitString(const std::string& input, char delimiter);
+    VecString splitString(const std::string& input, char delimiter);
 };
 
 #endif  // INC_UTILS_H_
