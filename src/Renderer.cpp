@@ -9,6 +9,7 @@ Renderer::Renderer(Camera const& camera): camera(camera) {
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // Todo: protect new Shader -> static? reference may be better
+    // Todo: check for shader compilation error
 
     // Init shader program
     this->shader = new Shader("./shader/vertex.glsl", "./shader/fragment.glsl");
@@ -19,12 +20,12 @@ Renderer::~Renderer() {
     delete this->shader;
 }
 
-void Renderer::render(Model* model, float deltaTime) const {
+void Renderer::render(Model& model, float deltaTime) const {
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, model->getTextureId());
+    glBindTexture(GL_TEXTURE_2D, model.getTextureId());
 
     // Set view matrix
     Mat4f view = camera.getViewMatrix();
@@ -38,6 +39,6 @@ void Renderer::render(Model* model, float deltaTime) const {
     this->shader->setMat4("projection", projection);
     
     /////////////////////////////////////
-    model->draw(*this->shader, glfwGetTime(), deltaTime);
+    model.draw(*this->shader, glfwGetTime(), deltaTime);
 }
 

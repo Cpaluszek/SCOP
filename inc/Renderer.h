@@ -16,7 +16,7 @@ class Renderer {
      explicit Renderer(const Camera& camera);
      ~Renderer();
 
-     void render(Model* model, float deltaTime) const;
+     void render(Model& model, float deltaTime) const;
 
  private:
     Shader* shader;

@@ -50,7 +50,7 @@ int main(const int argc, char *argv[]) {
         // Note: use ptr??
         input.processInput(*model, deltaTime);
 
-        renderer.render(model, deltaTime);
+        renderer.render(*model, deltaTime);
 
         window->updateDisplay();
     }
