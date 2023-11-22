@@ -3,7 +3,6 @@
 #include "../inc/Input.h"
 #include "../inc/Model.h"
 #include "../inc/Renderer.h"
-#include "../inc/Texture.h"
 #include "../inc/Window.h"
 
 #include "../inc/program_options.h"
@@ -32,10 +31,11 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    // Init program systems
     Model* model;
     try {
         model = new Model(program_options::inputFile());
+        // Todo: test for loading fail
+        model->loadTexture("./resources/textures/uvmap.jpeg");
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
         return EXIT_FAILURE;
@@ -45,16 +45,12 @@ int main(const int argc, char *argv[]) {
     Renderer renderer(camera);
     Input input(camera, window->instance);
 
-    // Todo: move texture to model class
-    Texture texture;
-    texture.loadTextureFile("./resources/textures/uvmap.jpeg");
-
     while (!glfwWindowShouldClose(window->instance)) {
         float deltaTime = Window::getDeltaTime();
         // Note: use ptr??
         input.processInput(*model, deltaTime);
 
-        renderer.render(model, texture.id, deltaTime);
+        renderer.render(model, deltaTime);
 
         window->updateDisplay();
     }

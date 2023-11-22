@@ -19,12 +19,12 @@ Renderer::~Renderer() {
     delete this->shader;
 }
 
-void Renderer::render(Model* model, GLuint textureId, float deltaTime) const {
+void Renderer::render(Model* model, float deltaTime) const {
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, textureId);
+    glBindTexture(GL_TEXTURE_2D, model->getTextureId());
 
     // Set view matrix
     Mat4f view = camera.getViewMatrix();

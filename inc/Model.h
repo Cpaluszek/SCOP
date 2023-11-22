@@ -8,6 +8,7 @@
 #include "./Mesh.h"
 #include "./math.h"
 #include "./ObjParser.h"
+#include "./Texture.h"
 #include "./utils.h"
 
 enum Model_Movement {
@@ -25,9 +26,13 @@ class Model {
  public:
      ~Model();
      Model(const std::string& inputFile);
+     void loadTexture(const char* texturePath);
+
      void draw(Shader& shader, double currentTime, float deltaTime);
 
      void processKeyboardInput(Model_Movement direction, float deltaTime);
+
+     GLuint getTextureId() const;
 
      bool useTexture = false;
      bool polygonMode = false;
@@ -35,6 +40,7 @@ class Model {
 
  private:
      Mesh* mesh;
+     Texture texture;
 
      bool useSmoothShading = false;     // Todo: use in shaders
 };

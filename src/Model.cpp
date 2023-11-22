@@ -23,6 +23,14 @@ Model::Model(const std::string& inputFile) {
     this->mesh = new Mesh(parser.finalVertices);
 }
 
+void Model::loadTexture(const char* texturePath) {
+    this->texture.loadTextureFile(texturePath);
+}
+
+GLuint Model::getTextureId() const {
+    return this->texture.id;
+}
+
 void Model::draw(Shader& shader, double currentTime, float deltaTime) {
     // Todo: use events / callback
     glPolygonMode(GL_FRONT_AND_BACK, this->polygonMode ? GL_LINE : GL_FILL);
