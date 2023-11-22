@@ -14,7 +14,7 @@ Mesh::~Mesh() {
 }
 
 void Mesh::draw(Shader& shader, const double currentTime) const {
-    const Mat4f identity(1.0f);   // Note: store idenity as const?
+    const Mat4f identity(1.0f);
 
     Mat4f model = Mat4f::translate(identity, this->position);
     model = Mat4f::translate(model, this->origin);
