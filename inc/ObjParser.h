@@ -46,18 +46,18 @@ class ObjParser {
 
     Face_Format faceFormat = VERTEX;
 
-    void parseLine(const VecString& lineSplit, const std::string& line);
-    void parseVertex(const VecString& lineSplit, const std::string& line);
-    void parseVertexNormal(const VecString& lineSplit, const std::string& line);
-    void parseVertexTextureCoords(const VecString& lineSplit, const std::string& line);
+    void parseLine(const VecString& tokens, const std::string& line);
+    void parseVertex(const VecString& tokens, const std::string& line);
+    void parseVertexNormal(const VecString& tokens, const std::string& line);
+    void parseVertexTextureCoords(const VecString& tokens, const std::string& line);
 
-    void parseFace(const Vec3f& faceColor, const VecString& lineSplit, const std::string& line);
-    void parseFaceTexture(const Vec3f& faceColor, const VecString& lineSplit, const std::string& line);
-    void parseFaceTextureNormal(const Vec3f& faceColor, const VecString& lineSplit, const std::string& line);
-    void parseFaceNormal(const Vec3f& faceColor, const VecString& lineSplit, const std::string& line);
+    void parseFace(const Vec3f& color, const VecString& tokens, const std::string& line);
+    void parseFaceTexture(const Vec3f& color, const VecString& tokens, const std::string& line);
+    void parseFaceTextureNormal(const Vec3f& color, const VecString& tokens, const std::string& line);
+    void parseFaceNormal(const Vec3f& color, const VecString& tokens, const std::string& line);
 
-    void parseSmoothShading(const VecString& lineSplit);
-    void determineFaceFormat(const VecString& lineSplit);
+    void parseSmoothShading(const VecString& tokens);
+    void determineFaceFormat(const VecString& tokens);
     inline Vec3f getRandomColor();
 };
 
