@@ -1,6 +1,6 @@
 #include "../inc/Mesh.h"
 
-Mesh::Mesh(const std::vector<Vertex>& vertices):
+Mesh::Mesh(const VertexVector& vertices):
     vertices(vertices)
 {
     // this->mapTextureCoordinates();

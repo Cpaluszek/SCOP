@@ -22,7 +22,7 @@ class Mesh {
      GLuint vbo;    // Vertex buffer object
 
      Vec3f origin;
-     std::vector<Vertex> vertices;
+     VertexVector vertices;
 
      void setupMesh();
      void mapTextureCoordinates();
