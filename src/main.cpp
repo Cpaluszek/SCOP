@@ -30,6 +30,7 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    // Todo: use unique_ptr
     Model* model;
     try {
         model = new Model(program_options::inputFile());

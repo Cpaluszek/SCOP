@@ -35,7 +35,7 @@ class Shader {
      void setMat4(const std::string& name, const Mat4f &mat) const;
 
  private:
-     static void checkCompileErrors(unsigned int shader, const std::string& type);
+     static void checkCompileErrors(const GLuint shader, const std::string& type);
 };
 
 

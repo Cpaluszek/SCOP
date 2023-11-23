@@ -25,8 +25,9 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath) {
         fragmentCode = fShaderStream.str();
     }
     catch (std::ifstream::failure &e) {
-        std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
-        std::cout << e.what() << std::endl;
+        std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
+        std::cerr << e.what() << std::endl;
+        // Todo: throw 
     }
 
     const char* vShaderCode = vertexCode.c_str();
@@ -75,21 +76,22 @@ void Shader::setFloat(const std::string &name, const float value) const {
     glUniform1f(glGetUniformLocation(this->id, name.c_str()), value);
 }
 
-void Shader::checkCompileErrors(const unsigned int shader, const std::string& type) {
+void Shader::checkCompileErrors(const GLuint shader, const std::string& type) {
+    // Todo: check for protection, overflow...
     int success;
     char infoLog[1024];
     if (type != "PROGRAM") {
         glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
         if (!success) {
             glGetShaderInfoLog(shader, 1024, nullptr, infoLog);
-            std::cout << "ERROR::SHADER::COMPILATION_FAILED of type: " << type << std::endl;
-            std::cout << infoLog << std::endl;
+            std::cerr << "ERROR::SHADER::COMPILATION_FAILED of type: " << type << std::endl;
+            std::cerr << infoLog << std::endl;
         }
     } else {
         glGetProgramiv(shader, GL_LINK_STATUS, &success);
         if (!success) {
             glGetProgramInfoLog(shader, 1024, nullptr, infoLog);
-            std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+            std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
         }
     }
 }
