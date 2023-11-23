@@ -37,13 +37,13 @@ class Model {
 
      bool useTexture = false;
      bool polygonMode = false;
-     float textureTransitionFactor = 0.0f;
 
  private:
      std::unique_ptr<Mesh> mesh;
      Texture texture;
 
      bool useSmoothShading = false;     // Todo: use in shaders
+     float textureTransitionFactor = 0.0f;
 };
 
 #endif  // INC_MODEL_H_
