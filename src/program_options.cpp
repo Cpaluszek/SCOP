@@ -13,7 +13,7 @@ void program_options::parse(const int argc, char* argv[]) {
             throw std::runtime_error(arg + ": No such file or directory");
         }
         std::filesystem::path path(arg);
-        if (path.extension() != DESIRED_EXTENSION) {
+        if (path.extension() != ".obj") {
             throw std::runtime_error("File is not in the correct format");
         }
         if (!objFile.empty()) {

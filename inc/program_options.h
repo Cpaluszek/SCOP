@@ -1,8 +1,6 @@
 #ifndef INC_PROGRAM_OPTIONS_H_
 #define INC_PROGRAM_OPTIONS_H_
 
-#define DESIRED_EXTENSION ".obj"
-
 #include <string>
 #include <filesystem>
 #include <stdexcept>
