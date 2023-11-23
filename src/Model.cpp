@@ -27,10 +27,15 @@ GLuint Model::getTextureId() const {
     return this->texture.id;
 }
 
-void Model::draw(Shader& shader, double currentTime, float deltaTime) {
-    // Todo: use events / callback
+void Model::switchPolygonMode() {
+    this->polygonMode ^= true;
     glPolygonMode(GL_FRONT_AND_BACK, this->polygonMode ? GL_LINE : GL_FILL);
+}
+void Model::switchTextureMode() {
+    this->useTexture ^= true;
+}
 
+void Model::draw(Shader& shader, double currentTime, float deltaTime) {
     if (this->useTexture && this->textureTransitionFactor < 1.0f) {
         this->textureTransitionFactor = std::min(this->textureTransitionFactor + deltaTime, 1.0f);
     } else if (!this->useTexture && this->textureTransitionFactor > 0.0f) {

@@ -34,16 +34,17 @@ class Model {
      void resetPosition();
 
      GLuint getTextureId() const;
-
-     bool useTexture = false;
-     bool polygonMode = false;
+     void switchPolygonMode();
+     void switchTextureMode();
 
  private:
      std::unique_ptr<Mesh> mesh;
      Texture texture;
 
-     bool useSmoothShading = false;     // Todo: use in shaders
      float textureTransitionFactor = 0.0f;
+     bool useSmoothShading = false;     // Todo: use in shaders
+     bool polygonMode = false;
+     bool useTexture = false;
 };
 
 #endif  // INC_MODEL_H_

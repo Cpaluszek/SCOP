@@ -28,13 +28,13 @@ void Input::processInput(Model& model, const float deltaTime) {
     // Toggle wireframe
     if (!this->keyStateMap[GLFW_KEY_P] && glfwGetKey(this->window, GLFW_KEY_P) == GLFW_PRESS) {
         this->keyStateMap[GLFW_KEY_P] = true;
-        model.polygonMode ^= true;
+        model.switchPolygonMode();
     }
 
     // use texture
     if (!this->keyStateMap[GLFW_KEY_T] && glfwGetKey(this->window, GLFW_KEY_T) == GLFW_PRESS) {
         this->keyStateMap[GLFW_KEY_T] = true;
-        model.useTexture ^= true;
+        model.switchTextureMode();
     }
     if (glfwGetKey(this->window, GLFW_KEY_W) == GLFW_PRESS) {
         model.processKeyboardInput(UP, deltaTime);
