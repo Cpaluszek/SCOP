@@ -44,9 +44,11 @@ void Shader::compileProgram(const char *vertexPath, const char *fragmentPath) {
     checkCompileError(vertex);
 
     // Shader Program
+    this->id = glCreateProgram();
+    if (this->id == 0) {
+        throw std::runtime_error("Failed to create shader program");
+    }
     try {
-        this->id = glCreateProgram();
-        // Note: check id value
         glAttachShader(this->id, vertex);
         glAttachShader(this->id, fragment);
         glLinkProgram(this->id);
