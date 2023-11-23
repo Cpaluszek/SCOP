@@ -27,9 +27,6 @@ class Window {
     static float getDeltaTime();
 
  private:
-    const char* glfwErrorDescription;
-    int glfwErrorCode;
-
     void checkGlfwError();
 };
 

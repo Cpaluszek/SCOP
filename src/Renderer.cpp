@@ -12,6 +12,7 @@ void Renderer::loadShader() {
 }
 
 void Renderer::render(Model& model, float deltaTime) {
+   // Todo: check for errors
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
