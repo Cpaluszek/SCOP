@@ -1,9 +1,5 @@
 #include "../inc/Model.h"
 
-Model::~Model() {
-    delete mesh;
-}
-
 void Model::loadObjFile(const std::string& inputFile) {
     std::ifstream objFile(inputFile, std::ios::in);
     if (!objFile.is_open()) {
@@ -20,7 +16,7 @@ void Model::loadObjFile(const std::string& inputFile) {
         throw;
     }
     this->useSmoothShading = parser.useSmoothShading;
-    this->mesh = new Mesh(parser.finalVertices);
+    this->mesh = std::make_unique<Mesh>(parser.finalVertices);
 }
 
 void Model::loadTexture(const char* texturePath) {

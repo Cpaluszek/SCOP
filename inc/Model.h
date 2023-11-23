@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <memory>
 #include <stdexcept>
 #include <vector>
 #include "./Mesh.h"
@@ -24,8 +25,6 @@ const float MOVEMENT_SPEED = 1.5f;
 
 class Model {
  public:
-     ~Model();
-
      void loadObjFile(const std::string& inputFile);
      void loadTexture(const char* texturePath);
 
@@ -41,7 +40,7 @@ class Model {
      float textureTransitionFactor = 0.0f;
 
  private:
-     Mesh* mesh;
+     std::unique_ptr<Mesh> mesh;
      Texture texture;
 
      bool useSmoothShading = false;     // Todo: use in shaders
