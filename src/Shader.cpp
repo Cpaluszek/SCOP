@@ -22,7 +22,7 @@ void Shader::compileProgram(const char *vertexPath, const char *fragmentPath) {
         vertexCode = vShaderStream.str();
         fragmentCode = fShaderStream.str();
     }
-    catch (std::ifstream::failure &e) {
+    catch (const std::ifstream::failure &e) {
         vShaderFile.close();
         fShaderFile.close();
         throw ;
@@ -71,25 +71,26 @@ void Shader::use() const {
 }
 
 void Shader::checkCompileError(const GLuint shader) {
-    // Todo: check for protection, overflow...
-    // Todo: throw
     int success;
-    char infoLog[1024];
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
     if (!success) {
-        glGetShaderInfoLog(shader, 1024, nullptr, infoLog);
-        throw std::runtime_error(infoLog);
+        int length;
+        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
+        std::vector<char> infoLog(length + 1);
+        glGetShaderInfoLog(shader, length, nullptr, infoLog.data());
+        throw std::runtime_error(infoLog.data());
     }
 }
 
 void Shader::checkProgramError(const GLuint program) {
-    // Todo: check for protection, overflow...
-    // Todo: throw
     int success;
-    char infoLog[1024];
     glGetProgramiv(program, GL_LINK_STATUS, &success);
     if (!success) {
-        throw std::runtime_error(infoLog);
+        int length;
+        glGetShaderiv(program, GL_INFO_LOG_LENGTH, &length);
+        std::vector<char> infoLog(length + 1);
+        glGetShaderInfoLog(program, length, nullptr, infoLog.data());
+        throw std::runtime_error(infoLog.data());
     }
 }
 

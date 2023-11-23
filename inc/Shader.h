@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <vector>
 
 #include "../lib/GLEW/include/glew.h"
 #include "./math.h"
