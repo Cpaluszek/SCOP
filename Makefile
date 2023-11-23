@@ -1,26 +1,4 @@
-#########################
-#		VARIABLES		#
-#########################
 NAME			:= SCOP
-
-HEADERS_DIR		:= inc
-HEADERS_FILES	:= 	Camera.h \
-					Input.h \
-					Mesh.h \
-					Model.h \
-					ObjParser.h \
-					Renderer.h \
-					Shader.h \
-					Texture.h \
-					Window.h \
-					program_options.h \
-					utils.h \
-					math.h \
-					math/Vec3f.h \
-					math/Mat4f.h \
-					stb_image.h
-
-HEADERS			:= $(addprefix $(HEADERS_DIR)/, $(HEADERS_FILES))
 
 SRC_DIR			:=	src
 SRC_FILES		:=	main.cpp \
@@ -43,36 +21,36 @@ SRCS			:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 BUILD_DIR		:=	build
 OBJS			:=	$(SRC_FILES:%.cpp=$(BUILD_DIR)/%.o)
+DEPS			:=  $(SRC_FILES:%.cpp=$(BUILD_DIR)/%.d)
+CXX_DEFS		:=	NAME=\"$(NAME)\"
 
-CC				:=	g++
+CXX				:=	g++
 
-CC_FLAGS		:= -Wextra -Werror -Wall -std=c++17 -O2 -g3
-CC_LINKS		:= -L./lib
-CC_LIBS			:= -lglfw -lGLEW -lGL -ldl -lX11 -lpthread -lXrandr -lXi
+CXX_FLAGS		:= -Wextra -Werror -Wall -std=c++17 -O2 -g3
+CXX_LINKS		:= -L./lib
+CXX_LIBS		:= -lglfw -lGLEW -lGL -ldl -lX11 -lpthread -lXrandr -lXi
 
-CC_HEADERS		:= -I./lib/GLFW/include
+CXX_HEADERS		:= -I./lib/GLFW/include
 
+CXX_DEPS_FLAGS	:=	-MP -MMD
+CXX_DEFS_FLAGS	:=	$(foreach def,$(CXX_DEFS),-D $(def))
 
-#########################
-# 		RULES			#
-#########################
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CC_FLAGS) $(CC_HEADERS) $(CC_LINKS) $(OBJS) $(CC_LIBS) -o $@
+	$(CXX) $(CXX_FLAGS) $(CXX_HEADERS) $(CXX_LINKS) $(OBJS) $(CXX_LIBS) -o $@
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp Makefile $(HEADERS)
+-include $(DEPS)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(@D)
-	$(CC) $(CC_FLAGS) $(CC_HEADERS) -c $< -o $@
+	$(CXX) $(CXX_FLAGS) $(CXX_DEPS_FLAGS) $(CXX_DEFS_FLAGS) $(CXX_HEADERS) -c $< -o $@
 
 42:  all
 	./$(NAME) resources/42.obj
 
 teapot: all
 	./$(NAME) resources/teapot.obj
-
-lint:
-	cpplint --linelength=120 --filter=-legal/copyright --exclude=inc/stb_image.h $(SRCS) $(HEADERS)
 
 clean:
 	@rm -rf $(BUILD_DIR)
@@ -82,4 +60,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re lint 42 teapot
+.PHONY: all clean fclean re 42 teapot
