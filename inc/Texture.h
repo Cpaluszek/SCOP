@@ -13,7 +13,6 @@ class Texture {
      Texture();
      void loadTextureFile(const char* texturePath);
 
- // private:
      GLuint id;
 };
 
