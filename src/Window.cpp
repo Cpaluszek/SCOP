@@ -2,8 +2,6 @@
 #include "glfw3.h"
 
 void Window::init() {
-    glfwSetErrorCallback(errorCallback);
-
     if (!glfwInit()) {
         this->instance = nullptr;
         throw std::runtime_error("Failed to initialize GLFW");
@@ -17,17 +15,18 @@ void Window::init() {
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     this->instance = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, "SCOP", nullptr, nullptr);
+    this->checkGlfwError();
 
-    if (this->instance == nullptr) {
-        throw std::runtime_error("Failed to create GLFW window");
-    }
     glfwMakeContextCurrent(this->instance);
+    this->checkGlfwError();
 
     // Init GLEW
     glewExperimental = GL_TRUE;
     GLenum err = glewInit();
     if (err != GLEW_OK) {
-        std::cerr << "glewInit err: " << glewGetErrorString(err) << std::endl;
+        std::stringstream errorMessage;
+        errorMessage << "GLEW error: " << glewGetErrorString(err);
+        throw std::runtime_error(errorMessage.str());
     }
 }
 
@@ -49,9 +48,13 @@ float Window::getDeltaTime() {
     return deltaTime;
 }
 
-// Note: keep this function?
-void Window::errorCallback(int error, const char* description) {
-    (void) error;
-    std::cerr << "GLFW error: " << description << std::endl;
+void Window::checkGlfwError() {
+    const char* glfwErrorDescription;
+    int glfwErrorCode = glfwGetError(&glfwErrorDescription);
+    if (glfwErrorCode != GLFW_NO_ERROR) {
+        std::stringstream errorMessage;
+        errorMessage << "GLFW error: " << glfwErrorCode << " - " << glfwErrorDescription;
+        throw std::runtime_error(errorMessage.str());
+    }
 }
 

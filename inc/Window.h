@@ -2,6 +2,7 @@
 #define INC_WINDOW_H_
 
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 #include "../lib/GLEW/include/glew.h"
@@ -26,7 +27,10 @@ class Window {
     static float getDeltaTime();
 
  private:
-    static void errorCallback(int error, const char* description);
+    const char* glfwErrorDescription;
+    int glfwErrorCode;
+
+    void checkGlfwError();
 };
 
 #endif  // INC_WINDOW_H_
