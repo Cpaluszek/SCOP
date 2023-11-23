@@ -10,9 +10,6 @@
 #include "../inc/math.h"
 #include "glfw3.h"
 
-// Todo: use cmake
-
-// Todo: check https://learnopengl.com/Advanced-OpenGL/Face-culling
 int main(const int argc, char *argv[]) {
     try {
         program_options::parse(argc, argv);
