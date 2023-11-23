@@ -13,11 +13,11 @@ class Shader {
  public:
      GLuint id;
 
-     // constructor reads and builds the shader
-     Shader(const char* vertexPath, const char* fragmentPath);
+     Shader() = default;
      ~Shader();
 
-     // use/activate the shader
+     void compileProgram(const char* vertexPath, const char* fragmentPath);
+
      void use() const;
 
      // Utility
@@ -35,8 +35,8 @@ class Shader {
      void setMat4(const std::string& name, const Mat4f &mat) const;
 
  private:
-     static void checkCompileErrors(const GLuint shader, const std::string& type);
+     static void checkCompileError(const GLuint shader);
+     static void checkProgramError(const GLuint program);
 };
-
 
 #endif  // INC_SHADER_H_

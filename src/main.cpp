@@ -23,11 +23,15 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    Camera camera;
+    Renderer renderer(camera);
     std::unique_ptr<Window> window(new Window);
     std::unique_ptr<Model> model(new Model);
     try {
         window->init();
+        renderer.loadShader();
         model->loadObjFile(program_options::inputFile());
+
         // Todo: test for loading fail
         model->loadTexture("./resources/textures/uvmap.jpeg");
     } catch (const std::exception &e) {
@@ -35,8 +39,6 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    Camera camera;
-    Renderer renderer(camera);
     Input input(camera, window->instance);
 
     while (!glfwWindowShouldClose(window->instance)) {
