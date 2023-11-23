@@ -1,8 +1,7 @@
 #include "../inc/Window.h"
 #include "glfw3.h"
-#include <stdexcept>
 
-Window::Window() {
+void Window::init() {
     glfwSetErrorCallback(errorCallback);
 
     if (!glfwInit()) {
@@ -49,6 +48,8 @@ float Window::getDeltaTime() {
     lastFrameTime = currentTime;
     return deltaTime;
 }
+
+// Note: keep this function?
 void Window::errorCallback(int error, const char* description) {
     (void) error;
     std::cerr << "GLFW error: " << description << std::endl;

@@ -25,7 +25,8 @@ const float MOVEMENT_SPEED = 1.5f;
 class Model {
  public:
      ~Model();
-     Model(const std::string& inputFile);
+
+     void loadObjFile(const std::string& inputFile);
      void loadTexture(const char* texturePath);
 
      void draw(Shader& shader, double currentTime, float deltaTime);

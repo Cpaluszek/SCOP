@@ -1,4 +1,5 @@
 #include <exception>
+#include <memory>
 
 #include "../inc/Input.h"
 #include "../inc/Model.h"
@@ -22,18 +23,11 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    Window* window;
+    std::unique_ptr<Window> window(new Window);
+    std::unique_ptr<Model> model(new Model);
     try {
-        window = new Window();
-    } catch (const std::exception &e) {
-        std::cerr << e.what() << std::endl;
-        return EXIT_FAILURE;
-    }
-
-    // Todo: use unique_ptr
-    Model* model;
-    try {
-        model = new Model(program_options::inputFile());
+        window->init();
+        model->loadObjFile(program_options::inputFile());
         // Todo: test for loading fail
         model->loadTexture("./resources/textures/uvmap.jpeg");
     } catch (const std::exception &e) {
@@ -54,8 +48,6 @@ int main(const int argc, char *argv[]) {
 
         window->updateDisplay();
     }
-    delete model;
-    delete window;
     return EXIT_SUCCESS;
 }
 

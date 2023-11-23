@@ -4,7 +4,7 @@ Model::~Model() {
     delete mesh;
 }
 
-Model::Model(const std::string& inputFile) {
+void Model::loadObjFile(const std::string& inputFile) {
     std::ifstream objFile(inputFile, std::ios::in);
     if (!objFile.is_open()) {
         throw std::runtime_error("Could not open input file '" + inputFile + "'!");

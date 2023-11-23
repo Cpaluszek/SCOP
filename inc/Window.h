@@ -1,8 +1,9 @@
 #ifndef INC_WINDOW_H_
 #define INC_WINDOW_H_
 
-#include <string>
 #include <iostream>
+#include <stdexcept>
+#include <string>
 #include "../lib/GLEW/include/glew.h"
 #include "../lib/GLFW/include/glfw3.h"
 
@@ -16,8 +17,9 @@ class Window {
  public:
     GLFWwindow* instance;
 
-    Window();
     ~Window();
+
+    void init();
 
     void updateDisplay() const;
 
