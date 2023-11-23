@@ -56,6 +56,8 @@ class ObjParser {
     void parseFaceTextureNormal(const Vec3f& color, const VecString& tokens, const std::string& line);
     void parseFaceNormal(const Vec3f& color, const VecString& tokens, const std::string& line);
 
+    void handleQuadToTriangle();
+
     void parseSmoothShading(const VecString& tokens);
     void determineFaceFormat(const VecString& tokens);
     inline Vec3f getRandomColor();

@@ -1,17 +1,14 @@
 #include "../inc/ObjParser.h"
 
 ObjParser::ObjParser() {
-    // Setup random distribution for colors
     std::random_device rd;
     this->gen = std::mt19937(rd());
     this->dis = std::uniform_real_distribution<float>(0.0f, 1.0f);
 }
 
-// [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file#:~:text=OBJ%20(or%20.,OBJ%20geometry%20format)
 void ObjParser::parseObjFile(std::ifstream& file) {
     std::string line;
     while (std::getline(file, line)) {
-        // Todo: How to process invalid or unsupported keyword - exit??
         if (line.empty()) continue ;
 
         VecString tokens = utils::splitString(line, ' ');
@@ -141,22 +138,20 @@ void ObjParser::parseVertexTextureCoords(const VecString& tokens, const std::str
 void ObjParser::parseFace(const Vec3f& color, const VecString& tokens, const std::string& line) {
     try {
         for (size_t i = 1; i < tokens.size(); i++) {
+            if (i == 4) {
+                this->handleQuadToTriangle();
+            }
+
             size_t slashPos = tokens.at(i).find('/');
             if (slashPos != std::string::npos) {
                 throw std::runtime_error("Inconsistent face format");
             }
 
-            int index = std::stoi(tokens.at(i));
-            // Todo: check for neg or overflow
-            if (i == 4) {
-                auto a = *(this->finalVertices.rbegin() + 3 - 1);
-                auto b = *(this->finalVertices.rbegin() + 1 - 1);
-                a.color = color;
-                this->finalVertices.push_back(a);
-                b.color = color;
-                this->finalVertices.push_back(b);
+            int index = std::stoi(tokens.at(i)) - 1;
+            if (index < 0) {
+                index = this->parsedVertices.size() - index;
             }
-            auto currentVertex = this->parsedVertices.at(index - 1);
+            auto currentVertex = this->parsedVertices.at(index);
             currentVertex.color = color;
             this->finalVertices.push_back(currentVertex);
         }
@@ -171,6 +166,10 @@ void ObjParser::parseFace(const Vec3f& color, const VecString& tokens, const std
 void ObjParser::parseFaceTexture(const Vec3f& color, const VecString& tokens, const std::string& line) {
     try {
         for (size_t i = 1; i < tokens.size(); i++) {
+            if (i == 4) {
+                this->handleQuadToTriangle();
+            }
+
             size_t slashPos = tokens.at(i).find('/');
             if (slashPos == std::string::npos) {
                 throw std::runtime_error("Inconsistent face format");
@@ -180,20 +179,17 @@ void ObjParser::parseFaceTexture(const Vec3f& color, const VecString& tokens, co
                 throw std::runtime_error("Inconsistent face format");
             }
 
-            int vertexIndex = std::stoi(indices.at(0));
-            int textCoordIndex = std::stoi(indices.at(1));
-            // Todo: check for neg or overflow
-            if (i == 4) {
-                auto a = *(this->finalVertices.rbegin() + 3 - 1);
-                auto b = *(this->finalVertices.rbegin() + 1 - 1);
-                a.color = color;
-                this->finalVertices.push_back(a);
-                b.color = color;
-                this->finalVertices.push_back(b);
+            int vertexIndex = std::stoi(indices.at(0)) - 1;
+            if (vertexIndex < 0) {
+                vertexIndex = this->parsedVertices.size() - vertexIndex;
             }
-            auto currentVertex = this->parsedVertices.at(vertexIndex - 1);
-            currentVertex.textX = this->textureCoords.at(textCoordIndex - 1).x;
-            currentVertex.textY = this->textureCoords.at(textCoordIndex - 1).y;
+            int textCoordIndex = std::stoi(indices.at(1)) - 1;
+            if (textCoordIndex < 0) {
+                textCoordIndex = this->textureCoords.size() - textCoordIndex;
+            }
+            auto currentVertex = this->parsedVertices.at(vertexIndex);
+            currentVertex.textX = this->textureCoords.at(textCoordIndex).x;
+            currentVertex.textY = this->textureCoords.at(textCoordIndex).y;
             currentVertex.color = color;
             this->finalVertices.push_back(currentVertex);
         }
@@ -208,6 +204,10 @@ void ObjParser::parseFaceTextureNormal(const Vec3f& color, const VecString& toke
         const std::string& line) {
     try {
         for (size_t i = 1; i < tokens.size(); i++) {
+            if (i == 4) {
+                this->handleQuadToTriangle();
+            }
+
             size_t slashPos = tokens.at(i).find('/');
             if (slashPos == std::string::npos) {
                 throw std::runtime_error("Inconsistent face format");
@@ -217,22 +217,22 @@ void ObjParser::parseFaceTextureNormal(const Vec3f& color, const VecString& toke
                 throw std::runtime_error("Inconsistent face format");
             }
 
-            int vertexIndex = std::stoi(indices.at(0));
-            int textCoordIndex = std::stoi(indices.at(1));
-            int normalIndex = std::stoi(indices.at(2));
-            // Todo: check for neg or overflow
-            if (i == 4) {
-                auto a = *(finalVertices.rbegin() + 3 - 1);
-                auto b = *(finalVertices.rbegin() + 1 - 1);
-                a.color = color;
-                finalVertices.push_back(a);
-                b.color = color;
-                finalVertices.push_back(b);
+            int vertexIndex = std::stoi(indices.at(0)) - 1;
+            if (vertexIndex < 0) {
+                vertexIndex = this->parsedVertices.size() - vertexIndex;
             }
-            auto currentVertex = this->parsedVertices.at(vertexIndex - 1);
-            currentVertex.textX = this->textureCoords.at(textCoordIndex - 1).x;
-            currentVertex.textY = this->textureCoords.at(textCoordIndex - 1).y;
-            currentVertex.normal = this->normals.at(normalIndex - 1);
+            int textCoordIndex = std::stoi(indices.at(1)) - 1;
+            if (textCoordIndex < 0) {
+                textCoordIndex = this->textureCoords.size() - textCoordIndex;
+            }
+            int normalIndex = std::stoi(indices.at(2)) - 1;
+            if (normalIndex < 0) {
+                normalIndex = this->normals.size() - normalIndex;
+            }
+            auto currentVertex = this->parsedVertices.at(vertexIndex);
+            currentVertex.textX = this->textureCoords.at(textCoordIndex).x;
+            currentVertex.textY = this->textureCoords.at(textCoordIndex).y;
+            currentVertex.normal = this->normals.at(normalIndex);
             currentVertex.color = color;
             this->finalVertices.push_back(currentVertex);
         }
@@ -246,6 +246,10 @@ void ObjParser::parseFaceTextureNormal(const Vec3f& color, const VecString& toke
 void ObjParser::parseFaceNormal(const Vec3f& color, const VecString& tokens, const std::string& line) {
     try {
         for (size_t i = 1; i < tokens.size(); i++) {
+            if (i == 4) {
+                this->handleQuadToTriangle();
+            }
+
             size_t slashPos = tokens.at(i).find('/');
             if (slashPos == std::string::npos) {
                 throw std::runtime_error("Inconsistent face format");
@@ -255,19 +259,16 @@ void ObjParser::parseFaceNormal(const Vec3f& color, const VecString& tokens, con
                 throw std::runtime_error("Inconsistent face format");
             }
 
-            int vertexIndex = std::stoi(indices.at(0));
-            int normalIndex = std::stoi(indices.at(2));
-            // Todo: check for neg or overflow
-            if (i == 4) {
-                auto a = *(this->finalVertices.rbegin() + 3 - 1);
-                auto b = *(this->finalVertices.rbegin() + 1 - 1);
-                a.color = color;
-                this->finalVertices.push_back(a);
-                b.color = color;
-                this->finalVertices.push_back(b);
+            int vertexIndex = std::stoi(indices.at(0)) - 1;
+            if (vertexIndex < 0) {
+                vertexIndex = this->parsedVertices.size() - vertexIndex;
             }
-            auto currentVertex = this->parsedVertices.at(vertexIndex - 1);
-            currentVertex.normal = this->normals.at(normalIndex - 1);
+            int normalIndex = std::stoi(indices.at(2)) - 1;
+            if (normalIndex < 0) {
+                normalIndex = this->normals.size() - normalIndex;
+            }
+            auto currentVertex = this->parsedVertices.at(vertexIndex);
+            currentVertex.normal = this->normals.at(normalIndex);
             currentVertex.color = color;
             this->finalVertices.push_back(currentVertex);
         }
@@ -276,6 +277,13 @@ void ObjParser::parseFaceNormal(const Vec3f& color, const VecString& tokens, con
     } catch (const std::out_of_range &e) {
         throw std::runtime_error("Argument is out of range: " + line);
     }
+}
+
+void ObjParser::handleQuadToTriangle() {
+    auto a = *(this->finalVertices.rbegin() + 3 - 1);
+    auto b = *(this->finalVertices.rbegin() + 1 - 1);
+    this->finalVertices.push_back(a);
+    this->finalVertices.push_back(b);
 }
 
 void ObjParser::parseSmoothShading(const VecString& tokens) {
