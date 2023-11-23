@@ -31,8 +31,6 @@ int main(const int argc, char *argv[]) {
         window->init();
         renderer.loadShader();
         model->loadObjFile(program_options::inputFile());
-
-        // Todo: test for loading fail
         model->loadTexture("./resources/textures/uvmap.jpeg");
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
