@@ -25,5 +25,4 @@ const float ZOOM = 45.0f;
 const float NEAR_CLIP = 0.1f;
 const float FAR_CLIP = 100.0f;
 
-
 #endif  //INC_SETTINGS_H_
