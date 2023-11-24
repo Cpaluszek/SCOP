@@ -11,16 +11,12 @@
 
 class Renderer {
  public:
-     explicit Renderer(const Camera& camera);
-
      void loadShader();
 
-     void render(Model& model, float deltaTime);
+     void render(const Camera& camera, Model& model, float deltaTime);
 
  private:
     Shader shader;
-
-    Camera const& camera;
 };
 
 #endif  // INC_RENDERER_H_

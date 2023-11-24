@@ -1,21 +1,24 @@
 #ifndef INC_INPUT_H_
 #define INC_INPUT_H_
 
+#include <stdexcept>
+#include <unordered_map>
+
 #include "./Model.h"
 #include "./settings.h"
 #include "./Window.h"
 
 #include "../lib/GLFW/include/glfw3.h"
-#include <unordered_map>
 
 class Input {
  public:
-     explicit Input(GLFWwindow* windowInstance);
+     Input();
+
+     void setWindow(GLFWwindow* instance);
      void processInput(Model& model, float deltaTime);
 
  private:
      GLFWwindow* window;
-
 
      std::unordered_map<int, bool> keyStateMap;
 

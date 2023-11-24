@@ -1,5 +1,4 @@
 #include <exception>
-#include <memory>
 
 #include "../inc/Input.h"
 #include "../inc/Model.h"
@@ -19,29 +18,30 @@ int main(const int argc, char *argv[]) {
     }
 
     Camera camera;
-    Renderer renderer(camera);
-    std::unique_ptr<Window> window(new Window);
-    std::unique_ptr<Model> model(new Model);
+    Input input;
+    Model model;
+    Renderer renderer;
+    Window window;
+
     try {
-        window->init();
+        window.init();
+        input.setWindow(window.instance);
         renderer.loadShader();
-        model->loadObjFile(program_options::inputFile());
-        model->loadTexture("./resources/textures/uvmap.jpeg");
+        model.loadObjFile(program_options::inputFile());
+        model.loadTexture("./resources/textures/uvmap.jpeg");
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
         return EXIT_FAILURE;
     }
 
-    Input input(window->instance);
-
-    while (!glfwWindowShouldClose(window->instance)) {
+    while (!glfwWindowShouldClose(window.instance)) {
         float deltaTime = Window::getDeltaTime();
 
-        input.processInput(*model, deltaTime);
+        input.processInput(model, deltaTime);
 
-        renderer.render(*model, deltaTime);
+        renderer.render(camera, model, deltaTime);
 
-        window->updateDisplay();
+        window.updateDisplay();
     }
     return EXIT_SUCCESS;
 }

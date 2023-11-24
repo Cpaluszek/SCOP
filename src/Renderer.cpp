@@ -1,7 +1,5 @@
 #include "../inc/Renderer.h"
 
-Renderer::Renderer(Camera const& camera): camera(camera) {}
-
 void Renderer::loadShader() {
    // Todo: check for errors
     glEnable(GL_DEPTH_TEST);
@@ -10,7 +8,7 @@ void Renderer::loadShader() {
     this->shader.use();
 }
 
-void Renderer::render(Model& model, float deltaTime) {
+void Renderer::render(const Camera& camera, Model& model, float deltaTime) {
    // Todo: check for errors
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
