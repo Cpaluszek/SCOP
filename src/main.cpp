@@ -7,8 +7,6 @@
 #include "../inc/Window.h"
 
 #include "../inc/program_options.h"
-#include "../inc/math.h"
-#include "glfw3.h"
 
 int main(const int argc, char *argv[]) {
     try {
