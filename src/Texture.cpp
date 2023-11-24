@@ -19,7 +19,7 @@ Texture::Texture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-void Texture::loadTextureFile(const char* texturePath) {
+void Texture::loadTextureFile(const char* texturePath) const {
     int width, height, nbChannels;
 
     stbi_set_flip_vertically_on_load(true);

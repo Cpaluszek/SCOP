@@ -1,7 +1,9 @@
+#include <utility>
+
 #include "../inc/Mesh.h"
 
-Mesh::Mesh(const VertexVector& vertices):
-    vertices(vertices)
+Mesh::Mesh(VertexVector  vertices):
+    vertices(std::move(vertices))
 {
     // this->mapTextureCoordinates();
     this->findObjectOrigin();
@@ -65,7 +67,8 @@ void Mesh::mapTextureCoordinates() {
     // Todo: find a proper way to manage uv mapping
     for (auto &vertex: this->vertices) {
 
-        float theta = std::atan2(vertex.position.z, vertex.position.x); float phi = std::acos(vertex.position.y / vertex.position.length());
+        float theta = std::atan2(vertex.position.z, vertex.position.x);
+        float phi = std::acos(vertex.position.y / vertex.position.length());
         vertex.textX = (theta + M_PI) / (2.0f * M_PI);
         vertex.textY = phi / M_PI;
     }

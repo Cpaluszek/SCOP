@@ -37,7 +37,7 @@ class Model {
      void switchTextureMode();
 
  private:
-     std::unique_ptr<Mesh> mesh;
+     std::unique_ptr<Mesh> mesh = nullptr;
      Texture texture;
 
      float textureTransitionFactor = 0.0f;

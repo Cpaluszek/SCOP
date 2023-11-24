@@ -9,7 +9,8 @@ struct Vertex {
     Vec3f position;
     Vec3f normal;
     Vec3f color;
-    GLfloat textX, textY;
+    GLfloat textX = 0.0f;
+    GLfloat textY = 0.0f;
 };
 
 typedef std::vector<Vertex> VertexVector;

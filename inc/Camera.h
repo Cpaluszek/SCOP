@@ -7,7 +7,7 @@
 
 class Camera {
  public:
-     Camera(Vec3f position = START_POSITION, Vec3f up = UP_DIR,
+     explicit Camera(Vec3f position = START_POSITION, Vec3f up = UP_DIR,
              float yaw = YAW, float pitch = PITCH);
 
      Mat4f getViewMatrix() const;

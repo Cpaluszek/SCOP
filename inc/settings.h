@@ -4,10 +4,8 @@
 #include "./math/Vec3f.h"
 
 #define ANSI_RESET "\033[0m"
-#define ANSI_BOLD "\033[1m"
 #define ANSI_COLOR_YELLOW "\033[33m"
 #define ANSI_COLOR_CYAN "\033[36m"
-#define ANSI_COLOR_WHITE "\033[37m"
 
 constexpr unsigned int WIN_WIDTH = 1200;
 constexpr unsigned int WIN_HEIGHT = 900;

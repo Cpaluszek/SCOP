@@ -1,5 +1,4 @@
 #include "../inc/Renderer.h"
-#include <GL/gl.h>
 
 Renderer::Renderer(Camera const& camera): camera(camera) {}
 
@@ -30,7 +29,6 @@ void Renderer::render(Model& model, float deltaTime) {
     projection = Mat4f::transpose(projection);
     this->shader.setMat4("projection", projection);
     
-    /////////////////////////////////////
     model.draw(this->shader, glfwGetTime(), deltaTime);
 }
 

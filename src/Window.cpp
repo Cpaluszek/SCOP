@@ -1,5 +1,4 @@
 #include "../inc/Window.h"
-#include "glfw3.h"
 
 void Window::init() {
     if (!glfwInit()) {

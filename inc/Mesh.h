@@ -11,15 +11,15 @@
 
 class Mesh {
  public:
+     explicit Mesh(VertexVector  vertices);
      ~Mesh();
-     Mesh(const VertexVector& vertices);
 
      void draw(Shader& shader, double currentTime) const;
      Vec3f position;
 
  private:
-     GLuint vao;   // Vertex array object
-     GLuint vbo;    // Vertex buffer object
+     GLuint vao = 0;   // Vertex array object
+     GLuint vbo = 0;    // Vertex buffer object
 
      Vec3f origin;
      VertexVector vertices;

@@ -26,8 +26,8 @@ Mat4f Mat4f::translate(Mat4f const& m, Vec3f const& translation) {
 // Note: what is Gimbal lock?
 // Todo: optimize
 Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
-    float c = cos(angle);
-    float s = sin(angle);
+    float c = cosf(angle);
+    float s = sinf(angle);
     Vec3f normalizedAxis = Vec3f::normalize(axis);
 
     Vec3f temp = normalizedAxis.scale(1.0f - c);
@@ -68,7 +68,7 @@ Mat4f Mat4f::scale(const Mat4f& m, const Vec3f& factors) {
 Mat4f Mat4f::perspective(float fov, float aspect, float near, float far) {
     Mat4f result;
 
-    float invTanHalfFov = 1.0f / tan(fov / 2.0f);
+    float invTanHalfFov = 1.0f / tanf(fov / 2.0f);
 
     result.data[0] = invTanHalfFov / aspect;
     result.data[5] = invTanHalfFov;

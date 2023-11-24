@@ -25,7 +25,7 @@ class Vec3f {
     void normalize();
 
     static float dot(const Vec3f& x, const Vec3f& y);
-    static Vec3f cross(const Vec3f& x, const Vec3f y);
+    static Vec3f cross(const Vec3f& x, const Vec3f& y);
     static Vec3f normalize(const Vec3f& src);
 };
 

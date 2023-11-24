@@ -11,7 +11,7 @@
 class Input {
  public:
      explicit Input(GLFWwindow* windowInstance);
-     void processInput(Model& model, const float deltaTime);
+     void processInput(Model& model, float deltaTime);
 
  private:
      GLFWwindow* window;

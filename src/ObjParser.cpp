@@ -21,18 +21,18 @@ void ObjParser::parseObjFile(std::ifstream& file) {
 void ObjParser::parseLine(const VecString& tokens, const std::string& line) {
     // Note: maybe use map with functions to iterate
     if (tokens.at(0) == VERTEX_KEYWORD) {
-        if (finalVertices.size() != 0) {
+        if (!finalVertices.empty()) {
             throw std::runtime_error("Vertex to need be listed before faces");
         }
         this->parseVertex(tokens, line);
     } else if (tokens.at(0) == FACE_KEYWORD) {
-        if (parsedVertices.size() == 0) {
+        if (parsedVertices.empty()) {
             throw std::runtime_error("Vertex need be listed before faces");
         } 
         if (tokens.size() < 4 || tokens.size() > 5) {
             throw std::runtime_error("Incorrect face format: should be triangle or quad");
         }
-        if (finalVertices.size() == 0) {
+        if (finalVertices.empty()) {
             this->determineFaceFormat(tokens);
         }
 

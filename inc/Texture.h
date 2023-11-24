@@ -10,9 +10,9 @@
 class Texture {
  public:
      Texture();
-     void loadTextureFile(const char* texturePath);
+     void loadTextureFile(const char* texturePath) const;
 
-     GLuint id;
+     GLuint id = 0;
 };
 
 #endif  //INC_TEXTURE_H_

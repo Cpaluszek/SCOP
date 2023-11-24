@@ -22,7 +22,7 @@ class Window {
     static float getDeltaTime();
 
  private:
-    void checkGlfwError();
+    static void checkGlfwError();
 };
 
 #endif  // INC_WINDOW_H_

@@ -36,8 +36,8 @@ class Shader {
      //    void setVec2(const std::string &name, const glm::vec2 &value) const;
 
  private:
-     static void checkCompileError(const GLuint shader);
-     static void checkProgramError(const GLuint program);
+     static void checkCompileError(GLuint shader);
+     static void checkProgramError(GLuint program);
 };
 
 #endif  // INC_SHADER_H_
