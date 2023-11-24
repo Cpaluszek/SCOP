@@ -17,7 +17,6 @@ Mat4f Camera::getViewMatrix() const {
 Mat4f Camera::getProjectionMatrix() const {
     return Mat4f::perspective(math::radians(this->zoom),
             ASPECT_RATIO, NEAR_CLIP, FAR_CLIP);
-    return Mat4f::lookAt(this->position, this->position + this->front, this->up);
 }
 
 void Camera::updateCameraVectors() {
