@@ -9,6 +9,7 @@
 #include "./Mesh.h"
 #include "./math.h"
 #include "./ObjParser.h"
+#include "./settings.h"
 #include "./Texture.h"
 #include "./utils.h"
 
@@ -20,8 +21,6 @@ enum Model_Movement {
     FORWARD,
     BACKWARD
 };
-
-const float MOVEMENT_SPEED = 1.5f;
 
 class Model {
  public:
