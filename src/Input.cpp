@@ -2,7 +2,7 @@
 #include "glfw3.h"
 
 Input::Input(GLFWwindow* windowInstance): window(windowInstance) {
-    std::cout << ANSI_COLOR_YELLOW << "------------- Keybinds: -------------" << ANSI_RESET << std::endl;
+    std::cout << ANSI_COLOR_YELLOW << "------------- Key binds: -------------" << ANSI_RESET << std::endl;
     std::cout << ANSI_COLOR_CYAN << " Object Movements:" << ANSI_RESET << std::endl;
     std::cout << "   W: Move Up" << std::endl;
     std::cout << "   A: Move Left" << std::endl;
@@ -16,7 +16,7 @@ Input::Input(GLFWwindow* windowInstance): window(windowInstance) {
     std::cout << "   P: Switch between Wireframe and Fill" << std::endl;
     std::cout << ANSI_COLOR_CYAN << " Texture:" << ANSI_RESET << std::endl;
     std::cout << "   T: Switch between Texture and Color" << std::endl;
-    std::cout << ANSI_COLOR_YELLOW << "-------------------------------------" << ANSI_RESET << std::endl;
+    std::cout << ANSI_COLOR_YELLOW << "--------------------------------------" << ANSI_RESET << std::endl;
 }
 
 void Input::processInput(Model& model, const float deltaTime) { 
