@@ -31,7 +31,6 @@ void Mesh::draw(Shader& shader, const double currentTime) const {
 }
 
 void Mesh::setupMesh() {
-    // Todo: check for errors
     glGenVertexArrays(1, &this->vao); 
     glGenBuffers(1, &this->vbo);
 
@@ -63,6 +62,7 @@ void Mesh::setupMesh() {
 }
 
 void Mesh::mapTextureCoordinates() {
+    // Todo: find a proper way to manage uv mapping
     for (auto &vertex: this->vertices) {
 
         float theta = std::atan2(vertex.position.z, vertex.position.x); float phi = std::acos(vertex.position.y / vertex.position.length());

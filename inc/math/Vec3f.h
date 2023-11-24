@@ -3,8 +3,6 @@
 
 #include <ostream>
 
-// Todo: use inline on whole class operations?
-
 class Vec3f {
  public:
     float x;
