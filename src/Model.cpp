@@ -1,18 +1,11 @@
 #include "Model.h"
 
 void Model::loadObjFile(const std::string& inputFile) {
-    std::ifstream objFile(inputFile, std::ios::in);
-    if (!objFile.is_open()) {
-        throw std::runtime_error("Could not open input file '" + inputFile + "'!");
-    }
-
     ObjParser parser;
 
     try {
-        parser.parseObjFile(objFile);
-        objFile.close();
+        parser.parseObjFile(inputFile);
     } catch (const std::exception& e){
-        objFile.close();
         throw;
     }
     this->useSmoothShading = parser.useSmoothShading;

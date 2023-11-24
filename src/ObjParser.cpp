@@ -6,15 +6,33 @@ ObjParser::ObjParser() {
     this->dis = std::uniform_real_distribution<float>(0.0f, 1.0f);
 }
 
-void ObjParser::parseObjFile(std::ifstream& file) {
+ObjParser::~ObjParser() {
+    if (objFile.is_open()) {
+        objFile.close();
+    }
+}
+
+void ObjParser::parseObjFile(const std::string& inputFile) {
+    this->objFile = std::ifstream(inputFile, std::ios::in);
+    if (!objFile.is_open()) {
+        throw std::runtime_error("Could not open input file '" + inputFile + "'!");
+    }
+
+    this->parentPath = std::filesystem::path(inputFile).parent_path();
+
     std::string line;
-    while (std::getline(file, line)) {
+    while (std::getline(objFile, line)) {
         if (line.empty()) continue ;
 
         VecString tokens = utils::splitString(line, ' ');
         if (tokens.size() == 1 || tokens.at(0) == COMMENT_KEYWORD) continue ;
         
         this->parseLine(tokens, line);
+    }
+
+    if (!this->materialFile.empty()) {
+        std::cout << "Parsing mtl file is not yet implemented" << std::endl;
+        std::cout << "File name: " << this->materialFile << std::endl;
     }
 }
 
@@ -58,7 +76,7 @@ void ObjParser::parseLine(const VecString& tokens, const std::string& line) {
     } else if (tokens.at(0) == TEXT_COORDS_KEYWORD) {
         this->parseVertexTextureCoords(tokens, line);
     } else if (tokens.at(0) == MAT_FILE_KEYWORD) {
-        std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        this->checkMaterialFileArgument(tokens);
     } else if (tokens.at(0) == MAT_NAME_KEYWORD) {
         std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
     } else if (tokens.at(0) == OBJ_NAME_KEYWORD) {
@@ -312,6 +330,25 @@ void ObjParser::determineFaceFormat(const VecString& tokens) {
             this->faceFormat = VERTEX_TEXTURE_NORMAL;
         }
     }
+}
+
+void ObjParser::checkMaterialFileArgument(const VecString& tokens) {
+    if (tokens.size() != 2) {
+        std::cerr << "Invalid material file: `mtllib [external .mtl file name]'" << std::endl;
+        return;
+    }
+    std::filesystem::path materialPath(tokens.at(1));
+    if (materialPath.extension() != ".mtl") {
+        std::cerr << "Invalid material file extension" << std::endl;
+        return ;
+    }
+    std::string materialCompletePath = this->parentPath + "/" + tokens.at(1);
+    if (!std::filesystem::exists(materialCompletePath)) {
+        std::cerr << "Invalid material file: " << tokens.at(1) << "does not exists" << std::endl;
+        return;
+    }
+
+    this->materialFile = materialCompletePath;
 }
 
 Vec3f ObjParser::getRandomColor() {

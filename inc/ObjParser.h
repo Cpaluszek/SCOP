@@ -1,6 +1,7 @@
 #ifndef INC_OBJPARSER_H_
 #define INC_OBJPARSER_H_
 
+#include <filesystem>
 #include <string>
 #include <fstream>
 #include <random>
@@ -32,11 +33,16 @@ enum Face_Format {
 class ObjParser {
  public:
      ObjParser();
-     void parseObjFile(std::ifstream& file);
+     ~ObjParser();
+     void parseObjFile(const std::string& inputFile);
      bool useSmoothShading = false;
      VertexVector finalVertices;
 
  private:
+    std::ifstream objFile;
+    std::string parentPath;
+    std::string materialFile;
+
     std::vector<Vec3f> normals;
     std::vector<Vec3f> textureCoords;
     VertexVector parsedVertices;
@@ -60,6 +66,7 @@ class ObjParser {
 
     void parseSmoothShading(const VecString& tokens);
     void determineFaceFormat(const VecString& tokens);
+    void checkMaterialFileArgument(const VecString& tokens);
     inline Vec3f getRandomColor();
 };
 
