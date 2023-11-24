@@ -20,11 +20,12 @@ Mat4f Camera::getProjectionMatrix() const {
 }
 
 void Camera::updateCameraVectors() {
-    Vec3f front;
-    front.x = cos(math::radians(this->yaw)) * cos(math::radians(this->pitch));
-    front.y = sin(math::radians(this->pitch));
-    front.z = sin(math::radians(this->yaw)) * cos(math::radians(this->pitch));
-    this->front = Vec3f::normalize(front);
+    Vec3f newFront(
+        cosf(math::radians(this->yaw)) * cosf(math::radians(this->pitch)),
+        sinf(math::radians(this->pitch)),
+        sinf(math::radians(this->yaw)) * cosf(math::radians(this->pitch))
+    );
+    this->front = Vec3f::normalize(newFront);
 
     this->right = Vec3f::normalize(Vec3f::cross(this->front, this->worldUp));
     this->up    = Vec3f::normalize(Vec3f::cross(this->right, this->front));
