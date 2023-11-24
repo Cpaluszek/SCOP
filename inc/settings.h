@@ -1,7 +1,7 @@
 #ifndef INC_SETTINGS_H_
 #define INC_SETTINGS_H_
 
-#include "./math/Vec3f.h"
+#include "Vec3f.h"
 
 #define ANSI_RESET "\033[0m"
 #define ANSI_COLOR_YELLOW "\033[33m"

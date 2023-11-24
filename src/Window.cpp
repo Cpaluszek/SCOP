@@ -1,4 +1,4 @@
-#include "../inc/Window.h"
+#include "Window.h"
 
 void Window::init() {
     if (!glfwInit()) {

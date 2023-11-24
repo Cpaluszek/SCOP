@@ -5,9 +5,9 @@
 #include <fstream>
 #include <random>
 #include <vector>
-#include "./math.h"
-#include "./utils.h"
-#include "./Vertex.h"
+#include "math.h"
+#include "utils.h"
+#include "Vertex.h"
 
 #define COMMENT_KEYWORD "#"
 #define VERTEX_KEYWORD "v"

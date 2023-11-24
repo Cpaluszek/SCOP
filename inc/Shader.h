@@ -7,8 +7,8 @@
 #include <iostream>
 #include <vector>
 
-#include "../lib/GLEW/include/glew.h"
-#include "./math.h"
+#include "glew.h"
+#include "math.h"
 
 class Shader {
  public:

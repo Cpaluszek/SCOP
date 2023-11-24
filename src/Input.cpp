@@ -1,4 +1,4 @@
-#include "../inc/Input.h"
+#include "Input.h"
 #include "glfw3.h"
 
 Input::Input() {

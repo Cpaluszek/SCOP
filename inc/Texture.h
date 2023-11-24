@@ -3,8 +3,8 @@
 
 #include <string>
 #include <stdexcept>
-#include "./stb_image.h"
-#include "../lib/GLEW/include/glew.h"
+#include "stb_image.h"
+#include "glew.h"
 #include "glfw3.h"
 
 class Texture {

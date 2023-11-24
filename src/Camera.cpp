@@ -1,4 +1,4 @@
-#include "../inc/Camera.h"
+#include "Camera.h"
 
 Camera::Camera(const Vec3f position) {
     this->position = position;

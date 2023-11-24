@@ -5,9 +5,9 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
-#include "../lib/GLEW/include/glew.h"
-#include "../lib/GLFW/include/glfw3.h"
-#include "./settings.h"
+#include "glew.h"
+#include "glfw3.h"
+#include "settings.h"
 
 class Window {
  public:

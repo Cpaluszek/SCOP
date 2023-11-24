@@ -1,4 +1,4 @@
-#include "../inc/Renderer.h"
+#include "Renderer.h"
 
 void Renderer::loadShader() {
     glEnable(GL_DEPTH_TEST);

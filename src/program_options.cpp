@@ -1,4 +1,4 @@
-#include "../inc/program_options.h"
+#include "program_options.h"
 
 // Anonymous namespace - limit visibility
 namespace {

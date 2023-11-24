@@ -1,4 +1,4 @@
-#include "../../inc/math/Mat4f.h"
+#include "Mat4f.h"
 
 Mat4f::Mat4f() {
     data.fill(0.0f);

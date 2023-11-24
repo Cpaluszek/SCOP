@@ -6,12 +6,12 @@
 #include <memory>
 #include <stdexcept>
 #include <vector>
-#include "./Mesh.h"
-#include "./math.h"
-#include "./ObjParser.h"
-#include "./settings.h"
-#include "./Texture.h"
-#include "./utils.h"
+#include "Mesh.h"
+#include "math.h"
+#include "ObjParser.h"
+#include "settings.h"
+#include "Texture.h"
+#include "utils.h"
 
 enum Model_Movement {
     UP,

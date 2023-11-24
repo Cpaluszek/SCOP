@@ -1,4 +1,4 @@
-#include "../inc/Model.h"
+#include "Model.h"
 
 void Model::loadObjFile(const std::string& inputFile) {
     std::ifstream objFile(inputFile, std::ios::in);

@@ -1,4 +1,4 @@
-#include "../inc/Texture.h"
+#include "Texture.h"
 
 Texture::Texture() {
     glGenTextures(1, &this->id);

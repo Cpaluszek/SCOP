@@ -4,11 +4,11 @@
 #include <stdexcept>
 #include <unordered_map>
 
-#include "./Model.h"
-#include "./settings.h"
-#include "./Window.h"
+#include "Model.h"
+#include "settings.h"
+#include "Window.h"
 
-#include "../lib/GLFW/include/glfw3.h"
+#include "glfw3.h"
 
 class Input {
  public:

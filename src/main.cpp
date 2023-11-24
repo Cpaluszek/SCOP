@@ -1,11 +1,11 @@
 #include <exception>
 
-#include "../inc/Input.h"
-#include "../inc/Model.h"
-#include "../inc/Renderer.h"
-#include "../inc/Window.h"
+#include "Input.h"
+#include "Model.h"
+#include "Renderer.h"
+#include "Window.h"
 
-#include "../inc/program_options.h"
+#include "program_options.h"
 
 int main(const int argc, char *argv[]) {
     try {

@@ -4,10 +4,10 @@
 #include <cmath>
 #include <vector>
 
-#include "../lib/GLEW/include/glew.h"
-#include "./math.h"
-#include "./Shader.h"
-#include "./Vertex.h"
+#include "glew.h"
+#include "math.h"
+#include "Shader.h"
+#include "Vertex.h"
 
 class Mesh {
  public:

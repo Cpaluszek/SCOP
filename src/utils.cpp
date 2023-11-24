@@ -1,4 +1,4 @@
-#include "../inc/utils.h"
+#include "utils.h"
 
 VecString utils::splitString(const std::string& input, char delimiter) {
     VecString tokens;

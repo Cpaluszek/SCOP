@@ -1,6 +1,6 @@
 #include <utility>
 
-#include "../inc/Mesh.h"
+#include "Mesh.h"
 
 Mesh::Mesh(VertexVector  vertices):
     vertices(std::move(vertices))

@@ -1,13 +1,13 @@
 #ifndef INC_RENDERER_H_
 #define INC_RENDERER_H_
 
-#include "../lib/GLEW/include/glew.h"
-#include "../lib/GLFW/include/glfw3.h"
+#include "glew.h"
+#include "glfw3.h"
 
-#include "./Camera.h"
-#include "./Model.h"
-#include "./Shader.h"
-#include "./math.h"
+#include "Camera.h"
+#include "Model.h"
+#include "Shader.h"
+#include "math.h"
 
 class Renderer {
  public:

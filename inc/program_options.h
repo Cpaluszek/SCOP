@@ -5,7 +5,7 @@
 #include <filesystem>
 #include <stdexcept>
 #include <vector>
-#include "./utils.h"
+#include "utils.h"
 
 namespace program_options {
     void parse(int argc, char* argv[]);

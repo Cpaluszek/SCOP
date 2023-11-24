@@ -1,9 +1,9 @@
 #ifndef INC_CAMERA_H_
 #define INC_CAMERA_H_
 
-#include "./settings.h"
-#include "./Window.h"
-#include "./math.h"
+#include "settings.h"
+#include "Window.h"
+#include "math.h"
 
 class Camera {
  public:

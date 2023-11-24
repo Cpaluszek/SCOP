@@ -30,7 +30,10 @@ CXX_FLAGS		:= -Wextra -Werror -Wall -std=c++17 -O2 -g3
 CXX_LINKS		:= -L./lib
 CXX_LIBS		:= -lglfw -lGLEW -lGL -ldl -lX11 -lpthread -lXrandr -lXi
 
-CXX_HEADERS		:= -I./lib/GLFW/include
+CXX_HEADERS		:= -I./lib/GLEW/include -I./lib/GLFW/include -I./inc -I./inc/math
+
+
+
 
 CXX_DEPS_FLAGS	:=	-MP -MMD
 CXX_DEFS_FLAGS	:=	$(foreach def,$(CXX_DEFS),-D $(def))

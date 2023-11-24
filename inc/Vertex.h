@@ -2,8 +2,8 @@
 #define INC_VERTEX_H_
 
 #include <vector>
-#include "../lib/GLEW/include/glew.h"
-#include "./math.h"
+#include "glew.h"
+#include "math.h"
 
 struct Vertex {
     Vec3f position;
