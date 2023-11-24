@@ -1,8 +1,6 @@
 #ifndef INC_INPUT_H_
 #define INC_INPUT_H_
 
-// Define ANSI escape codes for text formatting
-#include "./Camera.h"
 #include "./Model.h"
 #include "./settings.h"
 #include "./Window.h"
@@ -12,11 +10,10 @@
 
 class Input {
  public:
-     Input(Camera& camera, GLFWwindow* windowInstance);
+     explicit Input(GLFWwindow* windowInstance);
      void processInput(Model& model, const float deltaTime);
 
  private:
-     Camera& camera;
      GLFWwindow* window;
 
 

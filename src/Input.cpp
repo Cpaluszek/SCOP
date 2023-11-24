@@ -1,8 +1,7 @@
 #include "../inc/Input.h"
 #include "glfw3.h"
 
-Input::Input(Camera& camera, GLFWwindow* windowInstance)
-: camera(camera), window(windowInstance) {
+Input::Input(GLFWwindow* windowInstance): window(windowInstance) {
     std::cout << ANSI_COLOR_YELLOW << "------------- Keybinds: -------------" << ANSI_RESET << std::endl;
     std::cout << ANSI_COLOR_CYAN << " Object Movements:" << ANSI_RESET << std::endl;
     std::cout << "   W: Move Up" << std::endl;

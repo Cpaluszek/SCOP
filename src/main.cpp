@@ -34,7 +34,7 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    Input input(camera, window->instance);
+    Input input(window->instance);
 
     while (!glfwWindowShouldClose(window->instance)) {
         float deltaTime = Window::getDeltaTime();
