@@ -7,22 +7,21 @@
 
 class Camera {
  public:
-     explicit Camera(Vec3f position = START_POSITION, Vec3f up = UP_DIR,
-             float yaw = YAW, float pitch = PITCH);
+     explicit Camera(Vec3f position);
 
      Mat4f getViewMatrix() const;
      Mat4f getProjectionMatrix() const;
 
  private:
      Vec3f position;
+     Vec3f worldUp = UP_DIR;
      Vec3f front;
      Vec3f up;
      Vec3f right;
-     Vec3f worldUp;
 
-     float yaw;
-     float pitch;
-     float zoom;
+     float yaw = YAW;
+     float pitch= PITCH;
+     float zoom = ZOOM;
 
      void updateCameraVectors();
 };

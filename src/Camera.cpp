@@ -1,12 +1,7 @@
 #include "../inc/Camera.h"
 
-// Todo: remove parameters
-Camera::Camera(const Vec3f position, const Vec3f up, const float yaw, const float pitch)
-    : front(Vec3f(0.0f, 0.0f, -1.0f)), zoom(ZOOM) {
+Camera::Camera(const Vec3f position) {
     this->position = position;
-    this->worldUp = up;
-    this->yaw = yaw;
-    this->pitch = pitch;
     updateCameraVectors();
 }
 

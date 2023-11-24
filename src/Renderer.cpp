@@ -1,7 +1,6 @@
 #include "../inc/Renderer.h"
 
 void Renderer::loadShader() {
-   // Todo: check for errors
     glEnable(GL_DEPTH_TEST);
     // Todo: check for shader compilation error
     this->shader.compileProgram("./shader/vertex.glsl", "./shader/fragment.glsl");
@@ -9,7 +8,6 @@ void Renderer::loadShader() {
 }
 
 void Renderer::render(const Camera& camera, Model& model, float deltaTime) {
-   // Todo: check for errors
     glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -22,6 +20,7 @@ void Renderer::render(const Camera& camera, Model& model, float deltaTime) {
     this->shader.setMat4("view", view);
 
     // Todo: if projection is static remove of the main loop
+
     // Set projection matrix
     Mat4f projection = camera.getProjectionMatrix();
     projection = Mat4f::transpose(projection);

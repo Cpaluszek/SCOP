@@ -17,7 +17,7 @@ int main(const int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    Camera camera;
+    Camera camera(START_POSITION);
     Input input;
     Model model;
     Renderer renderer;

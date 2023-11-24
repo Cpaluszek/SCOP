@@ -2,14 +2,12 @@
 
 Texture::Texture() {
     glGenTextures(1, &this->id);
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR) {
+    if (glGetError() != GL_NO_ERROR) {
         throw std::runtime_error("Failed to generate texture");
     }
 
     glBindTexture(GL_TEXTURE_2D, this->id);
-    error = glGetError();
-    if (error != GL_NO_ERROR) {
+    if (glGetError()!= GL_NO_ERROR) {
         throw std::runtime_error("Failed to bind texture");
     }
 
@@ -36,8 +34,7 @@ void Texture::loadTextureFile(const char* texturePath) const {
     glActiveTexture(GL_TEXTURE0);
 
     glBindTexture(GL_TEXTURE_2D, this->id);
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR) {
+    if (glGetError() != GL_NO_ERROR) {
         throw std::runtime_error("Failed to bind texture");
     }
 }
