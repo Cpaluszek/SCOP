@@ -337,14 +337,21 @@ void ObjParser::checkMaterialFileArgument(const VecString& tokens) {
         std::cerr << "Invalid material file: `mtllib [external .mtl file name]'" << std::endl;
         return;
     }
+
     std::filesystem::path materialPath(tokens.at(1));
     if (materialPath.extension() != ".mtl") {
         std::cerr << "Invalid material file extension" << std::endl;
         return ;
     }
+
     std::string materialCompletePath = this->parentPath + "/" + tokens.at(1);
     if (!std::filesystem::exists(materialCompletePath)) {
         std::cerr << "Invalid material file: " << tokens.at(1) << "does not exists" << std::endl;
+        return;
+    }
+
+    if (!this->materialFile.empty()) {
+        std::cerr << "Second material file will be ignored" << std::endl;
         return;
     }
 
