@@ -26,12 +26,12 @@ void MtlParser::parseMtlFile(const std::string& inputFile) {
 
         this->parseLine(tokens, line);
     }
+    std::cout << this->mat << std::endl;
 }
 
 void MtlParser::parseLine(VecString& tokens, const std::string& line) {
-    std::cout << line << std::endl;
     if (tokens.at(0) == NAME_KEYWORD) {
-
+        this->mat.name = tokens.at(1);
     } else if (tokens.at(0) == AMBIENT_KEYWORD) {
         tokens.erase(tokens.begin());
         this->mat.ambientColor = parseFloatVector(tokens);
@@ -115,3 +115,4 @@ int MtlParser::parseInt(const std::string& value) {
 
     return result;
 }
+

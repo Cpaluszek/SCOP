@@ -7,6 +7,7 @@
 #include <random>
 #include <vector>
 #include "math.h"
+#include "Material.h"
 #include "MtlParser.h"
 #include "utils.h"
 #include "Vertex.h"

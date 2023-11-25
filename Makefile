@@ -4,6 +4,7 @@ SRC_DIR			:=	src
 SRC_FILES		:=	main.cpp \
 					Camera.cpp \
 					Input.cpp \
+					Material.cpp \
 					Mesh.cpp \
 					Model.cpp \
 					MtlParser.cpp \

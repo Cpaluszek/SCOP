@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <string>
+#include "Material.h"
 #include "Vec3f.h"
 #include "utils.h"
 
@@ -19,30 +20,6 @@
 #define INVERT_DISSOLVE_KEYWORD "Tr"
 
 #define ILLUMINATION_MODEL_KEYWORD "illum"
-/*
- * 0. Color on and Ambient off
- * 1. Color on and Ambient on
- * 2. Highlight on
- * 3. Reflection on and Ray trace on
- * 4. Transparency: Glass on, Reflection: Ray trace on
- * 5. Reflection: Fresnel on and Ray trace on
- * 6. Transparency: Refraction on, Reflection: Fresnel off and Ray trace on
- * 7. Transparency: Refraction on, Reflection: Fresnel on and Ray trace on
- * 8. Reflection on and Ray trace off
- * 9. Transparency: Glass on, Reflection: Ray trace off
- * 10. Casts shadows onto invisible surfaces
-*/
-
-struct Material {
-    std::string name;
-    Vec3f ambientColor;
-    Vec3f diffuseColor;
-    Vec3f specularColor;
-    float specularExponent;
-    float dissolve;
-    float refraction;
-    int illumModel;     // Note: switch to enum?
-};
 
 class MtlParser {
  public:
@@ -50,10 +27,10 @@ class MtlParser {
 
      void parseMtlFile(const std::string& inputFile);
 
+    Material mat;
 
  private:
     // Note: manage multiple materials?
-    Material mat;
 
     std::ifstream mtlFile;
 
