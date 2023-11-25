@@ -6,6 +6,7 @@ SRC_FILES		:=	main.cpp \
 					Input.cpp \
 					Mesh.cpp \
 					Model.cpp \
+					MtlParser.cpp \
 					ObjParser.cpp \
 					Renderer.cpp \
 					Shader.cpp \
@@ -31,8 +32,6 @@ CXX_LINKS		:= -L./lib
 CXX_LIBS		:= -lglfw -lGLEW -lGL -ldl -lX11 -lpthread -lXrandr -lXi
 
 CXX_HEADERS		:= -I./lib/GLEW/include -I./lib/GLFW/include -I./inc -I./inc/math
-
-
 
 
 CXX_DEPS_FLAGS	:=	-MP -MMD

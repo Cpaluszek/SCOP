@@ -15,24 +15,27 @@ ObjParser::~ObjParser() {
 void ObjParser::parseObjFile(const std::string& inputFile) {
     this->objFile = std::ifstream(inputFile, std::ios::in);
     if (!objFile.is_open()) {
-        throw std::runtime_error("Could not open input file '" + inputFile + "'!");
+        throw std::runtime_error("Could not open input file '" + inputFile + "'");
     }
 
     this->parentPath = std::filesystem::path(inputFile).parent_path();
 
     std::string line;
     while (std::getline(objFile, line)) {
-        if (line.empty()) continue ;
+        if (line.empty()) continue;
 
         VecString tokens = utils::splitString(line, ' ');
-        if (tokens.size() == 1 || tokens.at(0) == COMMENT_KEYWORD) continue ;
+        if (tokens.size() == 1 || tokens.at(0) == COMMENT_KEYWORD) continue;
         
         this->parseLine(tokens, line);
     }
-
+ 
     if (!this->materialFile.empty()) {
         std::cout << "Parsing mtl file is not yet implemented" << std::endl;
         std::cout << "File name: " << this->materialFile << std::endl;
+
+        MtlParser materialParser;
+        materialParser.parseMtlFile(materialFile);
     }
 }
 

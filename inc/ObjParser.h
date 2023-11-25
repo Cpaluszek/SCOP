@@ -7,6 +7,7 @@
 #include <random>
 #include <vector>
 #include "math.h"
+#include "MtlParser.h"
 #include "utils.h"
 #include "Vertex.h"
 
@@ -22,6 +23,8 @@
 #define PARAM_SPACE_VERTICES_KEYWORD "vn"
 #define MAT_FILE_KEYWORD "mtllib"
 #define MAT_NAME_KEYWORD "usemtl"
+
+// Todo: make a triple float parser to Vec3f
 
 enum Face_Format {
     VERTEX,
