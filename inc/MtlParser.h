@@ -13,7 +13,7 @@
 #define SPECULAR_COLOR_KEYWORD "Ks"
 #define SPECULAR_EXPONENT_KEYWORD "Ns"
 #define DISSOLVE_KEYWORD "d"
-#define REFRACTION_INDEX "Ni"
+#define REFRACTION_KEYWORD "Ni"
 
 #define TRANSMISSION_FILTER "Tf"    // Note: implement?
 #define INVERT_DISSOLVE_KEYWORD "Tr"
@@ -40,6 +40,7 @@ struct Material {
     Vec3f specularColor;
     float specularExponent;
     float dissolve;
+    float refraction;
     int illumModel;     // Note: switch to enum?
 };
 
@@ -49,13 +50,17 @@ class MtlParser {
 
      void parseMtlFile(const std::string& inputFile);
 
+
  private:
     // Note: manage multiple materials?
     Material mat;
 
     std::ifstream mtlFile;
 
-    void parseLine(const VecString& tokens, const std::string& line);
+    void parseLine(VecString& tokens, const std::string& line);
+    Vec3f parseFloatVector(const VecString& tokens);
+    float parseFloat(const std::string& value);
+    int parseInt(const std::string& value);
 };
 
 #endif  //INC_MTLPARSER_H_

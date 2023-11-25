@@ -24,7 +24,8 @@
 #define MAT_FILE_KEYWORD "mtllib"
 #define MAT_NAME_KEYWORD "usemtl"
 
-// Todo: make a triple float parser to Vec3f
+// Todo: create a parsing header with utils
+// parseFloat, parseInt, parseFloatVector
 
 enum Face_Format {
     VERTEX,

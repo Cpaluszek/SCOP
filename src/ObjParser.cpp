@@ -115,7 +115,7 @@ void ObjParser::parseVertex(const VecString& tokens, const std::string& line) {
     } catch (const std::invalid_argument &e) {
         throw std::runtime_error("Argument is invalid: " + line);
     } catch (const std::out_of_range &e) {
-        throw std::runtime_error("Argument is out of range:" + line);
+        throw std::runtime_error("Argument is out of range: " + line);
     }
 }
 
