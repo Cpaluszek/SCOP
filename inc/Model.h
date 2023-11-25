@@ -6,6 +6,7 @@
 #include <memory>
 #include <stdexcept>
 #include <vector>
+#include "Material.h"
 #include "Mesh.h"
 #include "math.h"
 #include "ObjParser.h"
@@ -39,6 +40,7 @@ class Model {
  private:
      std::unique_ptr<Mesh> mesh = nullptr;
      Texture texture;
+     Material material;
 
      float textureTransitionFactor = 0.0f;
      bool useSmoothShading = false;     // Todo: use in shaders

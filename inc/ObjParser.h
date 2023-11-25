@@ -42,6 +42,7 @@ class ObjParser {
      void parseObjFile(const std::string& inputFile);
      bool useSmoothShading = false;
      VertexVector finalVertices;
+     Material material;
 
  private:
     std::ifstream objFile;

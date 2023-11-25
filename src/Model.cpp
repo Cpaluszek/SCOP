@@ -11,7 +11,9 @@ void Model::loadObjFile(const std::string& inputFile) {
     this->useSmoothShading = parser.useSmoothShading;
     this->mesh = std::make_unique<Mesh>(parser.finalVertices);
 
-    // Todo: recover material infos
+    this->material = parser.material;
+
+    std::cout << this->material << std::endl;
 }
 
 void Model::loadTexture(const char* texturePath) {

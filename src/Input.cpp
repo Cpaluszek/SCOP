@@ -1,7 +1,7 @@
 #include "Input.h"
 #include "glfw3.h"
 
-Input::Input() {
+void Input::printKeyBinds() const {
     std::cout << ANSI_COLOR_YELLOW << "------------- Key binds: -------------" << ANSI_RESET << std::endl;
     std::cout << ANSI_COLOR_CYAN << " Object Movements:" << ANSI_RESET << std::endl;
     std::cout << "   W: Move Up" << std::endl;

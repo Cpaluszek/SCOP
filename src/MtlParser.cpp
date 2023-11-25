@@ -26,7 +26,6 @@ void MtlParser::parseMtlFile(const std::string& inputFile) {
 
         this->parseLine(tokens, line);
     }
-    std::cout << this->mat << std::endl;
 }
 
 void MtlParser::parseLine(VecString& tokens, const std::string& line) {

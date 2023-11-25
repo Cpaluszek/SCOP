@@ -36,6 +36,7 @@ void ObjParser::parseObjFile(const std::string& inputFile) {
 
         MtlParser materialParser;
         materialParser.parseMtlFile(materialFile);
+        this->material = materialParser.mat;
     }
 }
 

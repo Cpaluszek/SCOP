@@ -12,8 +12,7 @@
 
 class Input {
  public:
-     Input();
-
+     void printKeyBinds() const;
      void setWindow(GLFWwindow* instance);
      void processInput(Model& model, float deltaTime);
 
