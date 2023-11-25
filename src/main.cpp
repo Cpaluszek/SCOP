@@ -7,6 +7,9 @@
 
 #include "program_options.h"
 
+// Todo: add zoom adjust or camera position 
+// from mode size
+// Todo: center model verticaly
 int main(const int argc, char *argv[]) {
     try {
         program_options::parse(argc, argv);
