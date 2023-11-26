@@ -16,9 +16,12 @@ class Mesh {
 
      void draw(Shader& shader, float deltaTime);
      void resetTransform();
+
+     // Note: use matrix instead
      Vec3f position;
      Vec3f rotation;
 
+     // Mat4f model;
  private:
      GLuint vao = 0;   // Vertex array object
      GLuint vbo = 0;    // Vertex buffer object
