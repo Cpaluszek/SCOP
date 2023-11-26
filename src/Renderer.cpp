@@ -26,6 +26,6 @@ void Renderer::render(const Camera& camera, Model& model, float deltaTime) {
     projection = Mat4f::transpose(projection);
     this->shader.setMat4("projection", projection);
     
-    model.draw(this->shader, glfwGetTime(), deltaTime);
+    model.draw(this->shader, deltaTime);
 }
 

@@ -63,7 +63,7 @@ void Input::processInput(Model& model, const float deltaTime) {
 
     if (!this->keyStateMap[GLFW_KEY_SPACE] && glfwGetKey(this->window, GLFW_KEY_SPACE)) {
         this->keyStateMap[GLFW_KEY_SPACE] = true;
-        model.resetPosition();
+        model.resetTransform();
     }
 
     this->resetKeyState();

@@ -11,11 +11,13 @@
 
 class Mesh {
  public:
-     explicit Mesh(VertexVector  vertices);
+     explicit Mesh(VertexVector& vertices);
      ~Mesh();
 
-     void draw(Shader& shader, double currentTime) const;
+     void draw(Shader& shader, float deltaTime);
+     void resetTransform();
      Vec3f position;
+     Vec3f rotation;
 
  private:
      GLuint vao = 0;   // Vertex array object

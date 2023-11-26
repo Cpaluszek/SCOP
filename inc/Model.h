@@ -28,10 +28,10 @@ class Model {
      void loadObjFile(const std::string& inputFile);
      void loadTexture(const char* texturePath);
 
-     void draw(Shader& shader, double currentTime, float deltaTime);
+     void draw(Shader& shader, float deltaTime);
 
      void processKeyboardInput(Model_Movement direction, float deltaTime);
-     void resetPosition();
+     void resetTransform();
 
      GLuint getTextureId() const;
      void switchPolygonMode();

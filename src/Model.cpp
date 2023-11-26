@@ -32,7 +32,7 @@ void Model::switchTextureMode() {
     this->useTexture ^= true;
 }
 
-void Model::draw(Shader& shader, double currentTime, float deltaTime) {
+void Model::draw(Shader& shader, float deltaTime) {
     if (this->useTexture && this->textureTransitionFactor < 1.0f) {
         this->textureTransitionFactor = std::min(this->textureTransitionFactor + deltaTime, 1.0f);
     } else if (!this->useTexture && this->textureTransitionFactor > 0.0f) {
@@ -40,7 +40,7 @@ void Model::draw(Shader& shader, double currentTime, float deltaTime) {
     }
     shader.setFloat("textureTransitionFactor", this->textureTransitionFactor);
 
-    this->mesh->draw(shader, currentTime);
+    this->mesh->draw(shader, deltaTime);
 }
 
 void Model::processKeyboardInput(Model_Movement direction, float deltaTime) {
@@ -61,6 +61,6 @@ void Model::processKeyboardInput(Model_Movement direction, float deltaTime) {
     }
 }
 
-void Model::resetPosition() {
-    this->mesh->position = Vec3f();
+void Model::resetTransform() {
+    this->mesh->resetTransform();
 }

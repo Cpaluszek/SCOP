@@ -1,15 +1,15 @@
 #include <utility>
 
 #include "Mesh.h"
+#include "math.h"
 
-Mesh::Mesh(VertexVector  vertices):
-    vertices(std::move(vertices))
+Mesh::Mesh(VertexVector& vertices): vertices(std::move(vertices))
 {
     // this->mapTextureCoordinates();
     this->findObjectOrigin();
     this->setupMesh();
 
-    this->position -= this->origin;
+    this->position = this->origin.scale(-1.0f);
 }
 
 Mesh::~Mesh() {
@@ -17,14 +17,19 @@ Mesh::~Mesh() {
     glDeleteBuffers(1, &this->vbo);
 }
 
-void Mesh::draw(Shader& shader, const double currentTime) const {
+// Todo: set function as const - move rotation
+void Mesh::draw(Shader& shader, const float deltaTime) {
     const Mat4f identity(1.0f);
 
     Mat4f model = Mat4f::translate(identity, this->position);
     model = Mat4f::translate(model, this->origin);
 
-    const GLfloat angle = math::radians(currentTime * 20.0f);
-    model = Mat4f::rotate(model, angle, Vec3f(0.0f, 1.0f, 0.0f));
+    // this->rotation.x += math::radians(2.0f * deltaTime);
+    this->rotation.y += math::radians(20.0f * deltaTime);
+    // this->rotation.z -= math::radians(6.0f * deltaTime);
+    // model = Mat4f::rotate(model, this->rotation.x, Vec3f(1.0f, 1.0f, 0.0f));
+    model = Mat4f::rotate(model, this->rotation.y, Vec3f(0.0f, 1.0f, 0.0f));
+    // model = Mat4f::rotate(model, this->rotation.z, Vec3f(0.0f, 0.0f, 1.0f));
     model = Mat4f::translate(model, this->origin.scale(-1.0f));
     model = Mat4f::transpose(model);
     shader.setMat4("model", model);
@@ -32,6 +37,11 @@ void Mesh::draw(Shader& shader, const double currentTime) const {
     glBindVertexArray(this->vao);
     glDrawArrays(GL_TRIANGLES, 0, this->vertices.size());
     glBindVertexArray(0);
+}
+
+void Mesh::resetTransform() {
+    this->position = this->origin.scale(-1.0f);
+    this->rotation = Vec3f();
 }
 
 void Mesh::setupMesh() {
