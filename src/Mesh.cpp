@@ -8,6 +8,8 @@ Mesh::Mesh(VertexVector  vertices):
     // this->mapTextureCoordinates();
     this->findObjectOrigin();
     this->setupMesh();
+
+    this->position -= this->origin;
 }
 
 Mesh::~Mesh() {
