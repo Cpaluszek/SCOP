@@ -35,9 +35,6 @@ class MtlParser {
     std::ifstream mtlFile;
 
     void parseLine(VecString& tokens, const std::string& line);
-    Vec3f parseFloatVector(const VecString& tokens);
-    float parseFloat(const std::string& value);
-    int parseInt(const std::string& value);
 };
 
 #endif  //INC_MTLPARSER_H_
