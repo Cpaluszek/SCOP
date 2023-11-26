@@ -58,15 +58,15 @@ class ObjParser {
 
     Face_Format faceFormat = VERTEX;
 
-    void parseLine(const VecString& tokens, const std::string& line);
-    void parseVertex(const VecString& tokens, const std::string& line);
-    void parseVertexNormal(const VecString& tokens, const std::string& line);
-    void parseVertexTextureCoords(const VecString& tokens, const std::string& line);
+    void parseLine(VecString& tokens, const std::string& line);
+    void parseVertex(VecString& tokens);
+    void parseVertexNormal(VecString& tokens);
+    void parseVertexTextureCoords(VecString& tokens);
 
-    void parseFace(const Vec3f& color, const VecString& tokens, const std::string& line);
-    void parseFaceTexture(const Vec3f& color, const VecString& tokens, const std::string& line);
-    void parseFaceTextureNormal(const Vec3f& color, const VecString& tokens, const std::string& line);
-    void parseFaceNormal(const Vec3f& color, const VecString& tokens, const std::string& line);
+    void parseFace(const Vec3f& color, const VecString& tokens);
+    void parseFaceTexture(const Vec3f& color, const VecString& tokens);
+    void parseFaceTextureNormal(const Vec3f& color, const VecString& tokens);
+    void parseFaceNormal(const Vec3f& color, const VecString& tokens);
 
     void handleQuadToTriangle();
 

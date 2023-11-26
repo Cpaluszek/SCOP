@@ -2,7 +2,6 @@
 #include "ObjParser.h"
 #include "Vec3f.h"
 #include "utils.h"
-#include <stdexcept>
 
 MtlParser::~MtlParser() {
     if (this->mtlFile.is_open()) {
