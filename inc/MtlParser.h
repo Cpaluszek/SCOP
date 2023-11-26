@@ -1,6 +1,7 @@
 #ifndef INC_MTLPARSER_H_
 #define INC_MTLPARSER_H_
 
+#include <iostream>
 #include <fstream>
 #include <string>
 #include "Material.h"

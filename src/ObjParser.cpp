@@ -1,5 +1,4 @@
 #include "ObjParser.h"
-#include "utils.h"
 
 ObjParser::ObjParser() {
     std::random_device rd;
