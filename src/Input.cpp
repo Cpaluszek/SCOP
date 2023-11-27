@@ -26,9 +26,17 @@ void Input::setWindow(GLFWwindow* instance) {
     this->window = instance;
 }
 
-void Input::processInput(Model& model, const float deltaTime) { 
+void Input::processInput(Model& model, Camera& camera, const float deltaTime) { 
     if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(this->window, GL_TRUE);
+    }
+
+    // Camera zoom
+    if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS) {
+        camera.processKeyboardInput(ZOOM_IN, deltaTime);
+    }
+    if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+        camera.processKeyboardInput(ZOOM_OUT, deltaTime);
     }
 
     // Toggle wireframe

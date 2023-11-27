@@ -5,12 +5,19 @@
 #include "Window.h"
 #include "math.h"
 
+enum Camera_Input {
+    ZOOM_IN,
+    ZOOM_OUT
+};
+
 class Camera {
  public:
      explicit Camera(Vec3f position);
 
      Mat4f getViewMatrix() const;
      Mat4f getProjectionMatrix() const;
+
+     void processKeyboardInput(Camera_Input input, float deltaTime);
 
  private:
      Vec3f position;

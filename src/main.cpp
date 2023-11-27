@@ -9,7 +9,6 @@
 
 // Todo: add zoom adjust or camera position 
 // from mode size
-// Todo: center model verticaly
 int main(const int argc, char *argv[]) {
     try {
         program_options::parse(argc, argv);
@@ -41,7 +40,7 @@ int main(const int argc, char *argv[]) {
     while (!glfwWindowShouldClose(window.instance)) {
         float deltaTime = Window::getDeltaTime();
 
-        input.processInput(model, deltaTime);
+        input.processInput(model, camera, deltaTime);
 
         renderer.render(camera, model, deltaTime);
 

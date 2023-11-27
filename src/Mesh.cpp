@@ -87,10 +87,13 @@ void Mesh::mapTextureCoordinates() {
 }
 
 void Mesh::findObjectOrigin() {
+    // Vec3f max = this->vertices.at(0).position;
+    // Vec3f min = this->vertices.at(0).position;
     Vec3f sum;
     for (Vertex v: this->vertices) {
         sum += v.position;
     }
     this->origin = sum.scale(1.0f / this->vertices.size());
+    std::cout << "Object origin: " << this->origin << std::endl;
 }
 

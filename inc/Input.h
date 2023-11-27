@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <unordered_map>
 
+#include "Camera.h"
 #include "Model.h"
 #include "settings.h"
 #include "Window.h"
@@ -14,7 +15,7 @@ class Input {
  public:
      void printKeyBinds() const;
      void setWindow(GLFWwindow* instance);
-     void processInput(Model& model, float deltaTime);
+     void processInput(Model& model, Camera& camera, float deltaTime);
 
  private:
      GLFWwindow* window;
