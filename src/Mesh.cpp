@@ -2,14 +2,13 @@
 
 #include "Mesh.h"
 #include "math.h"
+#include "settings.h"
 
 Mesh::Mesh(VertexVector& vertices): vertices(std::move(vertices))
 {
     // this->mapTextureCoordinates();
-    this->findObjectOrigin();
+    this->computeObjectPosition();
     this->setupMesh();
-
-    this->position = this->origin.scale(-1.0f);
 }
 
 Mesh::~Mesh() {
@@ -86,14 +85,35 @@ void Mesh::mapTextureCoordinates() {
     }
 }
 
-void Mesh::findObjectOrigin() {
-    // Vec3f max = this->vertices.at(0).position;
-    // Vec3f min = this->vertices.at(0).position;
+void Mesh::computeObjectPosition() {
+    Vec3f range = this->vertices.at(0).position;
     Vec3f sum;
     for (Vertex v: this->vertices) {
         sum += v.position;
+
+        if (v.position.x > range.x) {
+            range.x = fabs(v.position.x);
+        }
+        if (v.position.y > range.y) {
+            range.y = fabs(v.position.y);
+        }
+        if (v.position.z > range.z) {
+            range.z = fabs(v.position.z);
+        }
     }
     this->origin = sum.scale(1.0f / this->vertices.size());
-    std::cout << "Object origin: " << this->origin << std::endl;
+
+    this->position = this->origin.scale(-1.0f);
+    range -= this->origin;
+    float max = range.x;
+    if (range.y > max) {
+        max = range.y;
+    }
+    if (range.z > max) {
+        max = range.z;
+    }
+    if (max > CAM_START_POSITION.z) {
+        this->position.z -= max * 2.0f + CAM_START_POSITION.z;
+    }
 }
 

@@ -15,7 +15,7 @@ constexpr float ASPECT_RATIO = static_cast<float>(WIN_WIDTH) / static_cast<float
 const float MOVEMENT_SPEED = 1.5f;
 
 // Camera settings
-const Vec3f START_POSITION = Vec3f(0.0f, 0.0f, 10.0f);
+const Vec3f CAM_START_POSITION = Vec3f(0.0f, 0.0f, 10.0f);
 const Vec3f UP_DIR = Vec3f(0.0f, 1.0f, 0.0f);
 
 const float YAW = -90.0f;

@@ -16,9 +16,9 @@ Mat4f Camera::getProjectionMatrix() const {
 
 void Camera::processKeyboardInput(Camera_Input input, float deltaTime) {
     if (input == ZOOM_IN) {
-        this->zoom += ZOOM_SPEED * deltaTime;
-    } else if (input == ZOOM_OUT) {
         this->zoom -= ZOOM_SPEED * deltaTime;
+    } else if (input == ZOOM_OUT) {
+        this->zoom += ZOOM_SPEED * deltaTime;
     }
 }
 

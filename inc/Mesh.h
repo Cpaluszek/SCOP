@@ -31,7 +31,7 @@ class Mesh {
 
      void setupMesh();
      void mapTextureCoordinates();
-     void findObjectOrigin();
+     void computeObjectPosition();
 };
 
 #endif
