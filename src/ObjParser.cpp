@@ -129,9 +129,10 @@ void ObjParser::parseVertexTextureCoords(VecString& tokens) {
 
     GLfloat u = utils::parseFloat(tokens.at(1));
     GLfloat v = tokens.size() > 2 ? utils::parseFloat(tokens.at(2)) : 0.0f;
-    if (u < 0.0f || u > 1.0f || v < 0.0f || v > 1.0f) {
-        throw std::runtime_error("Texture coords should in range [0.0f, 1.0f]");
-    }
+    // Note: modulo + abs? - texture wrap?
+    // if (u < 0.0f || u > 1.0f || v < 0.0f || v > 1.0f) {
+    //     throw std::runtime_error("Texture coords should in range [0.0f, 1.0f]");
+    // }
     this->textureCoords.push_back(Vec3f(u, v, 0.0f));
 }
 
