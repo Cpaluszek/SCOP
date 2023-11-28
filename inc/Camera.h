@@ -20,6 +20,9 @@ class Camera {
      void processKeyboardInput(Camera_Input input, float deltaTime);
 
  private:
+     Mat4f view;
+     Mat4f projection;
+
      Vec3f position;
      Vec3f worldUp = UP_DIR;
      Vec3f front;

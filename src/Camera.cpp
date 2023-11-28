@@ -3,15 +3,16 @@
 Camera::Camera(const Vec3f position) {
     this->position = position;
     updateCameraVectors();
+    this->projection = Mat4f::perspective(math::radians(this->zoom), 
+            ASPECT_RATIO, NEAR_CLIP, FAR_CLIP);
 }
 
 Mat4f Camera::getViewMatrix() const {
-    return Mat4f::lookAt(this->position, this->position + this->front, this->up);
+    return this->view;
 }
 
 Mat4f Camera::getProjectionMatrix() const {
-    return Mat4f::perspective(math::radians(this->zoom),
-            ASPECT_RATIO, NEAR_CLIP, FAR_CLIP);
+    return this->projection;
 }
 
 void Camera::processKeyboardInput(Camera_Input input, float deltaTime) {
@@ -20,6 +21,9 @@ void Camera::processKeyboardInput(Camera_Input input, float deltaTime) {
     } else if (input == ZOOM_OUT) {
         this->zoom += ZOOM_SPEED * deltaTime;
     }
+    this->projection = Mat4f::perspective(
+            math::radians(this->zoom), 
+            ASPECT_RATIO, NEAR_CLIP, FAR_CLIP);
 }
 
 void Camera::updateCameraVectors() {
@@ -32,5 +36,7 @@ void Camera::updateCameraVectors() {
 
     this->right = Vec3f::normalize(Vec3f::cross(this->front, this->worldUp));
     this->up    = Vec3f::normalize(Vec3f::cross(this->right, this->front));
+
+    this->view = Mat4f::lookAt(this->position, this->position + this->front, this->up); 
 }
 

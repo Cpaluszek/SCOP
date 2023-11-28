@@ -16,13 +16,11 @@ void Renderer::render(const Camera& camera, Model& model, float deltaTime) {
     glBindTexture(GL_TEXTURE_2D, model.getTextureId());
 
     // Set view matrix
-    Mat4f view = camera.getViewMatrix();
-    view = Mat4f::transpose(view);
+    Mat4f view = Mat4f::transpose(camera.getViewMatrix());
     this->shader.setMat4("view", view);
 
     // Set projection matrix
-    Mat4f projection = camera.getProjectionMatrix();
-    projection = Mat4f::transpose(projection);
+    Mat4f projection = Mat4f::transpose(camera.getProjectionMatrix());
     this->shader.setMat4("projection", projection);
     
     model.draw(this->shader, deltaTime);
