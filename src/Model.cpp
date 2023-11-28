@@ -55,9 +55,9 @@ void Model::processKeyboardInput(Model_Movement direction, float deltaTime) {
     } else if (direction == RIGHT) {
         this->mesh->position.x += velocity;
     } else if (direction == FORWARD) {
-        this->mesh->position.z -= velocity;
-    } else if (direction == BACKWARD) {
         this->mesh->position.z += velocity;
+    } else if (direction == BACKWARD) {
+        this->mesh->position.z -= velocity;
     }
 }
 

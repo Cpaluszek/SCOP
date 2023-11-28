@@ -8,8 +8,8 @@ void Input::printKeyBinds() const {
     std::cout << "   A: Move Left" << std::endl;
     std::cout << "   S: Move Down" << std::endl;
     std::cout << "   D: Move Right" << std::endl;
-    std::cout << "   R: Move Forward" << std::endl;
-    std::cout << "   F: Move Backward" << std::endl;
+    std::cout << "   R: Move Backward" << std::endl;
+    std::cout << "   F: Move Forward" << std::endl;
     std::cout << ANSI_COLOR_CYAN << " Object Rotation:" << ANSI_RESET << std::endl;
     std::cout << "   TODO" << std::endl; // Placeholder for rotation controls
     std::cout << ANSI_COLOR_CYAN << " Polygon Mode:" << ANSI_RESET << std::endl;

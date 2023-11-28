@@ -53,8 +53,9 @@ void ObjParser::parseLine(VecString& tokens, const std::string& line) {
     else if (tokens.at(0) == VERTEX_NORMALS_KEYWORD) {
         this->parseVertexNormal(tokens);
     } else if (tokens.at(0) == SMOOTH_SHADING_KEYWORD) {
-        std::cout << "smooth shading param: " << line << std::endl;
-        this->parseSmoothShading(tokens);
+        std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
+        // std::cout << "smooth shading param: " << line << std::endl;
+        // this->parseSmoothShading(tokens);
     } else if (tokens.at(0) == TEXT_COORDS_KEYWORD) {
         this->parseVertexTextureCoords(tokens);
     } else if (tokens.at(0) == MAT_FILE_KEYWORD) {
