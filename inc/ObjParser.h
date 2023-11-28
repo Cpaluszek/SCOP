@@ -51,21 +51,28 @@ class ObjParser {
     std::vector<Vec3f> textureCoords;
     VertexVector parsedVertices;
 
+    // Faces
+    std::vector<std::vector<int>> faces;
+    std::vector<std::vector<int>> textureIndices;
+    std::vector<std::vector<int>> normalIndices;
+
     std::mt19937 gen;
     std::uniform_int_distribution<int> dis;
 
     Face_Format faceFormat = VERTEX;
 
     void parseLine(VecString& tokens, const std::string& line);
+
     void parseVertex(VecString& tokens);
     void parseVertexNormal(VecString& tokens);
     void parseVertexTextureCoords(VecString& tokens);
 
-    void parseFace(const Vec3f& color, const VecString& tokens);
-    void parseFaceTexture(const Vec3f& color, const VecString& tokens);
-    void parseFaceTextureNormal(const Vec3f& color, const VecString& tokens);
-    void parseFaceNormal(const Vec3f& color, const VecString& tokens);
+    void parseFace(const VecString& tokens);
+    void parseFaceTexture(const VecString& tokens);
+    void parseFaceTextureNormal(const VecString& tokens);
+    void parseFaceNormal(const VecString& tokens);
 
+    void computeFaces();
     void handleQuadToTriangle();
 
     void parseSmoothShading(const VecString& tokens);
