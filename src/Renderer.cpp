@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "settings.h"
 
 void Renderer::loadShader() {
     glEnable(GL_DEPTH_TEST);
@@ -8,7 +9,7 @@ void Renderer::loadShader() {
 }
 
 void Renderer::render(const Camera& camera, Model& model, float deltaTime) {
-    glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
+    glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glActiveTexture(GL_TEXTURE0);

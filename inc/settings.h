@@ -1,6 +1,7 @@
 #ifndef INC_SETTINGS_H_
 #define INC_SETTINGS_H_
 
+#include <array>
 #include "Vec3f.h"
 
 #define ANSI_RESET "\033[0m"
@@ -10,6 +11,7 @@
 constexpr unsigned int WIN_WIDTH = 1200;
 constexpr unsigned int WIN_HEIGHT = 900;
 constexpr float ASPECT_RATIO = static_cast<float>(WIN_WIDTH) / static_cast<float>(WIN_HEIGHT);
+constexpr std::array<float, 4> clearColor = {0.094f, 0.094f, 0.145f, 1.0f};
 
 // Model settings
 const float MOVEMENT_SPEED = 1.5f;
