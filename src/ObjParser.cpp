@@ -49,6 +49,7 @@ void ObjParser::parseLine(VecString& tokens, const std::string& line) {
         this->parseVertex(tokens);
     } else if (tokens.at(0) == FACE_KEYWORD) {
         if (parsedVertices.empty()) {
+            // Todo: cache everything, then compute faces
             throw std::runtime_error("Vertex need be listed before faces");
         } 
         if (tokens.size() < 4 || tokens.size() > 5) {
