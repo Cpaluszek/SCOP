@@ -9,6 +9,7 @@
 #include "math.h"
 #include "Material.h"
 #include "MtlParser.h"
+#include "settings.h"
 #include "utils.h"
 #include "Vertex.h"
 
@@ -51,7 +52,7 @@ class ObjParser {
     VertexVector parsedVertices;
 
     std::mt19937 gen;
-    std::uniform_real_distribution<float> dis;
+    std::uniform_int_distribution<int> dis;
 
     Face_Format faceFormat = VERTEX;
 

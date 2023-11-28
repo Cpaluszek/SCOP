@@ -3,7 +3,7 @@
 ObjParser::ObjParser() {
     std::random_device rd;
     this->gen = std::mt19937(rd());
-    this->dis = std::uniform_real_distribution<float>(0.0f, 1.0f);
+    this->dis = std::uniform_int_distribution<int>(0, palette.size() - 1);
 }
 
 ObjParser::~ObjParser() {
@@ -317,6 +317,7 @@ void ObjParser::checkMaterialFileArgument(const VecString& tokens) {
 }
 
 Vec3f ObjParser::getRandomColor() {
-    return Vec3f(this->dis(gen), this->dis(gen), this->dis(gen));
+    RGB randomColor = palette.at(this->dis(gen));
+    return Vec3f(randomColor.r, randomColor.g, randomColor.b);
 }
 
