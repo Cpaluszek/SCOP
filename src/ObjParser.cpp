@@ -9,9 +9,7 @@ ObjParser::ObjParser() {
 }
 
 ObjParser::~ObjParser() {
-    if (objFile.is_open()) {
-        objFile.close();
-    }
+    if (objFile.is_open()) objFile.close();
 }
 
 void ObjParser::parseObjFile(const std::string& inputFile) {
@@ -170,6 +168,66 @@ void ObjParser::parseFace(const VecString& tokens) {
     }
 }
 
+void ObjParser::determineFaceFormat(const VecString& tokens) {
+    VecString slashSplit = utils::splitString(tokens.at(1), '/');
+    if (slashSplit.size() == 1) {
+        this->faceFormat = VERTEX;
+    } else if (slashSplit.size() == 2) {
+        this->faceFormat = VERTEX_TEXTURE;
+    } else if (slashSplit.size() == 3) {
+        if (slashSplit.at(1).size() == 0) {
+            this->faceFormat = VERTEX_NORMAL;
+        } else {
+            this->faceFormat = VERTEX_TEXTURE_NORMAL;
+        }
+    }
+}
+
+void ObjParser::parseSmoothShading(const VecString& tokens) {
+    if (tokens.size() != 2) {
+        throw std::runtime_error("Incorrect smooth shading format: (1 / off)");
+    }
+    // Todo: fix
+    if (tokens.at(1) == "1") {
+        this->useSmoothShading = true;
+    } else if (tokens.at(1) == "off") {
+        this->useSmoothShading = false;
+    } else {
+        throw std::runtime_error("Incorrect smooth shading parameter: " + tokens.at(1));
+    }
+}
+
+void ObjParser::checkMaterialFileArgument(const VecString& tokens) {
+    if (tokens.size() != 2) {
+        std::cerr << "Invalid material file: `mtllib [external .mtl file name]'" << std::endl;
+        return;
+    }
+
+    std::filesystem::path materialPath(tokens.at(1));
+    if (materialPath.extension() != ".mtl") {
+        std::cerr << "Invalid material file extension" << std::endl;
+        return ;
+    }
+
+    std::string materialCompletePath = this->parentPath + "/" + tokens.at(1);
+    if (!std::filesystem::exists(materialCompletePath)) {
+        std::cerr << "Invalid material file: " << tokens.at(1) << "does not exists" << std::endl;
+        return;
+    }
+
+    if (!this->materialFile.empty()) {
+        std::cerr << "Second material file will be ignored" << std::endl;
+        return;
+    }
+
+    this->materialFile = materialCompletePath;
+}
+
+Vec3f ObjParser::getRandomColor() {
+    return palette.at(this->dis(gen));
+}
+
+
 void ObjParser::computeFaces() {
     if (this->faces.empty()) {
         throw std::runtime_error("Missing faces in .obj file");
@@ -209,64 +267,5 @@ void ObjParser::handleQuadToTriangle() {
     auto b = *(this->finalVertices.rbegin() + 1 - 1);
     this->finalVertices.push_back(a);
     this->finalVertices.push_back(b);
-}
-
-void ObjParser::parseSmoothShading(const VecString& tokens) {
-    if (tokens.size() != 2) {
-        throw std::runtime_error("Incorrect smooth shading format: (1 / off)");
-    }
-    // Todo: fix
-    if (tokens.at(1) == "1") {
-        this->useSmoothShading = true;
-    } else if (tokens.at(1) == "off") {
-        this->useSmoothShading = false;
-    } else {
-        throw std::runtime_error("Incorrect smooth shading parameter: " + tokens.at(1));
-    }
-}
-
-void ObjParser::determineFaceFormat(const VecString& tokens) {
-    VecString slashSplit = utils::splitString(tokens.at(1), '/');
-    if (slashSplit.size() == 1) {
-        this->faceFormat = VERTEX;
-    } else if (slashSplit.size() == 2) {
-        this->faceFormat = VERTEX_TEXTURE;
-    } else if (slashSplit.size() == 3) {
-        if (slashSplit.at(1).size() == 0) {
-            this->faceFormat = VERTEX_NORMAL;
-        } else {
-            this->faceFormat = VERTEX_TEXTURE_NORMAL;
-        }
-    }
-}
-
-void ObjParser::checkMaterialFileArgument(const VecString& tokens) {
-    if (tokens.size() != 2) {
-        std::cerr << "Invalid material file: `mtllib [external .mtl file name]'" << std::endl;
-        return;
-    }
-
-    std::filesystem::path materialPath(tokens.at(1));
-    if (materialPath.extension() != ".mtl") {
-        std::cerr << "Invalid material file extension" << std::endl;
-        return ;
-    }
-
-    std::string materialCompletePath = this->parentPath + "/" + tokens.at(1);
-    if (!std::filesystem::exists(materialCompletePath)) {
-        std::cerr << "Invalid material file: " << tokens.at(1) << "does not exists" << std::endl;
-        return;
-    }
-
-    if (!this->materialFile.empty()) {
-        std::cerr << "Second material file will be ignored" << std::endl;
-        return;
-    }
-
-    this->materialFile = materialCompletePath;
-}
-
-Vec3f ObjParser::getRandomColor() {
-    return palette.at(this->dis(gen));
 }
 

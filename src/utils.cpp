@@ -19,7 +19,7 @@ Vec3f utils::parseFloatVector(const VecString& tokens) {
     Vec3f result;
 
     if (tokens.size() != 3) {
-        throw std::runtime_error("Incorrect vector format");
+        throw std::runtime_error("Incorrect vector format, expected size 3");
     }
     try {
         result = {

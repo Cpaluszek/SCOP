@@ -35,12 +35,14 @@ enum Face_Format {
 
 class ObjParser {
  public:
-     ObjParser();
-     ~ObjParser();
-     void parseObjFile(const std::string& inputFile);
      bool useSmoothShading = false;
      VertexVector finalVertices;
      Material material;
+
+     ObjParser();
+     ~ObjParser();
+
+     void parseObjFile(const std::string& inputFile);
 
  private:
     std::ifstream objFile;
@@ -66,16 +68,14 @@ class ObjParser {
     void parseVertex(VecString& tokens);
     void parseVertexNormal(VecString& tokens);
     void parseVertexTextureCoords(VecString& tokens);
-
     void parseFace(const VecString& tokens);
+    void determineFaceFormat(const VecString& tokens);
+    void parseSmoothShading(const VecString& tokens);
+    void checkMaterialFileArgument(const VecString& tokens);
 
+    inline Vec3f getRandomColor();
     void computeFaces();
     void handleQuadToTriangle();
-
-    void parseSmoothShading(const VecString& tokens);
-    void determineFaceFormat(const VecString& tokens);
-    void checkMaterialFileArgument(const VecString& tokens);
-    inline Vec3f getRandomColor();
 };
 
 #endif  // INC_OBJPARSER_H_
