@@ -7,8 +7,6 @@
 
 #include "program_options.h"
 
-// Todo: add zoom adjust or camera position 
-// from mode size
 int main(const int argc, char *argv[]) {
     try {
         program_options::parse(argc, argv);

@@ -20,8 +20,6 @@ void Renderer::render(const Camera& camera, Model& model, float deltaTime) {
     view = Mat4f::transpose(view);
     this->shader.setMat4("view", view);
 
-    // Todo: if projection is static remove of the main loop
-
     // Set projection matrix
     Mat4f projection = camera.getProjectionMatrix();
     projection = Mat4f::transpose(projection);

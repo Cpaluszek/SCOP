@@ -4,8 +4,8 @@
 #include "math.h"
 #include "settings.h"
 
-Mesh::Mesh(VertexVector& vertices): vertices(std::move(vertices))
-{
+Mesh::Mesh(VertexVector& vertices): vertices(std::move(vertices)) {
+    // Todo: map texture coords if obj file does not contains texture info
     // this->mapTextureCoordinates();
     this->computeObjectPosition();
     this->setupMesh();

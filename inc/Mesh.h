@@ -17,7 +17,6 @@ class Mesh {
      void draw(Shader& shader, float deltaTime);
      void resetTransform();
 
-     // Note: use matrix instead
      Vec3f position;
      Vec3f rotation;
 
