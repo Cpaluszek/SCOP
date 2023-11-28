@@ -188,8 +188,8 @@ void ObjParser::parseSmoothShading(const VecString& tokens) {
     if (tokens.size() != 2) {
         throw std::runtime_error("Incorrect smooth shading format: (1 / off)");
     }
-    // Todo: fix
     if (tokens.at(1) == "1") {
+        // Todo: compute smooth shading groups
         this->useSmoothShading = true;
     } else if (tokens.at(1) == "off" || tokens.at(1) == "0") {
         this->useSmoothShading = false;
