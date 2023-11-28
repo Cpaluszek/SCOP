@@ -1,8 +1,4 @@
-#include <utility>
-
 #include "Mesh.h"
-#include "math.h"
-#include "settings.h"
 
 Mesh::Mesh(VertexVector& vertices): vertices(std::move(vertices)) {
     // Todo: map texture coords if obj file does not contains texture info
@@ -16,19 +12,16 @@ Mesh::~Mesh() {
     glDeleteBuffers(1, &this->vbo);
 }
 
-// Todo: set function as const - move rotation
-void Mesh::draw(Shader& shader, const float deltaTime) {
+void Mesh::draw(Shader& shader) const {
     const Mat4f identity(1.0f);
 
     Mat4f model = Mat4f::translate(identity, this->position);
     model = Mat4f::translate(model, this->origin);
 
-    // this->rotation.x += math::radians(2.0f * deltaTime);
-    this->rotation.y += math::radians(20.0f * deltaTime);
-    // this->rotation.z -= math::radians(6.0f * deltaTime);
-    // model = Mat4f::rotate(model, this->rotation.x, Vec3f(1.0f, 1.0f, 0.0f));
+    model = Mat4f::rotate(model, this->rotation.x, Vec3f(1.0f, 0.0f, 0.0f));
     model = Mat4f::rotate(model, this->rotation.y, Vec3f(0.0f, 1.0f, 0.0f));
-    // model = Mat4f::rotate(model, this->rotation.z, Vec3f(0.0f, 0.0f, 1.0f));
+    model = Mat4f::rotate(model, this->rotation.z, Vec3f(0.0f, 0.0f, 1.0f));
+
     model = Mat4f::translate(model, this->origin.scale(-1.0f));
     model = Mat4f::transpose(model);
     shader.setMat4("model", model);
@@ -36,6 +29,10 @@ void Mesh::draw(Shader& shader, const float deltaTime) {
     glBindVertexArray(this->vao);
     glDrawArrays(GL_TRIANGLES, 0, this->vertices.size());
     glBindVertexArray(0);
+}
+
+void Mesh::rotate(float deltaTime) {
+    this->rotation.y += math::radians(ROTATION_SPEED * deltaTime);
 }
 
 void Mesh::resetTransform() {

@@ -6,6 +6,7 @@
 
 #include "glew.h"
 #include "math.h"
+#include "settings.h"
 #include "Shader.h"
 #include "Vertex.h"
 
@@ -14,13 +15,13 @@ class Mesh {
      explicit Mesh(VertexVector& vertices);
      ~Mesh();
 
-     void draw(Shader& shader, float deltaTime);
+     void draw(Shader& shader) const;
+     void rotate(float deltaTime);
      void resetTransform();
 
      Vec3f position;
      Vec3f rotation;
 
-     // Mat4f model;
  private:
      GLuint vao = 0;   // Vertex array object
      GLuint vbo = 0;    // Vertex buffer object

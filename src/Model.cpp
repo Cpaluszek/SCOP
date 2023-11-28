@@ -40,7 +40,8 @@ void Model::draw(Shader& shader, float deltaTime) {
     }
     shader.setFloat("textureTransitionFactor", this->textureTransitionFactor);
 
-    this->mesh->draw(shader, deltaTime);
+    this->mesh->rotate(deltaTime);
+    this->mesh->draw(shader);
 }
 
 void Model::processKeyboardInput(Model_Movement direction, float deltaTime) {
