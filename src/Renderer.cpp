@@ -9,7 +9,7 @@ void Renderer::loadShader() {
 }
 
 void Renderer::render(const Camera& camera, Model& model, float deltaTime) {
-    glClearColor(clearColor.r, clearColor.g, clearColor.b, 1.0f);
+    glClearColor(clearColor.x, clearColor.y, clearColor.z, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glActiveTexture(GL_TEXTURE0);

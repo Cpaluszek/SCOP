@@ -317,7 +317,6 @@ void ObjParser::checkMaterialFileArgument(const VecString& tokens) {
 }
 
 Vec3f ObjParser::getRandomColor() {
-    RGB randomColor = palette.at(this->dis(gen));
-    return Vec3f(randomColor.r, randomColor.g, randomColor.b);
+    return palette.at(this->dis(gen));
 }
 

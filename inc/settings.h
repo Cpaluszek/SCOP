@@ -8,18 +8,14 @@
 #define ANSI_COLOR_YELLOW "\033[33m"
 #define ANSI_COLOR_CYAN "\033[36m"
 
-struct RGB {
-    float r, g, b;
-};
-
 constexpr unsigned int WIN_WIDTH = 1200;
 constexpr unsigned int WIN_HEIGHT = 900;
 constexpr float ASPECT_RATIO = static_cast<float>(WIN_WIDTH) / static_cast<float>(WIN_HEIGHT);
 
 // Colors
-const RGB clearColor = {0.094f, 0.094f, 0.145f};
+const Vec3f clearColor = {0.094f, 0.094f, 0.145f};
 // Catppuccin mocha
-const std::vector<RGB> palette = {
+const std::vector<Vec3f> palette = {
     {0.961f, 0.878f, 0.863f}, // Rosewater
     {0.949f, 0.804f, 0.804f}, // Flamingo
     {0.961f, 0.761f, 0.906f}, // Pink
