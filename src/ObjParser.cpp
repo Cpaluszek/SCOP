@@ -49,28 +49,8 @@ void ObjParser::parseLine(VecString& tokens, const std::string& line) {
     if (tokens.at(0) == VERTEX_KEYWORD) {
         this->parseVertex(tokens);
     } else if (tokens.at(0) == FACE_KEYWORD) {
-        if (tokens.size() < 4 || tokens.size() > 5) {
-            throw std::runtime_error("Incorrect face format: should be triangle or quad");
-        }
-        if (this->faces.empty()) {
-            this->determineFaceFormat(tokens);
-        }
-
-        // Todo: remove color paremeter
-        switch (this->faceFormat) {
-            case VERTEX:
-                this->parseFace(tokens);
-                break;
-            case VERTEX_TEXTURE:
-                this->parseFaceTexture(tokens);
-                break;
-            case VERTEX_TEXTURE_NORMAL:
-                this->parseFaceTextureNormal(tokens);
-                break;
-            case VERTEX_NORMAL:
-                this->parseFaceNormal(tokens);
-                break;
-        }
+        // Todo: test all face formats
+        this->parseFace(tokens);
     }
     else if (tokens.at(0) == VERTEX_NORMALS_KEYWORD) {
         this->parseVertexNormal(tokens);
@@ -135,118 +115,59 @@ void ObjParser::parseVertexTextureCoords(VecString& tokens) {
     this->textureCoords.push_back(Vec3f(u, v, 0.0f));
 }
 
-// Todo: merge in one function
 void ObjParser::parseFace(const VecString& tokens) {
     std::vector<int> currentFace;
-    for (size_t i = 1; i < tokens.size(); i++) {
-        size_t slashPos = tokens.at(i).find('/');
-        if (slashPos != std::string::npos) {
-            throw std::runtime_error("Inconsistent face format");
-        }
-
-        int index = utils::parseInt(tokens.at(i)) - 1;
-        if (index < 0) {
-            index = this->parsedVertices.size() - index;
-        }
-        currentFace.push_back(index);
-    }
-    this->faces.push_back(currentFace);
-}
-
-// Todo: test
-void ObjParser::parseFaceTexture(const VecString& tokens) {
-    std::vector<int> currentFace;
-    std::vector<int> currentFaceTexture;
-    for (size_t i = 1; i < tokens.size(); i++) {
-        size_t slashPos = tokens.at(i).find('/');
-        if (slashPos == std::string::npos) {
-            throw std::runtime_error("Inconsistent face format");
-        }
-        VecString indices = utils::splitString(tokens.at(i), '/');
-        if (indices.size() != 2) {
-            throw std::runtime_error("Inconsistent face format");
-        }
-
-        int vertexIndex = utils::parseInt(indices.at(0)) - 1;
-        if (vertexIndex < 0) {
-            vertexIndex = this->parsedVertices.size() - vertexIndex;
-        }
-        currentFace.push_back(vertexIndex);
-        int textCoordIndex = utils::parseInt(indices.at(1)) - 1;
-        if (textCoordIndex < 0) {
-            textCoordIndex = this->textureCoords.size() - textCoordIndex;
-        }
-        currentFaceTexture.push_back(textCoordIndex);
-    }
-    this->faces.push_back(currentFace);
-    this->textureIndices.push_back(currentFaceTexture);
-}
-
-void ObjParser::parseFaceTextureNormal(const VecString& tokens) {
-    std::vector<int> currentFace;
     std::vector<int> currentFaceTexture;
     std::vector<int> currentFaceNormal;
+
+    if (tokens.size() < 4 || tokens.size() > 5) {
+        throw std::runtime_error("Incorrect face format: should be triangle or quad");
+    }
+    if (this->faces.empty()) {
+        this->determineFaceFormat(tokens);
+    }
+
     for (size_t i = 1; i < tokens.size(); i++) {
-        size_t slashPos = tokens.at(i).find('/');
-        if (slashPos == std::string::npos) {
+        if (this->faceFormat == VERTEX && tokens.at(i).find('/') != std::string::npos) {
             throw std::runtime_error("Inconsistent face format");
         }
         VecString indices = utils::splitString(tokens.at(i), '/');
-        if (indices.size() != 3) {
-            throw std::runtime_error("Inconsistent face format");
-        }
 
         int vertexIndex = utils::parseInt(indices.at(0)) - 1;
         if (vertexIndex < 0) {
             vertexIndex = this->parsedVertices.size() - vertexIndex;
         }
         currentFace.push_back(vertexIndex);
-        int textCoordIndex = utils::parseInt(indices.at(1)) - 1;
-        if (textCoordIndex < 0) {
-            textCoordIndex = this->textureCoords.size() - textCoordIndex;
+
+        if (this->faceFormat == VERTEX_TEXTURE_NORMAL || this->faceFormat == VERTEX_TEXTURE) {
+            if (indices.size() < 2 || indices.size() > 3) {
+                throw std::runtime_error("Inconsistent face format");
+            }
+            int textCoordIndex = utils::parseInt(indices.at(1)) - 1;
+            if (textCoordIndex < 0) {
+                textCoordIndex = this->textureCoords.size() - textCoordIndex;
+            }
+            currentFaceTexture.push_back(textCoordIndex);
         }
-        currentFaceTexture.push_back(textCoordIndex);
-        int normalIndex = utils::parseInt(indices.at(2)) - 1;
-        if (normalIndex < 0) {
-            normalIndex = this->normals.size() - normalIndex;
+
+        if (this->faceFormat == VERTEX_TEXTURE_NORMAL || this->faceFormat == VERTEX_NORMAL) {
+            if (indices.size() != 3) {
+                throw std::runtime_error("Inconsistent face format");
+            }
+            int normalIndex = utils::parseInt(indices.at(2)) - 1;
+            if (normalIndex < 0) {
+                normalIndex = this->normals.size() - normalIndex;
+            }
+            currentFaceNormal.push_back(normalIndex);
         }
-        currentFaceNormal.push_back(normalIndex);
     }
     this->faces.push_back(currentFace);
-    this->textureIndices.push_back(currentFaceTexture);
-    this->normalIndices.push_back(currentFaceNormal);
-}
-
-void ObjParser::parseFaceNormal(const VecString& tokens) {
-    std::vector<int> currentFace;
-    std::vector<int> currentFaceNormal;
-    for (size_t i = 1; i < tokens.size(); i++) {
-        if (i == 4) {
-            this->handleQuadToTriangle();
-        }
-
-        size_t slashPos = tokens.at(i).find('/');
-        if (slashPos == std::string::npos) {
-            throw std::runtime_error("Inconsistent face format");
-        }
-        VecString indices = utils::splitString(tokens.at(i), '/');
-        if (indices.size() != 3 || (indices.size() == 3 && indices.at(1).size() != 0)) {
-            throw std::runtime_error("Inconsistent face format");
-        }
-
-        int vertexIndex = utils::parseInt(indices.at(0)) - 1;
-        if (vertexIndex < 0) {
-            vertexIndex = this->parsedVertices.size() - vertexIndex;
-        }
-        currentFace.push_back(vertexIndex);
-        int normalIndex = utils::parseInt(indices.at(2)) - 1;
-        if (normalIndex < 0) {
-            normalIndex = this->normals.size() - normalIndex;
-        }
-        currentFaceNormal.push_back(normalIndex);
+    if (this->faceFormat == VERTEX_TEXTURE_NORMAL || this->faceFormat == VERTEX_TEXTURE) {
+        this->textureIndices.push_back(currentFaceTexture);
     }
-    this->faces.push_back(currentFace);
-    this->normalIndices.push_back(currentFaceNormal);
+    if (this->faceFormat == VERTEX_TEXTURE_NORMAL || this->faceFormat == VERTEX_NORMAL) {
+        this->normalIndices.push_back(currentFaceNormal);
+    }
 }
 
 void ObjParser::computeFaces() {

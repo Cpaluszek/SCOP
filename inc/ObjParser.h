@@ -68,9 +68,6 @@ class ObjParser {
     void parseVertexTextureCoords(VecString& tokens);
 
     void parseFace(const VecString& tokens);
-    void parseFaceTexture(const VecString& tokens);
-    void parseFaceTextureNormal(const VecString& tokens);
-    void parseFaceNormal(const VecString& tokens);
 
     void computeFaces();
     void handleQuadToTriangle();
