@@ -4,7 +4,8 @@ Mesh::Mesh(VertexVector& vertices, Vertex_Format& format): vertices(std::move(ve
     this->computeObjectPosition();
    
     if (this->format == VERTEX || this->format == VERTEX_NORMAL) {
-        this->mapTextureCoordinates();
+        // this->sphericalUVMapping();
+        this->cubicUVMapping();
     }
 
     this->setupMesh();
@@ -74,12 +75,51 @@ void Mesh::setupMesh() {
     glBindVertexArray(0);
 }
 
-void Mesh::mapTextureCoordinates() {
+// The mapping functions assume that the the vertices are correctly ordered
+// each group of 3 vertices forms a triangle
+void Mesh::sphericalUVMapping() {
     for (auto &vertex: this->vertices) {
         float theta = std::atan2(vertex.position.z, vertex.position.x);
         float phi = std::acos(vertex.position.y / vertex.position.length());
         vertex.textX = (theta + M_PI) / (2.0f * M_PI);
         vertex.textY = phi / M_PI;
+    }
+}
+
+void Mesh::cubicUVMapping() {
+    for (size_t i = 0; i < this->vertices.size(); i+=3) {
+        Vertex& a = this->vertices.at(i);
+        Vertex& b = this->vertices.at(i + 1);
+        Vertex& c = this->vertices.at(i + 2);
+        Vec3f side1 = b.position - a.position;
+        Vec3f side2 = c.position - a.position;
+
+        Vec3f n = Vec3f::cross(side1, side2);
+        n = Vec3f::normalize(n);
+        n = Vec3f(fabs(n.x), fabs(n.y), fabs(n.z));
+
+        if (n.x >= n.y && n.x >= n.z) {
+            a.textX = a.position.z;
+            a.textY = a.position.y;
+            b.textX = b.position.z;
+            b.textY = b.position.y;
+            c.textX = c.position.z;
+            c.textY = c.position.y;
+        } else if (n.y >= n.x && n.y >= n.z) {
+            a.textX = a.position.x;
+            a.textY = a.position.z;
+            b.textX = b.position.x;
+            b.textY = b.position.z;
+            c.textX = c.position.x;
+            c.textY = c.position.z;
+        } else if (n.z >= n.x && n.z >= n.y) {
+            a.textX = a.position.x;
+            a.textY = a.position.y;
+            b.textX = b.position.x;
+            b.textY = b.position.y;
+            c.textX = c.position.x;
+            c.textY = c.position.y;
+        }
     }
 }
 

@@ -22,7 +22,6 @@ class Mesh {
      Vec3f position;
      Vec3f rotation;
 
-
  private:
      GLuint vao = 0;   // Vertex array object
      GLuint vbo = 0;    // Vertex buffer object
@@ -33,7 +32,8 @@ class Mesh {
      Vertex_Format format;
 
      void setupMesh();
-     void mapTextureCoordinates();
+     void sphericalUVMapping();
+     void cubicUVMapping();
      void computeObjectPosition();
 };
 

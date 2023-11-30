@@ -28,7 +28,12 @@ int main(const int argc, char *argv[]) {
         input.setWindow(window.instance);
         renderer.loadShader();
         model.loadObjFile(program_options::inputFile());
+
+        // Todo: handle mutliple textures
+
         model.loadTexture("./resources/textures/uvmap.jpeg");
+        // model.loadTexture("./resources/textures/Bricks022_1K-JPG_Color.jpg");
+        // model.loadTexture("./resources/textures/WoodFloor052_1K-JPG_Color.jpg");
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
         return EXIT_FAILURE;
