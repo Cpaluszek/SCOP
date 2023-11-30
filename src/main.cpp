@@ -39,6 +39,7 @@ int main(const int argc, char *argv[]) {
         std::cerr << e.what() << std::endl;
         return EXIT_FAILURE;
     }
+
     input.printKeyBinds();
 
     while (!glfwWindowShouldClose(window.instance)) {

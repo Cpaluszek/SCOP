@@ -5,6 +5,7 @@ Mesh::Mesh(VertexVector& vertices, Vertex_Format& format): vertices(std::move(ve
    
     if (this->format == VERTEX || this->format == VERTEX_NORMAL) {
         // Note: set program option to pick UVmapping method
+        // Keybind
         // this->sphericalUVMapping();
         this->cubicUVMapping();
     }
