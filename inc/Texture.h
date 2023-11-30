@@ -10,7 +10,11 @@
 class Texture {
  public:
      Texture();
+
+     static void initTextureSettings();
+
      void loadTextureFile(const char* texturePath) const;
+     void bind() const;
 
      GLuint id = 0;
 };

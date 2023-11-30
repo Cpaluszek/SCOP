@@ -1,20 +1,18 @@
 #include "Texture.h"
 
+void Texture::initTextureSettings() {
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+}
+
 Texture::Texture() {
     glGenTextures(1, &this->id);
     if (glGetError() != GL_NO_ERROR) {
         throw std::runtime_error("Failed to generate texture");
     }
-
-    glBindTexture(GL_TEXTURE_2D, this->id);
-    if (glGetError()!= GL_NO_ERROR) {
-        throw std::runtime_error("Failed to bind texture");
-    }
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    this->bind();
 }
 
 void Texture::loadTextureFile(const char* texturePath) const {
@@ -32,7 +30,10 @@ void Texture::loadTextureFile(const char* texturePath) const {
     }
 
     glActiveTexture(GL_TEXTURE0);
+    this->bind();
+}
 
+void Texture::bind() const {
     glBindTexture(GL_TEXTURE_2D, this->id);
     if (glGetError() != GL_NO_ERROR) {
         throw std::runtime_error("Failed to bind texture");

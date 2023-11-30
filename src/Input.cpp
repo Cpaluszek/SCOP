@@ -19,7 +19,8 @@ void Input::printKeyBinds() const {
     std::cout << ANSI_COLOR_CYAN << " Polygon Mode:" << ANSI_RESET << std::endl;
     std::cout << "   P: Switch between Wireframe and Fill" << std::endl;
     std::cout << ANSI_COLOR_CYAN << " Texture:" << ANSI_RESET << std::endl;
-    std::cout << "   T: Switch between Texture and Color" << std::endl;
+    std::cout << "   T: Change texture" << std::endl;
+    std::cout << "   C: Switch between Texture and Color" << std::endl;
     std::cout << ANSI_COLOR_YELLOW << "--------------------------------------" << ANSI_RESET << std::endl;
 }
 
@@ -49,9 +50,13 @@ void Input::processInput(Model& model, Camera& camera, const float deltaTime) {
         model.switchPolygonMode();
     }
     // texture
+    if (!this->keyStateMap[GLFW_KEY_C] && glfwGetKey(this->window, GLFW_KEY_C) == GLFW_PRESS) {
+        this->keyStateMap[GLFW_KEY_C] = true;
+        model.switchTextureMode();
+    }
     if (!this->keyStateMap[GLFW_KEY_T] && glfwGetKey(this->window, GLFW_KEY_T) == GLFW_PRESS) {
         this->keyStateMap[GLFW_KEY_T] = true;
-        model.switchTextureMode();
+        model.switchTexture();
     }
     // Movement
     if (glfwGetKey(this->window, GLFW_KEY_W) == GLFW_PRESS) {

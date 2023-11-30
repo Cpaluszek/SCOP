@@ -12,9 +12,6 @@ void Renderer::render(const Camera& camera, Model& model, float deltaTime) {
     glClearColor(clearColor.x, clearColor.y, clearColor.z, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, model.getTextureId());
-
     // Set view matrix
     Mat4f view = Mat4f::transpose(camera.getViewMatrix());
     this->shader.setMat4("view", view);

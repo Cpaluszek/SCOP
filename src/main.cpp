@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "Model.h"
 #include "Renderer.h"
+#include "Texture.h"
 #include "Window.h"
 
 #include "program_options.h"
@@ -29,11 +30,11 @@ int main(const int argc, char *argv[]) {
         renderer.loadShader();
         model.loadObjFile(program_options::inputFile());
 
-        // Todo: handle mutliple textures
-
+        Texture::initTextureSettings();
+        model.loadTexture("./resources/textures/Bricks022_1K-JPG_Color.jpg");
+        model.bindDefaultTexture();
         model.loadTexture("./resources/textures/uvmap.jpeg");
-        // model.loadTexture("./resources/textures/Bricks022_1K-JPG_Color.jpg");
-        // model.loadTexture("./resources/textures/WoodFloor052_1K-JPG_Color.jpg");
+        model.loadTexture("./resources/textures/WoodFloor052_1K-JPG_Color.jpg");
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
         return EXIT_FAILURE;

@@ -35,18 +35,22 @@ class Model {
      void loadTexture(const char* texturePath);
 
      void draw(Shader& shader, float deltaTime);
+     void bindDefaultTexture() const;
      GLuint getTextureId() const;
 
      void processKeyboardInput(Model_KeyBinds input, float deltaTime);
      void resetTransform();
 
+     void switchTexture();
      void switchPolygonMode();
      void switchTextureMode();
      void toggleAutoRotation();
 
  private:
      std::unique_ptr<Mesh> mesh = nullptr;
-     Texture texture;
+     std::vector<Texture> textures;
+     size_t textureIndex = 0;
+
      Material material;
 
      float textureTransitionFactor = 0.0f;

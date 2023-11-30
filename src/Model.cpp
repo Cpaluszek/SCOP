@@ -16,12 +16,23 @@ void Model::loadObjFile(const std::string& inputFile) {
     std::cout << this->material << std::endl;
 }
 
+void Model::bindDefaultTexture() const {
+    this->textures.at(this->textureIndex).bind();
+}
+
 GLuint Model::getTextureId() const {
-    return this->texture.id;
+    return this->textures.at(this->textureIndex).id;
 }
 
 void Model::loadTexture(const char* texturePath) {
-    this->texture.loadTextureFile(texturePath);
+    Texture texture;
+    texture.loadTextureFile(texturePath);
+    this->textures.push_back(texture);
+}
+
+void Model::switchTexture() {
+    this->textureIndex = (this->textureIndex + 1) % this->textures.size();
+    this->textures.at(this->textureIndex).bind();
 }
 
 void Model::switchPolygonMode() {
