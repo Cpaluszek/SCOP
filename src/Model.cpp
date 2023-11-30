@@ -16,20 +16,62 @@ void Model::loadObjFile(const std::string& inputFile) {
     std::cout << this->material << std::endl;
 }
 
-void Model::loadTexture(const char* texturePath) {
-    this->texture.loadTextureFile(texturePath);
-}
-
 GLuint Model::getTextureId() const {
     return this->texture.id;
+}
+
+void Model::loadTexture(const char* texturePath) {
+    this->texture.loadTextureFile(texturePath);
 }
 
 void Model::switchPolygonMode() {
     this->polygonMode ^= true;
     glPolygonMode(GL_FRONT_AND_BACK, this->polygonMode ? GL_LINE : GL_FILL);
 }
+
 void Model::switchTextureMode() {
     this->useTexture ^= true;
+}
+
+void Model::processKeyboardInput(Model_KeyBinds input, float deltaTime) {
+    float velocity = MOVEMENT_SPEED * deltaTime;
+
+    // Translations
+    if (input == UP) {
+        this->mesh->position.y += velocity;
+    } else if (input == DOWN) {
+        this->mesh->position.y -= velocity;
+    } else if (input == LEFT) {
+        this->mesh->position.x -= velocity;
+    } else if (input == RIGHT) {
+        this->mesh->position.x += velocity;
+    } else if (input == FORWARD) {
+        this->mesh->position.z += velocity;
+    } else if (input == BACKWARD) {
+        this->mesh->position.z -= velocity;
+    }
+    // Rotations
+    if (input == X_ROT) {
+        this->mesh->rotation.x += ROTATION_SPEED * deltaTime;
+    } else if (input == X_ROT_INV) {
+        this->mesh->rotation.x -= ROTATION_SPEED * deltaTime;
+    } else if (input == Y_ROT) {
+        this->mesh->rotation.y += ROTATION_SPEED * deltaTime;
+    } else if (input == Y_ROT_INV) {
+        this->mesh->rotation.y -= ROTATION_SPEED * deltaTime;
+    } else if (input == Z_ROT) {
+        this->mesh->rotation.z += ROTATION_SPEED * deltaTime;
+    } else if (input == Z_ROT_INV) {
+        this->mesh->rotation.z -= ROTATION_SPEED * deltaTime;
+    }
+}
+
+void Model::resetTransform() {
+    this->mesh->resetTransform();
+}
+
+void Model::toggleAutoRotation() {
+    this->autoRotation ^= true;
 }
 
 void Model::draw(Shader& shader, float deltaTime) {
@@ -40,28 +82,9 @@ void Model::draw(Shader& shader, float deltaTime) {
     }
     shader.setFloat("textureTransitionFactor", this->textureTransitionFactor);
 
-    this->mesh->rotate(deltaTime);
+    if (this->autoRotation) {
+        this->mesh->rotation.y += ROTATION_SPEED * deltaTime;
+    }
     this->mesh->draw(shader);
 }
 
-void Model::processKeyboardInput(Model_Movement direction, float deltaTime) {
-    float velocity = MOVEMENT_SPEED * deltaTime;
-
-    if (direction == UP) {
-        this->mesh->position.y += velocity;
-    } else if (direction == DOWN) {
-        this->mesh->position.y -= velocity;
-    } else if (direction == LEFT) {
-        this->mesh->position.x -= velocity;
-    } else if (direction == RIGHT) {
-        this->mesh->position.x += velocity;
-    } else if (direction == FORWARD) {
-        this->mesh->position.z += velocity;
-    } else if (direction == BACKWARD) {
-        this->mesh->position.z -= velocity;
-    }
-}
-
-void Model::resetTransform() {
-    this->mesh->resetTransform();
-}

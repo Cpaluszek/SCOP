@@ -36,10 +36,6 @@ void Mesh::draw(Shader& shader) const {
     glBindVertexArray(0);
 }
 
-void Mesh::rotate(float deltaTime) {
-    this->rotation.y += math::radians(ROTATION_SPEED * deltaTime);
-}
-
 void Mesh::resetTransform() {
     this->position = this->origin.scale(-1.0f);
     this->rotation = Vec3f();

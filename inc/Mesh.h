@@ -16,7 +16,6 @@ class Mesh {
      ~Mesh();
 
      void draw(Shader& shader) const;
-     void rotate(float deltaTime);
      void resetTransform();
 
      Vec3f position;

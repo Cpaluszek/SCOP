@@ -14,13 +14,19 @@
 #include "Texture.h"
 #include "utils.h"
 
-enum Model_Movement {
+enum Model_KeyBinds {
     UP,
     DOWN,
     RIGHT,
     LEFT,
     FORWARD,
-    BACKWARD
+    BACKWARD,
+    X_ROT,
+    X_ROT_INV,
+    Y_ROT,
+    Y_ROT_INV,
+    Z_ROT,
+    Z_ROT_INV,
 };
 
 class Model {
@@ -29,13 +35,14 @@ class Model {
      void loadTexture(const char* texturePath);
 
      void draw(Shader& shader, float deltaTime);
+     GLuint getTextureId() const;
 
-     void processKeyboardInput(Model_Movement direction, float deltaTime);
+     void processKeyboardInput(Model_KeyBinds input, float deltaTime);
      void resetTransform();
 
-     GLuint getTextureId() const;
      void switchPolygonMode();
      void switchTextureMode();
+     void toggleAutoRotation();
 
  private:
      std::unique_ptr<Mesh> mesh = nullptr;
@@ -46,6 +53,7 @@ class Model {
      bool useSmoothShading = false;     // Todo: use in shaders
      bool polygonMode = false;
      bool useTexture = false;
+     bool autoRotation = true;
 };
 
 #endif  // INC_MODEL_H_

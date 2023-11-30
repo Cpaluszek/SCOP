@@ -3,6 +3,7 @@
 
 void Input::printKeyBinds() const {
     std::cout << ANSI_COLOR_YELLOW << "------------- Key binds: -------------" << ANSI_RESET << std::endl;
+    std::cout << "   Esc: Close window" << std::endl;
     std::cout << ANSI_COLOR_CYAN << " Object Movements:" << ANSI_RESET << std::endl;
     std::cout << "   W: Move Up" << std::endl;
     std::cout << "   A: Move Left" << std::endl;
@@ -11,7 +12,10 @@ void Input::printKeyBinds() const {
     std::cout << "   R: Move Backward" << std::endl;
     std::cout << "   F: Move Forward" << std::endl;
     std::cout << ANSI_COLOR_CYAN << " Object Rotation:" << ANSI_RESET << std::endl;
-    std::cout << "   TODO" << std::endl; // Placeholder for rotation controls
+    std::cout << "   H    : Toggle auto rotation" << std::endl;
+    std::cout << "   I - K: x axis rotation" << std::endl;
+    std::cout << "   J - L: y axis rotation" << std::endl;
+    std::cout << "   U - O: z axis rotation" << std::endl;
     std::cout << ANSI_COLOR_CYAN << " Polygon Mode:" << ANSI_RESET << std::endl;
     std::cout << "   P: Switch between Wireframe and Fill" << std::endl;
     std::cout << ANSI_COLOR_CYAN << " Texture:" << ANSI_RESET << std::endl;
@@ -44,12 +48,12 @@ void Input::processInput(Model& model, Camera& camera, const float deltaTime) {
         this->keyStateMap[GLFW_KEY_P] = true;
         model.switchPolygonMode();
     }
-
-    // use texture
+    // texture
     if (!this->keyStateMap[GLFW_KEY_T] && glfwGetKey(this->window, GLFW_KEY_T) == GLFW_PRESS) {
         this->keyStateMap[GLFW_KEY_T] = true;
         model.switchTextureMode();
     }
+    // Movement
     if (glfwGetKey(this->window, GLFW_KEY_W) == GLFW_PRESS) {
         model.processKeyboardInput(UP, deltaTime);
     }
@@ -72,6 +76,30 @@ void Input::processInput(Model& model, Camera& camera, const float deltaTime) {
     if (!this->keyStateMap[GLFW_KEY_SPACE] && glfwGetKey(this->window, GLFW_KEY_SPACE)) {
         this->keyStateMap[GLFW_KEY_SPACE] = true;
         model.resetTransform();
+    }
+    if (glfwGetKey(this->window, GLFW_KEY_I) == GLFW_PRESS) {
+        model.processKeyboardInput(X_ROT, deltaTime);
+    }
+    if (glfwGetKey(this->window, GLFW_KEY_K) == GLFW_PRESS) {
+        model.processKeyboardInput(X_ROT_INV, deltaTime);
+    }
+    if (glfwGetKey(this->window, GLFW_KEY_J) == GLFW_PRESS) {
+        model.processKeyboardInput(Y_ROT, deltaTime);
+    }
+    if (glfwGetKey(this->window, GLFW_KEY_L) == GLFW_PRESS) {
+        model.processKeyboardInput(Y_ROT_INV, deltaTime);
+    }
+    if (glfwGetKey(this->window, GLFW_KEY_U) == GLFW_PRESS) {
+        model.processKeyboardInput(Z_ROT, deltaTime);
+    }
+    if (glfwGetKey(this->window, GLFW_KEY_O) == GLFW_PRESS) {
+        model.processKeyboardInput(Z_ROT_INV, deltaTime);
+    }
+
+    // Rotations
+    if (!this->keyStateMap[GLFW_KEY_H] && glfwGetKey(this->window, GLFW_KEY_H) == GLFW_PRESS) {
+        this->keyStateMap[GLFW_KEY_H] = true;
+        model.toggleAutoRotation();
     }
 
     this->resetKeyState();
