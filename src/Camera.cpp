@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include <algorithm>
 
 Camera::Camera(const Vec3f position) {
     this->position = position;
@@ -16,12 +17,15 @@ Mat4f Camera::getProjectionMatrix() const {
 }
 
 void Camera::processKeyboardInput(Camera_Input input, float deltaTime) {
-    // Todo: clamp zoom
     if (input == ZOOM_IN) {
         this->zoom -= ZOOM_SPEED * deltaTime;
     } else if (input == ZOOM_OUT) {
         this->zoom += ZOOM_SPEED * deltaTime;
     }
+    // Clamp
+    this->zoom = std::max(1.0f, this->zoom);
+    this->zoom = std::min(45.0f, this->zoom);
+
     this->projection = Mat4f::perspective(
             math::radians(this->zoom), 
             ASPECT_RATIO, NEAR_CLIP, FAR_CLIP);
