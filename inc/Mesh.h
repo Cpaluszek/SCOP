@@ -25,9 +25,9 @@ class Mesh {
      GLuint vao = 0;   // Vertex array object
      GLuint vbo = 0;    // Vertex buffer object
 
+     Vec3f initialPosition;
      Vec3f origin;
      VertexVector vertices;
-
      Vertex_Format format;
 
      void setupMesh();

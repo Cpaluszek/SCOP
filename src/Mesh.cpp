@@ -37,7 +37,7 @@ void Mesh::draw(Shader& shader) const {
 }
 
 void Mesh::resetTransform() {
-    this->position = this->origin.scale(-1.0f);
+    this->position = this->initialPosition;
     this->rotation = Vec3f();
 }
 
@@ -150,5 +150,7 @@ void Mesh::computeObjectPosition() {
     if (max > CAM_START_POSITION.z) {
         this->position.z -= max * 2.0f + CAM_START_POSITION.z;
     }
+
+    this->initialPosition = this->position;
 }
 
