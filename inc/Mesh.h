@@ -12,7 +12,7 @@
 
 class Mesh {
  public:
-     explicit Mesh(VertexVector& vertices);
+     explicit Mesh(VertexVector& vertices, Vertex_Format& format);
      ~Mesh();
 
      void draw(Shader& shader) const;
@@ -22,7 +22,6 @@ class Mesh {
      Vec3f position;
      Vec3f rotation;
 
-     Vertex_Format format;
 
  private:
      GLuint vao = 0;   // Vertex array object
@@ -30,6 +29,8 @@ class Mesh {
 
      Vec3f origin;
      VertexVector vertices;
+
+     Vertex_Format format;
 
      void setupMesh();
      void mapTextureCoordinates();

@@ -1,9 +1,12 @@
 #include "Mesh.h"
 
-Mesh::Mesh(VertexVector& vertices): vertices(std::move(vertices)) {
-    // Todo: map texture coords if obj file does not contains texture info
-    // this->mapTextureCoordinates();
+Mesh::Mesh(VertexVector& vertices, Vertex_Format& format): vertices(std::move(vertices)), format(format) {
     this->computeObjectPosition();
+   
+    if (this->format == VERTEX || this->format == VERTEX_NORMAL) {
+        this->mapTextureCoordinates();
+    }
+
     this->setupMesh();
 }
 
@@ -72,9 +75,7 @@ void Mesh::setupMesh() {
 }
 
 void Mesh::mapTextureCoordinates() {
-    // Todo: find a proper way to manage uv mapping
     for (auto &vertex: this->vertices) {
-
         float theta = std::atan2(vertex.position.z, vertex.position.x);
         float phi = std::acos(vertex.position.y / vertex.position.length());
         vertex.textX = (theta + M_PI) / (2.0f * M_PI);
