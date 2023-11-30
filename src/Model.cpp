@@ -12,6 +12,7 @@ void Model::loadObjFile(const std::string& inputFile) {
     this->mesh = std::make_unique<Mesh>(parser.finalVertices);
 
     this->material = parser.material;
+    this->mesh->format = parser.vertexFormat;
 
     std::cout << this->material << std::endl;
 }

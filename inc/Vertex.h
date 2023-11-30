@@ -13,6 +13,14 @@ struct Vertex {
     GLfloat textY = 0.0f;
 };
 
+enum Vertex_Format {
+    VERTEX,
+    VERTEX_TEXTURE,
+    VERTEX_TEXTURE_NORMAL,
+    VERTEX_NORMAL
+};
+
+
 typedef std::vector<Vertex> VertexVector;
 
 #endif  //INC_VERTEX_H_

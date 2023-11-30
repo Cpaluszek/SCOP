@@ -26,18 +26,12 @@
 #define MAT_FILE_KEYWORD "mtllib"
 #define MAT_NAME_KEYWORD "usemtl"
 
-enum Face_Format {
-    VERTEX,
-    VERTEX_TEXTURE,
-    VERTEX_TEXTURE_NORMAL,
-    VERTEX_NORMAL
-};
-
 class ObjParser {
  public:
-     bool useSmoothShading = false;
      VertexVector finalVertices;
+     Vertex_Format vertexFormat = VERTEX;
      Material material;
+     bool useSmoothShading = false;
 
      ObjParser();
      ~ObjParser();
@@ -61,7 +55,6 @@ class ObjParser {
     std::mt19937 gen;
     std::uniform_int_distribution<int> dis;
 
-    Face_Format faceFormat = VERTEX;
 
     void parseLine(VecString& tokens, const std::string& line);
 

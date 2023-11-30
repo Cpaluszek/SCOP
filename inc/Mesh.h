@@ -22,6 +22,8 @@ class Mesh {
      Vec3f position;
      Vec3f rotation;
 
+     Vertex_Format format;
+
  private:
      GLuint vao = 0;   // Vertex array object
      GLuint vbo = 0;    // Vertex buffer object

@@ -128,7 +128,7 @@ void ObjParser::parseFace(const VecString& tokens) {
     }
 
     for (size_t i = 1; i < tokens.size(); i++) {
-        if (this->faceFormat == VERTEX && tokens.at(i).find('/') != std::string::npos) {
+        if (this->vertexFormat == VERTEX && tokens.at(i).find('/') != std::string::npos) {
             throw std::runtime_error("Inconsistent face format");
         }
         VecString indices = utils::splitString(tokens.at(i), '/');
@@ -139,7 +139,7 @@ void ObjParser::parseFace(const VecString& tokens) {
         }
         currentFace.push_back(vertexIndex);
 
-        if (this->faceFormat == VERTEX_TEXTURE_NORMAL || this->faceFormat == VERTEX_TEXTURE) {
+        if (this->vertexFormat == VERTEX_TEXTURE_NORMAL || this->vertexFormat == VERTEX_TEXTURE) {
             if (indices.size() < 2 || indices.size() > 3) {
                 throw std::runtime_error("Inconsistent face format");
             }
@@ -150,7 +150,7 @@ void ObjParser::parseFace(const VecString& tokens) {
             currentFaceTexture.push_back(textCoordIndex);
         }
 
-        if (this->faceFormat == VERTEX_TEXTURE_NORMAL || this->faceFormat == VERTEX_NORMAL) {
+        if (this->vertexFormat == VERTEX_TEXTURE_NORMAL || this->vertexFormat == VERTEX_NORMAL) {
             if (indices.size() != 3) {
                 throw std::runtime_error("Inconsistent face format");
             }
@@ -162,10 +162,10 @@ void ObjParser::parseFace(const VecString& tokens) {
         }
     }
     this->faces.push_back(currentFace);
-    if (this->faceFormat == VERTEX_TEXTURE_NORMAL || this->faceFormat == VERTEX_TEXTURE) {
+    if (this->vertexFormat == VERTEX_TEXTURE_NORMAL || this->vertexFormat == VERTEX_TEXTURE) {
         this->textureIndices.push_back(currentFaceTexture);
     }
-    if (this->faceFormat == VERTEX_TEXTURE_NORMAL || this->faceFormat == VERTEX_NORMAL) {
+    if (this->vertexFormat == VERTEX_TEXTURE_NORMAL || this->vertexFormat == VERTEX_NORMAL) {
         this->normalIndices.push_back(currentFaceNormal);
     }
 }
@@ -173,14 +173,14 @@ void ObjParser::parseFace(const VecString& tokens) {
 void ObjParser::determineFaceFormat(const VecString& tokens) {
     VecString slashSplit = utils::splitString(tokens.at(1), '/');
     if (slashSplit.size() == 1) {
-        this->faceFormat = VERTEX;
+        this->vertexFormat = VERTEX;
     } else if (slashSplit.size() == 2) {
-        this->faceFormat = VERTEX_TEXTURE;
+        this->vertexFormat = VERTEX_TEXTURE;
     } else if (slashSplit.size() == 3) {
         if (slashSplit.at(1).size() == 0) {
-            this->faceFormat = VERTEX_NORMAL;
+            this->vertexFormat = VERTEX_NORMAL;
         } else {
-            this->faceFormat = VERTEX_TEXTURE_NORMAL;
+            this->vertexFormat = VERTEX_TEXTURE_NORMAL;
         }
     }
 }
@@ -247,12 +247,12 @@ void ObjParser::computeFaces() {
                 handleQuadToTriangle();
             }
             Vertex current = this->parsedVertices.at(face[i]);
-            if (this->faceFormat == VERTEX_TEXTURE || this->faceFormat == VERTEX_TEXTURE_NORMAL) {
+            if (this->vertexFormat == VERTEX_TEXTURE || this->vertexFormat == VERTEX_TEXTURE_NORMAL) {
                 Vec3f textureCoordinate = this->textureCoords.at(this->textureIndices.at(index).at(i));
                 current.textX = textureCoordinate.x;
                 current.textY = textureCoordinate.y;
             }
-            if (this->faceFormat == VERTEX_NORMAL || this->faceFormat == VERTEX_TEXTURE_NORMAL) {
+            if (this->vertexFormat == VERTEX_NORMAL || this->vertexFormat == VERTEX_TEXTURE_NORMAL) {
                 Vec3f normal = this->normals.at(this->normalIndices.at(index).at(i));
                 current.normal = normal;
             }
