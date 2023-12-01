@@ -7,10 +7,16 @@ VecString utils::splitString(const std::string& input, char delimiter) {
     size_t end;
 
     while ((end = input.find(delimiter, start)) != std::string::npos) {
-        tokens.push_back(input.substr(start, end - start));
+        std::string chunk = input.substr(start, end - start);
+        if (chunk.length() != 0) {
+            tokens.push_back(chunk);
+        }
         start = end + 1;
     }
-    tokens.push_back(input.substr(start));
+    std::string chunk = input.substr(start);
+    if (chunk.length() != 0) {
+        tokens.push_back(input.substr(start));
+    }
 
     return tokens;
 }
