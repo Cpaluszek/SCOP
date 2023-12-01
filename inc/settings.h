@@ -67,7 +67,7 @@ const float PITCH = 0.0f;
 const float ZOOM = 45.0f;
 
 const float NEAR_CLIP = 0.1f;
-const float FAR_CLIP = 500.0f;
+const float FAR_CLIP = 2000.0f;
 
 const float ZOOM_SPEED = 10.0f;
 

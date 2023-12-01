@@ -42,8 +42,13 @@ void main() {
         float spec = pow(max(dot(viewDir, reflectDir), 0.0), specularExponent);
         vec3 specular = spec * specularColor;
 
-        vec3 result = (ambientColor + diffuse + specular) * vec3(finalColor);
-        FragColor = vec4(result, 1.0);
+        // Refraction
+        vec3 refractDir = refract(-viewDir, FragNormal, refraction);
+        vec2 distortedTexCoord = TexCoord + refractDir.xy * 0.1;
+        vec4 refractedColor = texture(customTexture, distortedTexCoord);
+
+        vec3 result = (ambientColor + diffuse + specular) * mix(vec3(color), vec3(refractedColor), textureTransitionFactor);
+        FragColor = vec4(result, dissolve);
     }
 }
 

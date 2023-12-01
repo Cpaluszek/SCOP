@@ -1,6 +1,5 @@
 #include "ObjParser.h"
 #include "Vertex.h"
-#include <stdexcept>
 
 ObjParser::ObjParser() {
     std::random_device rd;
@@ -26,8 +25,16 @@ void ObjParser::parseObjFile(const std::string& inputFile) {
 
         VecString tokens = utils::splitString(line, ' ');
         if (tokens.size() == 1 || tokens.at(0) == COMMENT_KEYWORD) continue;
-        
-        this->parseLine(tokens);
+       
+        try {
+            this->parseLine(tokens);
+        } catch (const std::exception& e) {
+            std::cerr << line << std::endl;
+            for (auto t: tokens) {
+                std::cerr << "-" << t << "-" << std::endl;
+            }
+            throw;
+        }
     }
 
     this->computeFaces();
