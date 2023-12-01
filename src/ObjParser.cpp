@@ -52,22 +52,10 @@ void ObjParser::parseLine(VecString& tokens, const std::string& line) {
     }
     else if (tokens.at(0) == VERTEX_NORMALS_KEYWORD) {
         this->parseVertexNormal(tokens);
-    } else if (tokens.at(0) == SMOOTH_SHADING_KEYWORD) {
-        std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-        // std::cout << "smooth shading param: " << line << std::endl;
-        // this->parseSmoothShading(tokens);
     } else if (tokens.at(0) == TEXT_COORDS_KEYWORD) {
         this->parseVertexTextureCoords(tokens);
     } else if (tokens.at(0) == MAT_FILE_KEYWORD) {
         this->checkMaterialFileArgument(tokens);
-    } else if (tokens.at(0) == MAT_NAME_KEYWORD) {
-        std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-    } else if (tokens.at(0) == OBJ_NAME_KEYWORD) {
-        std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-    } else if (tokens.at(0) == GROUP_NAME_KEYWORD) {
-        std::cerr << "Parsing: '" << line << "' is not implemented yet" << std::endl;
-    } else if (tokens.at(0) == LINE_KEYWORD) {
-        std::cerr << "This project does not support line elements" << std::endl;
     } else if (tokens.at(0) == PARAM_SPACE_VERTICES_KEYWORD) {
         std::cerr << "This project does not support parameter space vertices" << std::endl;
     } else {
@@ -181,20 +169,6 @@ void ObjParser::determineFaceFormat(const VecString& tokens) {
     }
 }
 
-void ObjParser::parseSmoothShading(const VecString& tokens) {
-    if (tokens.size() != 2) {
-        throw std::runtime_error("Incorrect smooth shading format: (1 / off)");
-    }
-    if (tokens.at(1) == "1") {
-        // Todo: compute smooth shading groups
-        this->useSmoothShading = true;
-    } else if (tokens.at(1) == "off" || tokens.at(1) == "0") {
-        this->useSmoothShading = false;
-    } else {
-        throw std::runtime_error("Incorrect smooth shading parameter: " + tokens.at(1));
-    }
-}
-
 void ObjParser::checkMaterialFileArgument(const VecString& tokens) {
     if (tokens.size() != 2) {
         std::cerr << "Invalid material file: `mtllib [external .mtl file name]'" << std::endl;
@@ -266,4 +240,17 @@ void ObjParser::handleQuadToTriangle() {
     this->finalVertices.push_back(a);
     this->finalVertices.push_back(b);
 }
+
+// void ObjParser::parseSmoothShading(const VecString& tokens) {
+//     if (tokens.size() != 2) {
+//         throw std::runtime_error("Incorrect smooth shading format: (1 / off)");
+//     }
+//     if (tokens.at(1) == "1") {
+//         this->useSmoothShading = true;
+//     } else if (tokens.at(1) == "off" || tokens.at(1) == "0") {
+//         this->useSmoothShading = false;
+//     } else {
+//         throw std::runtime_error("Incorrect smooth shading parameter: " + tokens.at(1));
+//     }
+// }
 
