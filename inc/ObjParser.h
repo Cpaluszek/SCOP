@@ -26,7 +26,6 @@ class ObjParser {
      VertexVector finalVertices;
      Vertex_Format vertexFormat = VERTEX;
      Material material;
-     bool useSmoothShading = false;
 
      ObjParser();
      ~ObjParser();

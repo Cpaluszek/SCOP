@@ -4,9 +4,6 @@ Mesh::Mesh(VertexVector& vertices, Vertex_Format& format): vertices(std::move(ve
     this->computeObjectPosition();
    
     if (this->format == VERTEX || this->format == VERTEX_NORMAL) {
-        // Note: set program option to pick UVmapping method
-        // Keybind
-        // this->sphericalUVMapping();
         this->cubicUVMapping();
     }
 
@@ -120,6 +117,14 @@ void Mesh::cubicUVMapping() {
             c.textY = c.position.y;
         }
     }
+}
+
+void Mesh::updateTextureAttrib() {
+    glBufferData(
+            GL_ARRAY_BUFFER,
+            this->vertices.size() * sizeof(Vertex),
+            this->vertices.data(),
+            GL_STATIC_DRAW);
 }
 
 void Mesh::computeObjectPosition() {

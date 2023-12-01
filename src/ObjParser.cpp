@@ -43,7 +43,6 @@ void ObjParser::parseObjFile(const std::string& inputFile) {
 }
 
 void ObjParser::parseLine(VecString& tokens, const std::string& line) {
-    // Note: maybe use map with functions to iterate
     if (tokens.at(0) == VERTEX_KEYWORD) {
         this->parseVertex(tokens);
     } else if (tokens.at(0) == FACE_KEYWORD) {

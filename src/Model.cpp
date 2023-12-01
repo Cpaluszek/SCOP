@@ -8,7 +8,6 @@ void Model::loadObjFile(const std::string& inputFile) {
     } catch (const std::exception& e){
         throw;
     }
-    this->useSmoothShading = parser.useSmoothShading;
     this->material = parser.material;
 
     this->mesh = std::make_unique<Mesh>(parser.finalVertices, parser.vertexFormat);
@@ -42,6 +41,16 @@ void Model::switchPolygonMode() {
 
 void Model::switchTextureMode() {
     this->useTexture ^= true;
+}
+
+void Model::switchTextureMapping() {
+    this->mappingMethod ^= true;
+    if (this->mappingMethod) {
+        this->mesh->sphericalUVMapping();
+    } else {
+        this->mesh->cubicUVMapping();
+    }
+    this->mesh->updateTextureAttrib();
 }
 
 void Model::processKeyboardInput(Model_KeyBinds input, float deltaTime) {

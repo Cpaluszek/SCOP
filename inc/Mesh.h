@@ -18,6 +18,10 @@ class Mesh {
      void draw(Shader& shader) const;
      void resetTransform();
 
+     void sphericalUVMapping();
+     void cubicUVMapping();
+     void updateTextureAttrib();
+
      Vec3f position;
      Vec3f rotation;
 
@@ -31,8 +35,6 @@ class Mesh {
      Vertex_Format format;
 
      void setupMesh();
-     void sphericalUVMapping();
-     void cubicUVMapping();
      void computeObjectPosition();
 };
 

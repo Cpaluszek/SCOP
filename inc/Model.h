@@ -44,6 +44,7 @@ class Model {
      void switchTexture();
      void switchPolygonMode();
      void switchTextureMode();
+     void switchTextureMapping();
      void toggleAutoRotation();
 
  private:
@@ -54,9 +55,9 @@ class Model {
      Material material;
 
      float textureTransitionFactor = 0.0f;
-     bool useSmoothShading = false;     // Note: remove?
      bool polygonMode = false;
      bool useTexture = false;
+     bool mappingMethod = false;
      bool autoRotation = true;
 };
 
