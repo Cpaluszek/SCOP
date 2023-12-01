@@ -6,6 +6,8 @@ layout (location = 3) in vec2 texCoord;
 
 out vec4 color;
 out vec2 TexCoord;
+out vec3 FragNormal;
+out vec3 FragPos;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -17,4 +19,9 @@ void main() {
 
     TexCoord = texCoord;
     color = vec4(vertexColor, 1.0);
+
+    FragPos = vec3(model * vec4(position, 1.0));
+
+    // FragNormal = normalize(normal);
+    FragNormal = normalize( mat3(transpose(inverse(model))) * normal);
 }

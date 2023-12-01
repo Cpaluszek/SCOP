@@ -17,6 +17,9 @@ class Renderer {
 
  private:
     Shader shader;
+
+    GLuint lightVao = 0;
+    GLuint lightVbo = 0;
 };
 
 #endif  // INC_RENDERER_H_
