@@ -19,8 +19,6 @@
 
 #define INVERT_DISSOLVE_KEYWORD "Tr"
 
-#define ILLUMINATION_MODEL_KEYWORD "illum"
-
 class MtlParser {
  public:
      ~MtlParser();

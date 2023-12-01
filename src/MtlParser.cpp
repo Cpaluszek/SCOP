@@ -51,13 +51,6 @@ void MtlParser::parseLine(VecString& tokens, const std::string& line) {
             throw std::runtime_error("Incorrect refraction index format: " + line);
         }
         this->mat.refraction = utils::parseFloat(tokens.at(1));
-    } else if (tokens.at(0) == ILLUMINATION_MODEL_KEYWORD) {
-        if (tokens.size() != 2) {
-            throw std::runtime_error("Incorrect illumination model format: " + line);
-        }
-        this->mat.illumModel = utils::parseInt(tokens.at(1));
-    } else {
-        std::cerr << "Parsing material: '" << line << "' is not yet implemented" << std::endl;
-    }
+    } 
 }
 

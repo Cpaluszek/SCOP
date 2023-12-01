@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Camera.h"
 #include "settings.h"
 
 void Renderer::loadShader() {
@@ -11,11 +12,10 @@ void Renderer::loadShader() {
     glEnable(GL_DEPTH_TEST);
     this->shader.compileProgram("./shader/vertex.glsl", "./shader/fragment.glsl");
     this->shader.use();
-    // Todo: fix this mess
-    // Note: create Light class?
-    this->shader.setVec3("lightPos", 3.0f, 10.0f, -5.0f);
+
     Vec3f lightPos = Vec3f(-5.0f, 10.0f, 0.0f);
-    this->shader.setVec3("viewPos", lightPos.x, lightPos.y, lightPos.z);
+    this->shader.setVec3("lightPos", lightPos.x, lightPos.y, lightPos.z);
+    this->shader.setVec3("viewPos", CAM_START_POSITION.x, CAM_START_POSITION.y, CAM_START_POSITION.z);
 }
 
 void Renderer::render(const Camera& camera, Model& model, float deltaTime) {
