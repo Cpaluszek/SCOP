@@ -17,7 +17,6 @@
 #define DISSOLVE_KEYWORD "d"
 #define REFRACTION_KEYWORD "Ni"
 
-#define TRANSMISSION_FILTER "Tf"    // Note: implement?
 #define INVERT_DISSOLVE_KEYWORD "Tr"
 
 #define ILLUMINATION_MODEL_KEYWORD "illum"
@@ -31,8 +30,6 @@ class MtlParser {
     Material mat;
 
  private:
-    // Note: manage multiple materials?
-
     std::ifstream mtlFile;
 
     void parseLine(VecString& tokens, const std::string& line);

@@ -22,8 +22,6 @@ class Input {
 
      std::unordered_map<int, bool> keyStateMap;
 
-     // Todo: store Cam ref and use scroll callback
-
      void resetKeyState();
 };
 
