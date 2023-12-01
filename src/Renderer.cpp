@@ -3,7 +3,6 @@
 
 void Renderer::loadShader() {
     glEnable(GL_DEPTH_TEST);
-    // Todo: check for shader compilation error
     this->shader.compileProgram("./shader/vertex.glsl", "./shader/fragment.glsl");
     this->shader.use();
 }
