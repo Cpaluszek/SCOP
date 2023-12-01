@@ -24,7 +24,7 @@ void main() {
         FragColor = finalColor;
     } else {
         // Ambient
-        float ambientStrength = 0.1;
+        float ambientStrength = 0.2;
         vec3 ambient = ambientStrength * lightColor;
 
         // Diffuse

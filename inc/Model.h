@@ -46,6 +46,7 @@ class Model {
      void switchPolygonMode();
      void switchTextureMode();
      void switchTextureMapping();
+     void switchLightMode();
      void toggleAutoRotation();
 
  private:
@@ -61,6 +62,7 @@ class Model {
      bool useTexture = false;
      bool mappingMethod = false;
      bool autoRotation = true;
+     bool useLight = false;
 };
 
 #endif  // INC_MODEL_H_

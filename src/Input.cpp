@@ -22,6 +22,8 @@ void Input::printKeyBinds() const {
     std::cout << "   T: Change texture" << std::endl;
     std::cout << "   M: Change texture mapping method (cube/sphere)" << std::endl;
     std::cout << "   C: Switch between Texture and Color" << std::endl;
+    std::cout << ANSI_COLOR_CYAN << " Light Mode:" << ANSI_RESET << std::endl;
+    std::cout << "   Y: Enable Light (if .obj contains normals)" << std::endl;
     std::cout << ANSI_COLOR_YELLOW << "--------------------------------------" << ANSI_RESET << std::endl;
 }
 
@@ -50,6 +52,12 @@ void Input::processInput(Model& model, Camera& camera, const float deltaTime) {
         this->keyStateMap[GLFW_KEY_P] = true;
         model.switchPolygonMode();
     }
+    // texture
+    if (!this->keyStateMap[GLFW_KEY_Y] && glfwGetKey(this->window, GLFW_KEY_Y) == GLFW_PRESS) {
+        this->keyStateMap[GLFW_KEY_Y] = true;
+        model.switchLightMode(); 
+    }
+
     // texture
     if (!this->keyStateMap[GLFW_KEY_C] && glfwGetKey(this->window, GLFW_KEY_C) == GLFW_PRESS) {
         this->keyStateMap[GLFW_KEY_C] = true;

@@ -54,6 +54,12 @@ void Model::switchTextureMapping() {
     this->mesh->updateTextureAttrib();
 }
 
+void Model::switchLightMode() {
+    if (this->vertexFormat == VERTEX_NORMAL || this->vertexFormat == VERTEX_TEXTURE_NORMAL) {
+        this->useLight ^= true;
+    }
+}
+
 void Model::processKeyboardInput(Model_KeyBinds input, float deltaTime) {
     float velocity = MOVEMENT_SPEED * deltaTime;
 
@@ -103,11 +109,7 @@ void Model::draw(Shader& shader, float deltaTime) {
     }
     shader.setFloat("textureTransitionFactor", this->textureTransitionFactor);
 
-    if (this->vertexFormat == VERTEX_NORMAL || this->vertexFormat == VERTEX_TEXTURE_NORMAL) {
-        shader.setInt("useLight", 1);
-    } else {
-        shader.setInt("useLight", 0);
-    }
+    shader.setInt("useLight", this->useLight);
 
     if (this->autoRotation) {
         this->mesh->rotation.y += ROTATION_SPEED * deltaTime;
