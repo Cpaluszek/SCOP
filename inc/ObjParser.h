@@ -18,7 +18,6 @@
 #define FACE_KEYWORD "f"
 #define TEXT_COORDS_KEYWORD "vt"
 #define VERTEX_NORMALS_KEYWORD "vn"
-#define PARAM_SPACE_VERTICES_KEYWORD "vn"
 #define MAT_FILE_KEYWORD "mtllib"
 
 class ObjParser {
@@ -50,7 +49,7 @@ class ObjParser {
     std::uniform_int_distribution<int> dis;
 
 
-    void parseLine(VecString& tokens, const std::string& line);
+    void parseLine(VecString& tokens);
 
     void parseVertex(VecString& tokens);
     void parseVertexNormal(VecString& tokens);

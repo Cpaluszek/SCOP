@@ -27,14 +27,13 @@ void ObjParser::parseObjFile(const std::string& inputFile) {
         VecString tokens = utils::splitString(line, ' ');
         if (tokens.size() == 1 || tokens.at(0) == COMMENT_KEYWORD) continue;
         
-        this->parseLine(tokens, line);
+        this->parseLine(tokens);
     }
 
     this->computeFaces();
  
     if (!this->materialFile.empty()) {
-        std::cout << "Parsing mtl file is not yet implemented" << std::endl;
-        std::cout << "File name: " << this->materialFile << std::endl;
+        std::cout << "Material file name: " << this->materialFile << std::endl;
 
         MtlParser materialParser;
         materialParser.parseMtlFile(materialFile);
@@ -42,7 +41,8 @@ void ObjParser::parseObjFile(const std::string& inputFile) {
     }
 }
 
-void ObjParser::parseLine(VecString& tokens, const std::string& line) {
+void ObjParser::parseLine(VecString& tokens) {
+    // Todo: should check for usmtl and material name?
     if (tokens.at(0) == VERTEX_KEYWORD) {
         this->parseVertex(tokens);
     } else if (tokens.at(0) == FACE_KEYWORD) {
@@ -55,10 +55,6 @@ void ObjParser::parseLine(VecString& tokens, const std::string& line) {
         this->parseVertexTextureCoords(tokens);
     } else if (tokens.at(0) == MAT_FILE_KEYWORD) {
         this->checkMaterialFileArgument(tokens);
-    } else if (tokens.at(0) == PARAM_SPACE_VERTICES_KEYWORD) {
-        std::cerr << "This project does not support parameter space vertices" << std::endl;
-    } else {
-        std::cerr << "Parsing: '" << line << "' unknown keyword" << std::endl;
     }
 }
 
