@@ -3,15 +3,14 @@
 void Model::loadObjFile(const std::string& inputFile) {
     ObjParser parser;
 
-    try {
-        parser.parseObjFile(inputFile);
-    } catch (const std::exception& e){
-        throw;
-    }
-    this->material = parser.material;
+    parser.parseObjFile(inputFile);
     this->vertexFormat = parser.vertexFormat;
 
     this->mesh = std::make_unique<Mesh>(parser.finalVertices, parser.vertexFormat);
+
+    this->material = parser.material;
+
+    // Todo: pass material info to shader
 
     std::cout << this->material << std::endl;
 }
@@ -102,6 +101,14 @@ void Model::toggleAutoRotation() {
 }
 
 void Model::draw(Shader& shader, float deltaTime) {
+    // Pass material info
+    shader.setVec3("ambientColor", material.ambientColor.x, material.ambientColor.y, material.ambientColor.z);
+    shader.setVec3("diffuseColor", material.diffuseColor.x, material.diffuseColor.y, material.diffuseColor.z);
+    shader.setVec3("specularColor", material.specularColor.x, material.specularColor.y, material.specularColor.z);
+    shader.setFloat("specularExponent", material.specularExponent);
+    shader.setFloat("dissolve", material.dissolve);
+    shader.setFloat("refraction", material.refraction);
+
     if (this->useTexture && this->textureTransitionFactor < 1.0f) {
         this->textureTransitionFactor = std::min(this->textureTransitionFactor + deltaTime, 1.0f);
     } else if (!this->useTexture && this->textureTransitionFactor > 0.0f) {

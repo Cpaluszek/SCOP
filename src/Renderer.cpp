@@ -3,18 +3,16 @@
 
 void Renderer::loadShader() {
     glGenVertexArrays(1, &this->lightVao);
-    // glGenBuffers(1, &this->lightVbo);
 
     glBindVertexArray(this->lightVao);
 
-    // glBindBuffer(GL_ARRAY_BUFFER, this->lightVbo);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vec3f), nullptr);
     glEnableVertexAttribArray(0);
     glEnable(GL_DEPTH_TEST);
     this->shader.compileProgram("./shader/vertex.glsl", "./shader/fragment.glsl");
     this->shader.use();
+    // Todo: fix this mess
     // Note: create Light class?
-    this->shader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
     this->shader.setVec3("lightPos", 3.0f, 10.0f, -5.0f);
     Vec3f lightPos = Vec3f(-5.0f, 10.0f, 0.0f);
     this->shader.setVec3("viewPos", lightPos.x, lightPos.y, lightPos.z);
