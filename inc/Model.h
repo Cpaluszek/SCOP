@@ -54,6 +54,7 @@ class Model {
      std::vector<Texture> textures;
      size_t textureIndex = 0;
 
+     // Todo: use mtl format for light shader
      Material material;
      Vertex_Format vertexFormat;
 
