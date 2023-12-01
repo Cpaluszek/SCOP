@@ -54,7 +54,7 @@ class Model {
      Material material;
 
      float textureTransitionFactor = 0.0f;
-     bool useSmoothShading = false;     // Todo: use in shaders
+     bool useSmoothShading = false;     // Note: remove?
      bool polygonMode = false;
      bool useTexture = false;
      bool autoRotation = true;
