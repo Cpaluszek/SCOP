@@ -13,10 +13,9 @@ void Renderer::loadShader() {
     glEnable(GL_DEPTH_TEST);
     this->shader.compileProgram("./shader/vertex.glsl", "./shader/fragment.glsl");
     this->shader.use();
-    this->shader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
     this->shader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
     this->shader.setVec3("lightPos", 3.0f, 10.0f, -5.0f);
-    // this->shader.setVec3("viewPos", CAM_START_POSITION.x, CAM_START_POSITION.y, CAM_START_POSITION.z);
+    this->shader.setVec3("viewPos", CAM_START_POSITION.x, CAM_START_POSITION.y, CAM_START_POSITION.z);
 }
 
 void Renderer::render(const Camera& camera, Model& model, float deltaTime) {

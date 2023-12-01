@@ -9,6 +9,7 @@ void Model::loadObjFile(const std::string& inputFile) {
         throw;
     }
     this->material = parser.material;
+    this->vertexFormat = parser.vertexFormat;
 
     this->mesh = std::make_unique<Mesh>(parser.finalVertices, parser.vertexFormat);
 
@@ -101,6 +102,12 @@ void Model::draw(Shader& shader, float deltaTime) {
         this->textureTransitionFactor = std::max(this->textureTransitionFactor - deltaTime, 0.0f);
     }
     shader.setFloat("textureTransitionFactor", this->textureTransitionFactor);
+
+    if (this->vertexFormat == VERTEX_NORMAL || this->vertexFormat == VERTEX_TEXTURE_NORMAL) {
+        shader.setInt("useLight", 1);
+    } else {
+        shader.setInt("useLight", 0);
+    }
 
     if (this->autoRotation) {
         this->mesh->rotation.y += ROTATION_SPEED * deltaTime;

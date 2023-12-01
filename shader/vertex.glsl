@@ -21,7 +21,7 @@ void main() {
     color = vec4(vertexColor, 1.0);
 
     FragPos = vec3(model * vec4(position, 1.0));
-
-    // FragNormal = normalize(normal);
-    FragNormal = normalize( mat3(transpose(inverse(model))) * normal);
+    
+    FragNormal = normalize(normal);
+    // FragNormal = normalize( mat3(transpose(inverse(model))) * normal);
 }

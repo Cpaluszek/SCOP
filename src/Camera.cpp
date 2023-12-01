@@ -24,7 +24,7 @@ void Camera::processKeyboardInput(Camera_Input input, float deltaTime) {
     }
     // Clamp
     this->zoom = std::max(1.0f, this->zoom);
-    this->zoom = std::min(45.0f, this->zoom);
+    this->zoom = std::min(90.0f, this->zoom);
 
     this->projection = Mat4f::perspective(
             math::radians(this->zoom), 

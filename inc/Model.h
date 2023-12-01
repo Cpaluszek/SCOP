@@ -8,6 +8,7 @@
 #include <vector>
 #include "Material.h"
 #include "Mesh.h"
+#include "Vertex.h"
 #include "math.h"
 #include "ObjParser.h"
 #include "settings.h"
@@ -53,6 +54,7 @@ class Model {
      size_t textureIndex = 0;
 
      Material material;
+     Vertex_Format vertexFormat;
 
      float textureTransitionFactor = 0.0f;
      bool polygonMode = false;
