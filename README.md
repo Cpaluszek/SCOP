@@ -1,5 +1,5 @@
 # SCOP
-Basic GPU rendering with OpenGL
+GPU rendering with OpenGL
 
 
 ## References
