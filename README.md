@@ -4,10 +4,16 @@ The application renders the object in a window using OpenGL, allowing for rotati
 
 ## How to Use
 Compilation:
-    - Use the provided Makefile: `make`
-Execution:
-    - `./SCOP <.obj>`
+- Use the provided Makefile: `make`
 
+Execution:
+- `./SCOP <.obj>`
+
+## Screenshots
+![Vertex color](./imgs/SCOP_42_vertex_color.png)
+![Vertex color](./imgs/SCOP_teapot_no_texture.png)
+![Vertex color](./imgs/SCOP_teapot_wireframe.png)
+![Vertex color](./imgs/SCOP_texture_mapping_teapot.png)
 
 ## References
 - [Wavefront .obj file - Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file)
