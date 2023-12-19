@@ -16,6 +16,12 @@ void Renderer::loadShader() {
     glFrontFace(GL_CCW);
     // Depth testing
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
+    glDepthMask(GL_TRUE);
+    // Anti aliasing
+    glfwWindowHint(GLFW_SAMPLES, 4);
+    glEnable(GL_MULTISAMPLE);
+
     this->shader.compileProgram("./shader/vertex.glsl", "./shader/fragment.glsl");
     this->shader.use();
 
