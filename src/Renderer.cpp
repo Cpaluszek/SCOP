@@ -9,6 +9,12 @@ void Renderer::loadShader() {
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vec3f), nullptr);
     glEnableVertexAttribArray(0);
+
+    // Face culling
+    glEnable(GL_CULL_FACE); 
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
+    // Depth testing
     glEnable(GL_DEPTH_TEST);
     this->shader.compileProgram("./shader/vertex.glsl", "./shader/fragment.glsl");
     this->shader.use();
