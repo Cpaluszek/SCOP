@@ -55,7 +55,7 @@ const std::vector<Vec3f> palette = {
 };
 
 // Model settings
-const float MOVEMENT_SPEED = 1.5f;
+const float MOVEMENT_SPEED = 2.5f;
 const float ROTATION_SPEED = 1.0f;
 
 // Camera settings
