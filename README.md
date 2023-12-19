@@ -2,6 +2,11 @@
 This program is designed to display a 3D object stored in a .obj file format.
 The application renders the object in a window using OpenGL, allowing for rotation, translation along three axes, distinct side coloring, and texture application with a soft transition.
 
+## Technologies
+- [OpenGL - The Industry Standard for High Performance Graphics](https://www.opengl.org/)
+- [An OpenGL library | GLFW](https://www.glfw.org/)
+- [GLEW: The OpenGL Extension Wrangler Library](https://glew.sourceforge.net/)
+
 ## How to Use
 Compilation:
 - Use the provided Makefile: `make`
