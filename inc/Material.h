@@ -8,10 +8,8 @@ struct Material {
     Vec3f ambientColor;
     Vec3f diffuseColor;
     Vec3f specularColor;
-    // Todo: check range 0-1000
     float specularExponent;
     float dissolve;
-    // Todo: Td: tranmission color filter?
     float refraction;
 };
 

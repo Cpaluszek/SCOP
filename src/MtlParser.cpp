@@ -41,6 +41,13 @@ void MtlParser::parseLine(VecString& tokens, const std::string& line) {
             throw std::runtime_error("Incorrect specular exponent format: " + line);
         }
         this->mat.specularExponent = utils::parseFloat(tokens.at(1));
+        if (this->mat.specularExponent > 1000.0f){
+            std::cout << "Specular exponent should not be greater than 1000" << std::endl;
+            this->mat.specularExponent = 1000.0f;
+        } else if (this->mat.specularExponent < 0.0f) {
+            std::cout << "Specular exponent should be positive" << std::endl;
+            this->mat.specularExponent = 0.0f;
+        }
     } else if (tokens.at(0) == DISSOLVE_KEYWORD) {
         if (tokens.size() != 2) {
             throw std::runtime_error("Incorrect dissolve format: " + line);

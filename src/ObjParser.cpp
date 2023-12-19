@@ -29,7 +29,7 @@ void ObjParser::parseObjFile(const std::string& inputFile) {
         try {
             this->parseLine(tokens);
         } catch (const std::exception& e) {
-            std::cerr << line << std::endl;
+            std::cerr << "'" << line << "'" << std::endl;
             for (auto t: tokens) {
                 std::cerr << "-" << t << "-" << std::endl;
             }
@@ -49,11 +49,9 @@ void ObjParser::parseObjFile(const std::string& inputFile) {
 }
 
 void ObjParser::parseLine(VecString& tokens) {
-    // Todo: should check for usmtl and material name?
     if (tokens.at(0) == VERTEX_KEYWORD) {
         this->parseVertex(tokens);
     } else if (tokens.at(0) == FACE_KEYWORD) {
-        // Todo: test all face formats
         this->parseFace(tokens);
     }
     else if (tokens.at(0) == VERTEX_NORMALS_KEYWORD) {
@@ -210,7 +208,6 @@ void ObjParser::computeFaces() {
         throw std::runtime_error("Missing vertices in .obj file");
     }
 
-    // Todo: manage different face formats
     size_t index = 0;
     for (auto face: this->faces) {
         Vec3f faceColor = this->getRandomColor();

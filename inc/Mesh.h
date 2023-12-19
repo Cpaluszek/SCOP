@@ -27,7 +27,6 @@ class Mesh {
 
  private:
      GLuint vao = 0;   // Vertex array object
-    // Todo: move vbo elsewhere to use with light?
      GLuint vbo = 0;    // Vertex buffer object
 
      Vec3f initialPosition;

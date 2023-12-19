@@ -10,8 +10,6 @@ void Model::loadObjFile(const std::string& inputFile) {
 
     this->material = parser.material;
 
-    // Todo: pass material info to shader
-
     std::cout << this->material << std::endl;
 }
 
