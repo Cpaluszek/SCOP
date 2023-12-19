@@ -22,8 +22,6 @@ Mat4f Mat4f::translate(Mat4f const& m, Vec3f const& translation) {
 }
 
 // https://en.wikipedia.org/wiki/Rotation_matrix
-// Angle in radians
-// Note: what is Gimbal lock?
 Mat4f Mat4f::rotate(Mat4f const& m, float angle, Vec3f const& axis) {
     float c = cosf(angle);
     float s = sinf(angle);
