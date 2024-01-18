@@ -26,17 +26,20 @@ OBJS			:=	$(SRC_FILES:%.cpp=$(BUILD_DIR)/%.o)
 DEPS			:=  $(SRC_FILES:%.cpp=$(BUILD_DIR)/%.d)
 CXX_DEFS		:=	NAME=\"$(NAME)\"
 
+LIB_DIR			:= ./lib
+
 CXX				:=	g++
 
 CXX_FLAGS		:= -Wextra -Werror -Wall -std=c++17 -O2 -g3
-CXX_LINKS		:= -L./lib
+CXX_LINKS		:= -L$(LIB_DIR)
 CXX_LIBS		:= -lglfw -lGLEW -lGL -ldl -lX11 -lpthread -lXrandr -lXi
 
 CXX_HEADERS		:= -I./lib/GLEW/include -I./lib/GLFW/include -I./inc -I./inc/math
 
-
 CXX_DEPS_FLAGS	:=	-MP -MMD
 CXX_DEFS_FLAGS	:=	$(foreach def,$(CXX_DEFS),-D $(def))
+
+LIB_DEPS		:= $(shell find $(LIB_DIR) -type f)
 
 all: $(NAME)
 
@@ -45,7 +48,7 @@ $(NAME): $(OBJS)
 
 -include $(DEPS)
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(LIB_DEPS)
 	@mkdir -p $(@D)
 	$(CXX) $(CXX_FLAGS) $(CXX_DEPS_FLAGS) $(CXX_DEFS_FLAGS) $(CXX_HEADERS) -c $< -o $@
 
